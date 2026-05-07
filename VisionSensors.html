@@ -1,0 +1,380 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-TW" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>視覺與感測器數據 (Vision &amp; Sensors) &mdash; TKU ICLAB ROS2 API  說明文件</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=0d9984b1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=cbf116e0"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜尋" href="search.html" />
+    <link rel="next" title="系統進程與狀態 (System &amp; Process)" href="System.html" />
+    <link rel="prev" title="馬達控制 (Motion Control)" href="Motion.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            TKU ICLAB ROS2 API
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API 分類目錄:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ros2.html">ROS2 內建輔助功能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="States.html">變數與狀態 (Variables &amp; States)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Walking.html">步態控制 (Walking Control)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Motion.html">馬達控制 (Motion Control)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">視覺與感測器數據 (Vision &amp; Sensors)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.sendSensorReset"><code class="docutils literal notranslate"><span class="pre">API.sendSensorReset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.drawImageFunction"><code class="docutils literal notranslate"><span class="pre">API.drawImageFunction()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.get_objects"><code class="docutils literal notranslate"><span class="pre">API.get_objects()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.imu_rpy"><code class="docutils literal notranslate"><span class="pre">API.imu_rpy</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.color_counts"><code class="docutils literal notranslate"><span class="pre">API.color_counts</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.object_sizes"><code class="docutils literal notranslate"><span class="pre">API.object_sizes</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.object_x_min"><code class="docutils literal notranslate"><span class="pre">API.object_x_min</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.object_x_max"><code class="docutils literal notranslate"><span class="pre">API.object_x_max</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.object_y_min"><code class="docutils literal notranslate"><span class="pre">API.object_y_min</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.object_y_max"><code class="docutils literal notranslate"><span class="pre">API.object_y_max</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="System.html">系統進程與狀態 (System &amp; Process)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Other.html">未實驗分類(Other)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Topic.html">Topic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Version.html">API 版本</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TKU ICLAB ROS2 API</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">視覺與感測器數據 (Vision &amp; Sensors)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/VisionSensors.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="vision-sensors">
+<h1>視覺與感測器數據 (Vision &amp; Sensors)<a class="headerlink" href="#vision-sensors" title="連結到這個標頭"></a></h1>
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API.sendSensorReset">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">sendSensorReset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#API.API.sendSensorReset" title="連結到這個定義"></a></dt>
+<dd><p>發送感測器重設訊號。</p>
+<p>此函式於校正 IMU 姿態，將Yaw/Roll/Pitch歸零。</p>
+<dl class="field-list simple">
+<dt class="field-odd">參數<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>status</strong> (<em>bool</em>) -- 重設狀態開關。
+* True: 觸發重設/校正動作。
+* False: 結束重設狀態或保持正常運作。</p>
+</dd>
+<dt class="field-even">回傳<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<ul class="simple">
+<li><p>只需要發送一次True，無須發送False指令</p></li>
+</ul>
+</div>
+<p class="rubric">範例</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 重設imu</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">sendSensorReset</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API.drawImageFunction">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">drawImageFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thickness</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#API.API.drawImageFunction" title="連結到這個定義"></a></dt>
+<dd><p>在Image網頁介面上繪製幾何圖形或標記。</p>
+<dl class="field-list simple">
+<dt class="field-odd">參數<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cnt</strong> (<em>int</em>) -- 圖形編號，用於區分多個標記。</p></li>
+<li><p><strong>mode</strong> (<em>int</em>) -- 繪製模式。
+* 1直線
+* 2矩形
+* 3圓形</p></li>
+<li><p><strong>xmin</strong> (<em>int</em>) -- 圖形區域的左邊界座標。在圓形模式時為圓心x座標。</p></li>
+<li><p><strong>xmax</strong> (<em>int</em>) -- 圖形區域的右邊界座標。在圓形模式時為圓形半徑。</p></li>
+<li><p><strong>ymin</strong> (<em>int</em>) -- 圖形區域的上邊界座標。在圓形模式時為圓心y座標。</p></li>
+<li><p><strong>ymax</strong> (<em>int</em>) -- 圖形區域的下邊界座標。在圓形模式時無作用。</p></li>
+<li><p><strong>r</strong> (<em>int</em>) -- RGB 顏色空間中的紅色值 (0-255)。</p></li>
+<li><p><strong>g</strong> (<em>int</em>) -- RGB 顏色空間中的綠色值 (0-255)。</p></li>
+<li><p><strong>b</strong> (<em>int</em>) -- RGB 顏色空間中的藍色值 (0-255)。</p></li>
+<li><p><strong>thickness</strong> (<em>int</em><em>, </em><em>optional</em>) -- 線條粗細。預設為 1。</p></li>
+</ul>
+</dd>
+<dt class="field-even">回傳<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p><strong>圓形模式</strong>：注意圓形模式參數代表含意不同。</p>
+</div>
+<p class="rubric">範例</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 畫直線</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">drawImageFunction</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">320</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 畫矩形</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">drawImageFunction</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">170</span> <span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 畫圓形</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">drawImageFunction</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">240</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API.get_objects">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">get_objects</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#API.API.get_objects" title="連結到這個定義"></a></dt>
+<dd><p>獲取目前偵測到的物體列表。</p>
+<p>根據指定的顏色標籤檢索。若未指定顏色，則回傳所有已知
+顏色類別的物體總表。</p>
+<dl class="field-list simple">
+<dt class="field-odd">參數<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>color</strong> (<em>str</em><em>, </em><em>optional</em>) -- <p>顏色類別名稱。預設為 None，回傳所有類別。</p>
+<ul class="simple">
+<li><p>顏色類別名稱：'orange', 'yellow', 'blue', 'green', 'black', 'red', 'white'</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">回傳<span class="colon">:</span></dt>
+<dd class="field-even"><p><p><em>List[dict]</em> --</p>
+<dl>
+<dt>包含物體資訊</dt><dd><ul>
+<li><p>bbox：[x, y, w, h] (邊界框)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>x, y：矩形左上角的像素座標。</p></li>
+<li><p>w：矩形的寬度</p></li>
+<li><p>h：矩形的高度</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>centroid：[x, y] (質心 / 中心點)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>x, y：該物件幾何中心的像素座標。</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>area (該顏色區塊所佔據的總像素數量)</p></li>
+<li><p>aspect_ratio (長寬比 (寬度 / 高度))</p></li>
+<li><p>label (顏色標籤)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+<p class="rubric">範例</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 1. 獲取當前畫面上所有已知顏色的偵測物體總表</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">all_detected</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get_objects</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 2. 僅獲取特定標籤（例如：&#39;orange&#39;）的物體清單</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">orange_objs</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get_objects</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 3. 存取範例：獲取第一個橘色物體的中心點 X 座標與面積</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">orange_objs</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">target</span> <span class="o">=</span> <span class="n">orange_objs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">x_center</span> <span class="o">=</span> <span class="n">target</span><span class="p">[</span><span class="s1">&#39;centroid&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">size</span> <span class="o">=</span> <span class="n">target</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found orange target at X: </span><span class="si">{</span><span class="n">x_center</span><span class="si">}</span><span class="s2">, Area: </span><span class="si">{</span><span class="n">size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 4. 進階篩選：找出畫面上面積最大（通常是最近）的藍色目標</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">blue_objs</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get_objects</span><span class="p">(</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">blue_objs</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">closest_target</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">blue_objs</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="API.API.imu_rpy">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">imu_rpy</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#API.API.imu_rpy" title="連結到這個定義"></a></dt>
+<dd><p>IMU數值：</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[0] roll：翻滾角</p></li>
+<li><p>[1] pitch：俯仰角</p></li>
+<li><p>[2] yaw：偏航角</p></li>
+</ul>
+</div></blockquote>
+<p class="rubric">範例</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 存取特定的姿態數值（例如：Roll 翻滾角）</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 索引 [0] 為 Roll, [1] 為 Pitch, [2] 為 Yaw</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">current_roll</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">imu_rpy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="API.API.color_counts">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">color_counts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#API.API.color_counts" title="連結到這個定義"></a></dt>
+<dd><p>各顏色類別偵測到的物體總數清單。</p>
+<p>紀錄當前影像中，每一種特定顏色類別被偵測到的物體數量。</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>顏色索引對照表</strong>:</dt><dd><ul>
+<li><p><strong>[0] Orange</strong>: 橘色物體數量</p></li>
+<li><p><strong>[1] Yellow</strong>: 黃色物體數量</p></li>
+<li><p><strong>[2] Blue</strong>: 藍色物體數量</p></li>
+<li><p><strong>[3] Green</strong>: 綠色物體數量</p></li>
+<li><p><strong>[4] Black</strong>: 黑色物體數量</p></li>
+<li><p><strong>[5] Red</strong>: 紅色物體數量</p></li>
+<li><p><strong>[6] White</strong>: 白色物體數量</p></li>
+<li><p><strong>[7] Others</strong>: 其他類別數量</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p class="rubric">範例</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 檢查畫面上是否有偵測到橘色物體</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">api</span><span class="o">.</span><span class="n">color_counts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;偵測到 </span><span class="si">{</span><span class="n">api</span><span class="o">.</span><span class="n">color_counts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> 個橘色目標！&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="API.API.object_sizes">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">object_sizes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#API.API.object_sizes" title="連結到這個定義"></a></dt>
+<dd><p>各顏色類別偵測到的物體面積 (Area) 清單。</p>
+<p>內層清單則包含該顏色類別下，所有偵測到物體的面積資訊。</p>
+<p class="rubric">範例</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">object_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>    <span class="c1">#會回傳一個包含所有橘色物體面積的清單。</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">object_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="c1">#則是第一個偵測到的橘色物體面積。</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="API.API.object_x_min">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">object_x_min</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#API.API.object_x_min" title="連結到這個定義"></a></dt>
+<dd><p>各顏色類別物體邊界框的最小 X 座標 (左邊界) 清單。</p>
+<p>這是一個二維清單，用於紀錄每個偵測物體在影像中的最左側像素位置。
+數值範圍介於(0 ~ 320)之間。</p>
+<p class="rubric">範例</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 取得第一個偵測到的橘色物體左邊界 (解析度寬度 0~320)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">api</span><span class="o">.</span><span class="n">object_x_min</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">left_edge</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">object_x_min</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="API.API.object_x_max">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">object_x_max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#API.API.object_x_max" title="連結到這個定義"></a></dt>
+<dd><p>各顏色類別物體邊界框的最大 X 座標 (右邊界) 清單。</p>
+<p>這是一個二維清單，用於紀錄每個偵測物體在影像中的最右側像素位置。
+數值範圍介於(0 ~ 320)之間。</p>
+<p class="rubric">範例</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 取得第一個偵測到的黃色物體右邊界</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">api</span><span class="o">.</span><span class="n">object_x_max</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">right_edge</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">object_x_max</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="API.API.object_y_min">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">object_y_min</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#API.API.object_y_min" title="連結到這個定義"></a></dt>
+<dd><p>各顏色類別物體邊界框的最小 Y 座標 (上邊界) 清單。</p>
+<p>這是一個二維清單，用於紀錄每個偵測物體在影像中的最上側像素位置。
+數值範圍介於(0 ~ 240)之間。</p>
+<p class="rubric">範例</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 取得第三個偵測到的藍色物體上邊界 (解析度高度 0~240)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">api</span><span class="o">.</span><span class="n">object_y_min</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">top_edge</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">object_y_min</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="API.API.object_y_max">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">object_y_max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#API.API.object_y_max" title="連結到這個定義"></a></dt>
+<dd><p>各顏色類別物體邊界框的最大 Y 座標 (下邊界) 清單。</p>
+<p>這是一個二維清單，用於紀錄每個偵測物體在影像中的最下側像素位置。
+數值範圍介於(0 ~ 240)之間。</p>
+<p class="rubric">範例</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 取得第二個偵測到的白色物體下邊界 (解析度高度 0~240)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">api</span><span class="o">.</span><span class="n">object_y_min</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">top_edge</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">object_y_min</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Motion.html" class="btn btn-neutral float-left" title="馬達控制 (Motion Control)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="System.html" class="btn btn-neutral float-right" title="系統進程與狀態 (System &amp; Process)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Yang,Shu-kai.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,245 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-TW" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>馬達控制 (Motion Control) &mdash; TKU ICLAB ROS2 API  說明文件</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=0d9984b1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=cbf116e0"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜尋" href="search.html" />
+    <link rel="next" title="視覺與感測器數據 (Vision &amp; Sensors)" href="VisionSensors.html" />
+    <link rel="prev" title="步態控制 (Walking Control)" href="Walking.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            TKU ICLAB ROS2 API
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API 分類目錄:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ros2.html">ROS2 內建輔助功能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="States.html">變數與狀態 (Variables &amp; States)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Walking.html">步態控制 (Walking Control)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">馬達控制 (Motion Control)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.sendBodySector"><code class="docutils literal notranslate"><span class="pre">API.sendBodySector()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.sendHeadMotor"><code class="docutils literal notranslate"><span class="pre">API.sendHeadMotor()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.sendSingleMotor"><code class="docutils literal notranslate"><span class="pre">API.sendSingleMotor()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.SingleAbsolutePosition"><code class="docutils literal notranslate"><span class="pre">API.SingleAbsolutePosition()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="VisionSensors.html">視覺與感測器數據 (Vision &amp; Sensors)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="System.html">系統進程與狀態 (System &amp; Process)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Other.html">未實驗分類(Other)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Topic.html">Topic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Version.html">API 版本</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TKU ICLAB ROS2 API</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">馬達控制 (Motion Control)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Motion.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="motion-control">
+<h1>馬達控制 (Motion Control)<a class="headerlink" href="#motion-control" title="連結到這個標頭"></a></h1>
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API.sendBodySector">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">sendBodySector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sector</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#API.API.sendBodySector" title="連結到這個定義"></a></dt>
+<dd><p>發送執行動作磁區 (Sector) 指令。</p>
+<dl class="field-list simple">
+<dt class="field-odd">參數<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>sector</strong> (<em>int</em>) -- 動作區段編號。
+- 29固定為基礎站立姿勢</p>
+</dd>
+<dt class="field-even">回傳<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<ul class="simple">
+<li><p><strong>不可中斷性</strong>：啟動一個 Sector 後，通常需要等待該動作序列執行完畢，請在此指令後給足夠的延遲時間，否則可能導致關節衝突。</p></li>
+<li><p><strong>與步態解耦</strong>：此函式於執行非步態類型的固定動作，請確保執行 Sector 前，有中止連續步態。</p></li>
+</ul>
+</div>
+<p class="rubric">範例</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">#回到站姿</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">sendBodySector</span><span class="p">(</span><span class="mi">29</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API.sendHeadMotor">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">sendHeadMotor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ID</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Speed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#API.API.sendHeadMotor" title="連結到這個定義"></a></dt>
+<dd><p>發送指令至指定的頭部馬達。</p>
+<p>直接指定頭部馬達 ID、目標位置值與旋轉速度。</p>
+<dl class="field-list simple">
+<dt class="field-odd">參數<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ID</strong> (<em>int</em>) -- 頭部馬達的硬體 ID。
+* 1為水平馬達(Horizontal)
+* 2為垂直馬達(Vertical)</p></li>
+<li><p><strong>Position</strong> (<em>int</em>) -- 目標絕對刻度。範圍為0~4095。</p></li>
+<li><p><strong>Speed</strong> (<em>int</em>) -- 馬達移動速度。</p></li>
+</ul>
+</dd>
+<dt class="field-even">回傳<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<ul class="simple">
+<li><p><strong>無保護機制</strong>：此函式不會自動過濾超出範圍的數值，請在呼叫此函式前在Image網頁界面確認Position是否能到達，以免硬體卡死。</p></li>
+</ul>
+</div>
+<p class="rubric">範例</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 水平馬達回正</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">sendHeadMotor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2048</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API.sendSingleMotor">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">sendSingleMotor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ID</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Speed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#API.API.sendSingleMotor" title="連結到這個定義"></a></dt>
+<dd><p>發送單一馬達控制指令。</p>
+<p>直接指定馬達 ID 並發布 <strong>[相對刻度]</strong> 與速度指令。</p>
+<dl class="field-list simple">
+<dt class="field-odd">參數<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ID</strong> (<em>int</em>) -- 目標馬達的硬體編號(1~22）。</p></li>
+<li><p><strong>Position</strong> (<em>int</em>) -- 相對刻度值。</p></li>
+<li><p><strong>Speed</strong> (<em>int</em>) -- 速度設定。</p></li>
+</ul>
+</dd>
+<dt class="field-even">回傳<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<ul class="simple">
+<li><p><strong>警告</strong>：此函式不包含軟體保護限制，使用不當可能導致關節超出物理極限而毀損硬體。</p></li>
+<li><p><strong>與SingleAbsolutePosition的差異</strong>： <strong>sendSingleMotor</strong> 是轉動相對刻度，而 <strong>SingleAbsolutePosition</strong> 是轉動絕對刻度</p></li>
+</ul>
+</div>
+<p class="rubric">範例</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 轉動腰部馬達</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">sendSingleMotor</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API.SingleAbsolutePosition">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">SingleAbsolutePosition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ID</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Speed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#API.API.SingleAbsolutePosition" title="連結到這個定義"></a></dt>
+<dd><p>發送單一馬達控制指令</p>
+<p>直接指定馬達 ID 並發布 <strong>[絕對刻度]</strong> 與速度指令</p>
+<dl class="field-list simple">
+<dt class="field-odd">參數<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ID</strong> (<em>int</em>) -- 目標馬達的硬體編號。</p></li>
+<li><p><strong>Position</strong> (<em>int</em>) -- 絕對刻度值。</p></li>
+<li><p><strong>Speed</strong> (<em>int</em>) -- 速度設定。</p></li>
+</ul>
+</dd>
+<dt class="field-even">回傳<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<ul class="simple">
+<li><p><strong>警告</strong>：此函式不包含軟體保護限制，使用不當可能導致關節超出物理極限而毀損硬體。</p></li>
+<li><p><strong>與sendSingleMotor的差異</strong>： <strong>sendSingleMotor</strong> 是轉動相對刻度，而 <strong>SingleAbsolutePosition</strong> 是轉動絕對刻度</p></li>
+</ul>
+</div>
+<p class="rubric">範例</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 腰部馬達回正</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">sendSingleMotor</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">2048</span><span class="p">,</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Walking.html" class="btn btn-neutral float-left" title="步態控制 (Walking Control)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="VisionSensors.html" class="btn btn-neutral float-right" title="視覺與感測器數據 (Vision &amp; Sensors)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Yang,Shu-kai.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,279 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-TW" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>步態控制 (Walking Control) &mdash; TKU ICLAB ROS2 API  說明文件</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=0d9984b1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=cbf116e0"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜尋" href="search.html" />
+    <link rel="next" title="馬達控制 (Motion Control)" href="Motion.html" />
+    <link rel="prev" title="變數與狀態 (Variables &amp; States)" href="States.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            TKU ICLAB ROS2 API
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API 分類目錄:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ros2.html">ROS2 內建輔助功能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="States.html">變數與狀態 (Variables &amp; States)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">步態控制 (Walking Control)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.sendBodyAutoCmd"><code class="docutils literal notranslate"><span class="pre">API.sendBodyAutoCmd()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.sendbodyAuto"><code class="docutils literal notranslate"><span class="pre">API.sendbodyAuto()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.sendContinuousValue"><code class="docutils literal notranslate"><span class="pre">API.sendContinuousValue()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.sendLCWalkParameter"><code class="docutils literal notranslate"><span class="pre">API.sendLCWalkParameter()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Motion.html">馬達控制 (Motion Control)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VisionSensors.html">視覺與感測器數據 (Vision &amp; Sensors)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="System.html">系統進程與狀態 (System &amp; Process)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Other.html">未實驗分類(Other)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Topic.html">Topic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Version.html">API 版本</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TKU ICLAB ROS2 API</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">步態控制 (Walking Control)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Walking.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="walking-control">
+<h1>步態控制 (Walking Control)<a class="headerlink" href="#walking-control" title="連結到這個標頭"></a></h1>
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API.sendBodyAutoCmd">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">sendBodyAutoCmd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walking_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#API.API.sendBodyAutoCmd" title="連結到這個定義"></a></dt>
+<dd><p>發送步態步長數值，同時啟動步態。</p>
+<p>將 X、Y 與Theta 發送至Walking，並同時發送啟動步態訊號
+(generate) 令步態開始執行動作。</p>
+<dl class="field-list simple">
+<dt class="field-odd">參數<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>float</em><em>, </em><em>optional</em>) -- 前後移動步長。正值代表前進，負值代表後退。預設為 0。</p></li>
+<li><p><strong>y</strong> (<em>float</em><em>, </em><em>optional</em>) -- 左右平移步長。正值代表向左，負值代表向右。預設為 0。</p></li>
+<li><p><strong>theta</strong> (<em>float</em><em>, </em><em>optional</em>) -- 旋轉角度。正值代表左轉，負值代表右轉。預設為 0。</p></li>
+<li><p><strong>walking_mode</strong> (<em>int</em><em>, </em><em>optional</em>) -- <p>步態模式編號。用於切換不同的行走模式。預設為 0。</p>
+<ul>
+<li><p><strong>0 (連續步態)</strong></p></li>
+<li><p><strong>1 (上板步態)</strong></p></li>
+<li><p><strong>2 (下板步態)</strong></p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">回傳<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">範例</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 讓機器人以前進步長 300 穩定行走</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">sendBodyAutoCmd</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">walking_mode</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 讓機器人向左轉彎同時前進</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">sendBodyAutoCmd</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 執行上板步態</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">sendBodyAutoCmd</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span> <span class="n">walking_mode</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API.sendbodyAuto">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">sendbodyAuto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">generate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#API.API.sendbodyAuto" title="連結到這個定義"></a></dt>
+<dd><p>發送步態觸發訊號，切換機器人步態的開關。</p>
+<p>(使用現在Walking內的步長數值開啟/關閉步態)</p>
+<dl class="field-list simple">
+<dt class="field-odd">參數<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>generate</strong> (<em>int</em>) -- 執行訊號。
+* <strong>1 (啟動或持續執行步態)</strong>
+* <strong>0 (停止執行步態)</strong></p>
+</dd>
+<dt class="field-even">回傳<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<ul class="simple">
+<li><p><strong>與 [sendBodyAutoCmd] 的差異</strong>：<strong>[sendBodyAutoCmd]</strong> 會同時更新步長數值並開啟步態；
+而 <strong>[sendbodyAuto]</strong> 僅單獨發送觸發訊號，不會改變目前的步長數值，並且無法且換行走模式，固定為連續步態。</p></li>
+</ul>
+</div>
+<p class="rubric">範例</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 停止行走</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">sendbodyAuto</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 開啟/持續執行步態</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">sendbodyAuto</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API.sendContinuousValue">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">sendContinuousValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walking_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#API.API.sendContinuousValue" title="連結到這個定義"></a></dt>
+<dd><p>發送連續移動步長數值。</p>
+<p>將 X、Y 與Theta發布至Walking。此函式通常配合已啟動的步態使用，</p>
+<p>與 <strong>[sendBodyAutoCmd]</strong> 不同，此函式不會發送啟動步態訊號，僅更新底層緩存的步長數值。</p>
+<dl class="field-list simple">
+<dt class="field-odd">參數<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>int</em>) -- 前後移動步長。</p></li>
+<li><p><strong>y</strong> (<em>int</em>) -- 左右移動步長。</p></li>
+<li><p><strong>theta</strong> (<em>int</em>) -- 旋轉角度。</p></li>
+<li><p><strong>walking_mode</strong> (<em>int</em><em>, </em><em>optional</em>) -- 步態模式編號。預設為 0。</p></li>
+</ul>
+</dd>
+<dt class="field-even">回傳<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<ul class="simple">
+<li><p><strong>依賴性</strong>：呼叫此函式前，通常需要先透過 <strong>[sendbodyAuto(1)]</strong> 啟動步態，機器人才會根據這些參數開始移動。</p></li>
+</ul>
+</div>
+<p class="rubric">範例</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 1.先啟動步態引擎 (原地踏步)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">sendbodyAuto</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 2. 給予移動步長</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">sendContinuousValue</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">y</span><span class="o">=-</span><span class="mi">100</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API.sendLCWalkParameter">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">sendLCWalkParameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">com_y_swing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period_t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_dsp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stand_height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">23.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">com_height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">29.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lift_height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">board_high</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clearance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hip_roll</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ankle_roll</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.API.sendLCWalkParameter" title="連結到這個定義"></a></dt>
+<dd><p>發送步態參數給Walking，此函式包含上下板步態參數。</p>
+<dl class="field-list simple">
+<dt class="field-odd">參數<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>連續步態</strong> -- <ul>
+<li><p>com_y_swing (float): 起步重心(CoM)的左右補償，正值代表向左，負值代表向右。</p></li>
+<li><p>width_size (float): 雙腳間距（步寬）。</p></li>
+<li><p>period_t (int): 步態週期時間，越小踏步越快，以每20為一單位。</p></li>
+<li><p>t_dsp (float): 雙支時間。</p></li>
+<li><p>lift_height (float, optional): 抬腳高度。預設為 0。</p></li>
+<li><p>stand_height (float, optional): 站立高度。預設為 23.5。</p></li>
+<li><p>com_height (float, optional): 質心高度。預設為 29.5。</p></li>
+</ul>
+</p></li>
+<li><p><strong>上下板步態</strong> (<em>包含除lift_height以外的連續步態參數</em>) -- <ul>
+<li><p>board_high (float, optional): 木板的高度。預設為 0。</p></li>
+<li><p>clearance (float, optional): 抬腳時的地面淨空高度。預設為 3。</p></li>
+<li><p>hip_roll (float, optional): 髖部側傾補償角度。預設為 0。</p></li>
+<li><p>ankle_roll (float, optional): 踝部側傾補償角度。預設為 0。</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">回傳<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<ul class="simple">
+<li><p>如在啟動步態前無發送過步態參數，則會使用預設值。請確保在 <strong>開啟步態</strong> 前有使用此函數，或者在Walking網頁界面中 <strong>Send/Load</strong> 步態參數。</p></li>
+<li><p>在上下板步態時clearance會取代lift_height參數的位置</p></li>
+</ul>
+</div>
+<p class="rubric">範例</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">sendLCWalkParameter</span><span class="p">(</span>
+<span class="gp">... </span><span class="n">com_y_swing</span>  <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">),</span>
+<span class="gp">... </span><span class="n">width_size</span>   <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="mf">4.5</span><span class="p">),</span>
+<span class="gp">... </span><span class="n">period_t</span>     <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">320</span><span class="p">),</span>
+<span class="gp">... </span><span class="n">t_dsp</span>        <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="mf">0.1</span><span class="p">),</span>
+<span class="gp">... </span><span class="n">lift_height</span>  <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+<span class="gp">... </span><span class="n">stand_height</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="mf">23.5</span><span class="p">),</span>
+<span class="gp">... </span><span class="n">com_height</span>   <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="mf">29.5</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="States.html" class="btn btn-neutral float-left" title="變數與狀態 (Variables &amp; States)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Motion.html" class="btn btn-neutral float-right" title="馬達控制 (Motion Control)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Yang,Shu-kai.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

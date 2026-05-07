@@ -1,0 +1,415 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-TW" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>系統進程與狀態 (System &amp; Process) &mdash; TKU ICLAB ROS2 API  說明文件</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=0d9984b1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=cbf116e0"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜尋" href="search.html" />
+    <link rel="next" title="未實驗分類(Other)" href="Other.html" />
+    <link rel="prev" title="視覺與感測器數據 (Vision &amp; Sensors)" href="VisionSensors.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            TKU ICLAB ROS2 API
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API 分類目錄:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ros2.html">ROS2 內建輔助功能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="States.html">變數與狀態 (Variables &amp; States)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Walking.html">步態控制 (Walking Control)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Motion.html">馬達控制 (Motion Control)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VisionSensors.html">視覺與感測器數據 (Vision &amp; Sensors)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">系統進程與狀態 (System &amp; Process)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.__init__"><code class="docutils literal notranslate"><span class="pre">API.__init__()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API._dio_callback"><code class="docutils literal notranslate"><span class="pre">API._dio_callback()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API._on_strategy_name"><code class="docutils literal notranslate"><span class="pre">API._on_strategy_name()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API._on_strategy_start"><code class="docutils literal notranslate"><span class="pre">API._on_strategy_start()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API._start_selected_strategy"><code class="docutils literal notranslate"><span class="pre">API._start_selected_strategy()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API._stop_strategy"><code class="docutils literal notranslate"><span class="pre">API._stop_strategy()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API._sync_start_from_param"><code class="docutils literal notranslate"><span class="pre">API._sync_start_from_param()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API._publish_strategy_status"><code class="docutils literal notranslate"><span class="pre">API._publish_strategy_status()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API._label_image_cb"><code class="docutils literal notranslate"><span class="pre">API._label_image_cb()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API._det_callback"><code class="docutils literal notranslate"><span class="pre">API._det_callback()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API._mask_callback"><code class="docutils literal notranslate"><span class="pre">API._mask_callback()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API._is_newer_stamp"><code class="docutils literal notranslate"><span class="pre">API._is_newer_stamp()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API._recompute_stats"><code class="docutils literal notranslate"><span class="pre">API._recompute_stats()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Other.html">未實驗分類(Other)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Topic.html">Topic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Version.html">API 版本</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TKU ICLAB ROS2 API</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">系統進程與狀態 (System &amp; Process)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/System.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="system-process">
+<h1>系統進程與狀態 (System &amp; Process)<a class="headerlink" href="#system-process" title="連結到這個標頭"></a></h1>
+<div class="admonition danger">
+<p class="admonition-title">危險</p>
+<p><strong>此段內容為全 AI 生成，自行查驗真偽</strong></p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API.__init__">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'API'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.API.__init__" title="連結到這個定義"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API._dio_callback">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">_dio_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tku_msgs.msg.Dio</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.API._dio_callback" title="連結到這個定義"></a></dt>
+<dd><p>同步硬體實體開關狀態的回呼函式。</p>
+<p>監聽來自 <cite>/package/dioarray</cite> 主題的訊息，並在物理開關狀態發生變化時更新
+內部的 <cite>is_start</cite> 標記。 此變數通常作為所有策略程式
+執行迴圈的入口條件。</p>
+<dl class="field-list simple">
+<dt class="field-odd">參數<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>msg</strong> (<em>Dio</em>) -- 來自硬體底層的數位訊號包。
+其中 <cite>msg.strategy</cite> 欄位對應機器人背部的物理撥桿開關。</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<ul class="simple">
+<li><p><strong>邊緣觸發 (Edge Detection)</strong>：僅在狀態與上次不同時才執行記錄與邏輯更新，避免重複處理。</p></li>
+<li><p><strong>視覺反饋</strong>：使用 ANSI 轉義序列在終端機輸出彩色日誌（綠色為 START，紅色為 STOP）。</p></li>
+<li><p>目前版本為了安全性，註解掉了自動觸發進程管理器的功能。</p></li>
+</ul>
+</div>
+<p>同步狀態 (把硬體的 True/False 給 API)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API._on_strategy_name">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">_on_strategy_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">std_msgs.msg.String</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.API._on_strategy_name" title="連結到這個定義"></a></dt>
+<dd><p>處理策略名稱切換的回呼函式。</p>
+<p>監聽來自 <cite>/strategy/name</cite> 主題的字串訊息，並更新內部的預選策略代號
+(<cite>_selected_strategy</cite>)。此動作僅更新標記，並不會立即啟動進程。</p>
+<dl class="field-list simple">
+<dt class="field-odd">參數<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>msg</strong> (<em>String</em>) -- 包含策略代號（如 &quot;ar&quot;, &quot;bb&quot;, &quot;sp&quot;）的 ROS 2 字串訊息。</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<ul class="simple">
+<li><p><strong>輸入清洗</strong>：使用 <cite>.strip()</cite> 去除字串前後的空白或換行符號，防止比對失敗。</p></li>
+<li><p><strong>空值保護</strong>：若收到的訊息內容為空，則直接忽略，維持目前的預選狀態。</p></li>
+<li><p><strong>狀態廣播</strong>：更新成功後會呼叫 <cite>_publish_strategy_status</cite> 同步外部狀態。</p></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API._on_strategy_start">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">_on_strategy_start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">std_msgs.msg.Bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.API._on_strategy_start" title="連結到這個定義"></a></dt>
+<dd><p>處理策略啟動與停止指令的回呼函式。</p>
+<p>監聽來自 <cite>/strategy/start</cite> 主題的布林訊息。當收到 <cite>True</cite> 時，
+會嘗試啟動目前預選的策略進程；收到 <cite>False</cite> 時則終止當前運行的策略。</p>
+<p>此函式是外部指令進入系統執行層的關鍵入口，實現了策略的遠端啟動功能。</p>
+<dl class="field-list simple">
+<dt class="field-odd">參數<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>msg</strong> (<em>Bool</em>) -- ROS 2 標準布林訊息包。
+- <cite>True</cite>: 呼叫 <cite>_start_selected_strategy()</cite> 執行任務。
+- <cite>False</cite>: 呼叫 <cite>_stop_strategy()</cite> 停止任務。</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>啟動前必須先透過 <cite>_on_strategy_name</cite> 選定策略名稱，否則啟動可能會因找不到對應功能包而失敗。</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API._start_selected_strategy">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">_start_selected_strategy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#API.API._start_selected_strategy" title="連結到這個定義"></a></dt>
+<dd><p>執行目前預選的機器人策略進程。</p>
+<p>根據 <cite>_selected_strategy</cite> 的內容，從 <cite>_strategy_map</cite> 中檢索對應的
+ROS 2 功能包與執行檔名稱，並透過 <cite>StrategyProcessManager</cite> 啟動該進程。</p>
+<p>此函式包含完整的校驗與錯誤處理機制，確保在啟動失敗時能及時回報狀態。</p>
+<dl class="field-list simple">
+<dt class="field-odd">引發<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Exception</strong> -- 若 <cite>StrategyProcessManager</cite> 在啟動進程時發生系統錯誤，會被內部捕捉並記錄。</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<ul class="simple">
+<li><p><strong>白名單校驗</strong>：若預選名稱不在 <cite>_strategy_map</cite> 中，將視為未知任務並終止啟動。</p></li>
+<li><p><strong>狀態反饋</strong>：啟動成功會發布 &quot;running&quot; 狀態；失敗或無效則發布 &quot;error&quot;。</p></li>
+<li><p><strong>自動切換</strong>：<cite>StrategyProcessManager</cite> 內部會處理「先停後開」的邏輯，此處僅負責發起啟動請求。</p></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API._stop_strategy">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">_stop_strategy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#API.API._stop_strategy" title="連結到這個定義"></a></dt>
+<dd><p>停止當前正在執行的機器人策略進程。</p>
+<p>透過 <cite>StrategyProcessManager</cite> 向背景進程發送終止訊號。
+此函式確保系統在切換任務或遭遇緊急狀況時，能回收系統資源並停止馬達控制指令。</p>
+<p>此函式包含例外處理機制，防止因進程無法終止而導致 API 主節點崩潰。</p>
+<dl class="field-list simple">
+<dt class="field-odd">引發<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Exception</strong> -- 若在執行 <cite>_mgr.stop()</cite> 過程中發生系統級錯誤，會被內部捕捉並記錄。</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<ul class="simple">
+<li><p><strong>優雅終止</strong>：底層管理器通常先發送 <cite>SIGINT</cite> (Ctrl+C)，若超時則發送 <cite>SIGKILL</cite> 強制結束。</p></li>
+<li><p><strong>狀態回報</strong>：執行成功後會發布 &quot;stopped&quot; 狀態；若發生異常則回報 &quot;error&quot;。</p></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API._sync_start_from_param">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">_sync_start_from_param</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#API.API._sync_start_from_param" title="連結到這個定義"></a></dt>
+<dd><p>同步內部狀態與外部 ROS 2 參數的回呼函式。</p>
+<p>定期讀取節點參數 <cite>start</cite> 與 <cite>mode</cite>，並在偵測到參數異動時，
+自動觸發對應策略的啟動或停止流程。</p>
+<p>此函式實現了「參數驅動控制」，允許使用者透過 <cite>ros2 param set</cite>
+或 GUI 工具遠端切換機器人任務（如從自動導引切換至平衡木）。</p>
+<dl class="simple">
+<dt>Attributes Referenced:</dt><dd><p>_last_param_start (bool): 紀錄上一次的啟動參數狀態。
+_last_param_mode (int): 紀錄上一次的模式參數狀態。
+_selected_strategy (str): 根據模式編號映射後的策略代號。</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<ul class="simple">
+<li><p><strong>防洗版機制 (Anti-spam)</strong>：僅在參數值確實發生改變時才執行後續邏輯，避免重複觸發進程管理器。</p></li>
+<li><p><strong>模式映射</strong>：目前預設編號為 0 (ar), 1 (bb), 2 (sp)。</p></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API._publish_strategy_status">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">_publish_strategy_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.API._publish_strategy_status" title="連結到這個定義"></a></dt>
+<dd><p>發送當前策略狀態的格式化字串至 ROS 2 主題。</p>
+<p>將內部的策略選擇狀態與進程管理器的運行狀態整合為一條字串訊息，
+並發布至 <cite>/strategy/status</cite>。 這對於外部 UI
+監控機器人當前的任務切換情形至關重要。</p>
+<dl class="field-list simple">
+<dt class="field-odd">參數<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> (<em>str</em>) -- 自定義的狀態描述詞（例如 &quot;idle&quot;, &quot;running&quot;, &quot;error&quot;）。</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>發布的字串格式為：<cite>&quot;{state}; selected={_selected_strategy}; running={current_name}&quot;</cite>。
+其中 <cite>running</cite> 欄位來自 <cite>StrategyProcessManager</cite> 的即時查詢結果。</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API._label_image_cb">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">_label_image_cb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">sensor_msgs.msg.Image</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#API.API._label_image_cb" title="連結到這個定義"></a></dt>
+<dd><p>處理標籤矩陣影像的回呼函式，並計算處理效能。</p>
+<p>接收來自視覺節點的標籤影像 (Label Image)，將其轉換為 NumPy 矩陣並儲存。
+同時利用時間戳記計算影格間距 (dt) 與指數移動平均 FPS (lm_fps_ema)。</p>
+<dl class="field-list simple">
+<dt class="field-odd">參數<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>msg</strong> (<em>RosImage</em>) -- 包含標籤資訊的 ROS 影像訊息，編碼預計為 'mono8'。</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<ul class="simple">
+<li><p><strong>影像轉換</strong>：使用 <cite>CvBridge</cite> 將 ROS 影像格式轉換為 OpenCV/NumPy 的二維矩陣。</p></li>
+<li><p><strong>資料扁平化</strong>：除了存儲二維矩陣 <cite>label_matrix</cite>，也會同步更新一維的 <cite>label_matrix_flatten</cite> 供快速索引。</p></li>
+<li><p><strong>效能統計</strong>：採用指數移動平均 (EMA, Alpha=0.2) 平滑化 FPS 數值，避免因單次網路延遲造成數值大幅跳動。</p></li>
+<li><p><strong>單位轉換</strong>：將秒與奈秒轉換為純奈秒 (ns) 進行計算，隨後換算為毫秒 (ms)。</p></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API._det_callback">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">_det_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">std_msgs.msg.String</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#API.API._det_callback" title="連結到這個定義"></a></dt>
+<dd><p>處理特定顏色類別偵測結果的回呼函式。</p>
+<p>接收來自 <cite>/detections/{label}</cite> 的 JSON 字串訊息，解析後更新對應顏色的
+物體清單與時間戳記。 隨後觸發統計數據重算，並標記新資訊標誌。</p>
+<dl class="field-list simple">
+<dt class="field-odd">參數<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>msg</strong> (<em>String</em>) -- 包含 YOLO 偵測結果（objects, stamp）的 JSON 字串。</p></li>
+<li><p><strong>label</strong> (<em>str</em>) -- 物體的顏色類別名稱（例如 'orange', 'yellow'）。</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<ul class="simple">
+<li><p><strong>時序校驗</strong>：呼叫 <cite>_is_newer_stamp</cite> 確保不處理因網路延遲導致的舊封包。</p></li>
+<li><p><strong>統計更新</strong>：解析成功後會自動執行 <cite>_recompute_stats</cite> 更新座標清單。</p></li>
+<li><p><strong>狀態標記</strong>：將 <cite>new_object_info</cite> 設為 True，通知策略主迴圈有新的視覺資料。</p></li>
+<li><p><strong>容錯處理</strong>：包含完整的 JSON 解析例外捕捉，防止格式異常導致節點崩潰。</p></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API._mask_callback">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">_mask_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">std_msgs.msg.UInt8MultiArray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#API.API._mask_callback" title="連結到這個定義"></a></dt>
+<dd><p>處理二值化遮罩影像的回呼函式。</p>
+<p>接收來自 <cite>/{label}_mask</cite> 主題的扁平化陣列資料，並根據訊息中的佈局 (Layout)
+資訊將其重塑 (Reshape) 為二維矩陣格式。</p>
+<p>此函式處理的是各顏色類別的分割結果，儲存於 <cite>latest_masks</cite> 字典中。</p>
+<dl class="field-list simple">
+<dt class="field-odd">參數<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>msg</strong> (<em>UInt8MultiArray</em>) -- 包含影像原始資料與佈局資訊的 ROS 2 多維陣列訊息。</p></li>
+<li><p><strong>label</strong> (<em>str</em>) -- 遮罩對應的顏色標籤（如 'orange', 'black'）。</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<ul class="simple">
+<li><p><strong>結構校驗</strong>：函式會檢查佈局維度 (dim) 是否至少包含兩維（列與欄），否則將視為格式錯誤。</p></li>
+<li><p><strong>矩陣還原</strong>：利用 <cite>numpy.reshape</cite> 將一維資料轉回影像矩陣空間。</p></li>
+<li><p><strong>容錯處理</strong>：若發生陣列大小不匹配或重塑失敗，會輸出錯誤日誌以供除錯。</p></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API._is_newer_stamp">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">_is_newer_stamp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#API.API._is_newer_stamp" title="連結到這個定義"></a></dt>
+<dd><p>比較兩個 ROS 2 時間戳記，判斷 A 是否比 B 更晚（更新）。</p>
+<p>此函式遵循 ROS 2 的時間格式，將時間拆解為秒 (Seconds) 與奈秒 (Nanoseconds) 分別進行比較。
+常用於過濾掉因網路延遲或異步通訊導致的舊資料（如舊的 YOLO 偵測結果）。</p>
+<dl class="field-list simple">
+<dt class="field-odd">參數<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>Tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em>) -- 待檢查的時間戳記 (sec, nanosec)。</p></li>
+<li><p><strong>b</strong> (<em>Tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em>) -- 作為基準的舊時間戳記 (sec, nanosec)。</p></li>
+</ul>
+</dd>
+<dt class="field-even">回傳<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>bool</em> -- 若 A 的時間晚於 B 則回傳 <cite>True</cite>，否則回傳 <cite>False</cite>。</p>
+</dd>
+</dl>
+<p class="rubric">範例</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">_is_newer_stamp</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">))</span>  <span class="c1"># 秒相同，比較奈秒</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">_is_newer_stamp</span><span class="p">((</span><span class="mi">101</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">9999</span><span class="p">))</span>   <span class="c1"># 秒較大，即為更新</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API._recompute_stats">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">_recompute_stats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#API.API._recompute_stats" title="連結到這個定義"></a></dt>
+<dd><p>重新計算並更新所有偵測物體的統計數據。</p>
+<p>此函式會遍歷 <cite>latest_objects</cite> 中儲存的所有顏色類別，提取每個物體的邊界框 (Bounding Box)
+與面積資訊，並將其分類存入對應的成員變數清單中。</p>
+<dl class="simple">
+<dt>更新的屬性包括：</dt><dd><ul class="simple">
+<li><p>color_counts (list): 各顏色類別偵測到的物體總數。</p></li>
+<li><p>object_sizes (list[list]): 各物體的面積 (Area)。</p></li>
+<li><p>object_x_min / x_max (list[list]): 物體邊界框的水平座標極值。</p></li>
+<li><p>object_y_min / y_max (list[list]): 物體邊界框的垂直座標極值。</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<ul class="simple">
+<li><p><strong>資料重置</strong>：每次呼叫時會先清空舊數據，確保統計資訊與當前影像同步。</p></li>
+<li><p><strong>容錯機制</strong>：若物體資料格式錯誤（如缺少 bbox），會跳過該物體並發出警告日誌，避免程式崩潰。</p></li>
+<li><p><strong>座標轉換</strong>：會自動將寬度 (w) 與高度 (h) 轉換為極值座標（如 x + w = x_max）。</p></li>
+</ul>
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="VisionSensors.html" class="btn btn-neutral float-left" title="視覺與感測器數據 (Vision &amp; Sensors)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Other.html" class="btn btn-neutral float-right" title="未實驗分類(Other)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Yang,Shu-kai.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

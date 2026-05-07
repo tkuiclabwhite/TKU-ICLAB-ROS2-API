@@ -1,0 +1,294 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-TW" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>未實驗分類(Other) &mdash; TKU ICLAB ROS2 API  說明文件</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=0d9984b1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=cbf116e0"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜尋" href="search.html" />
+    <link rel="next" title="Topic" href="Topic.html" />
+    <link rel="prev" title="系統進程與狀態 (System &amp; Process)" href="System.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            TKU ICLAB ROS2 API
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API 分類目錄:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ros2.html">ROS2 內建輔助功能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="States.html">變數與狀態 (Variables &amp; States)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Walking.html">步態控制 (Walking Control)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Motion.html">馬達控制 (Motion Control)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VisionSensors.html">視覺與感測器數據 (Vision &amp; Sensors)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="System.html">系統進程與狀態 (System &amp; Process)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">未實驗分類(Other)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.roll"><code class="docutils literal notranslate"><span class="pre">API.roll</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.pitch"><code class="docutils literal notranslate"><span class="pre">API.pitch</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.yaw"><code class="docutils literal notranslate"><span class="pre">API.yaw</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.pose"><code class="docutils literal notranslate"><span class="pre">API.pose</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.lm_fps_ema"><code class="docutils literal notranslate"><span class="pre">API.lm_fps_ema</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.label_matrix_stamp"><code class="docutils literal notranslate"><span class="pre">API.label_matrix_stamp</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.sendWalkParameter"><code class="docutils literal notranslate"><span class="pre">API.sendWalkParameter()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API._clamp"><code class="docutils literal notranslate"><span class="pre">API._clamp()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.imu"><code class="docutils literal notranslate"><span class="pre">API.imu()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.Yolo_Zed"><code class="docutils literal notranslate"><span class="pre">API.Yolo_Zed()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.latest_objects"><code class="docutils literal notranslate"><span class="pre">API.latest_objects</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.label_matrix"><code class="docutils literal notranslate"><span class="pre">API.label_matrix</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.label_matrix_flatten"><code class="docutils literal notranslate"><span class="pre">API.label_matrix_flatten</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.ContinuousValueFunction"><code class="docutils literal notranslate"><span class="pre">API.ContinuousValueFunction()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Topic.html">Topic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Version.html">API 版本</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TKU ICLAB ROS2 API</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">未實驗分類(Other)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Other.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="other">
+<h1>未實驗分類(Other)<a class="headerlink" href="#other" title="連結到這個標頭"></a></h1>
+<div class="admonition danger">
+<p class="admonition-title">危險</p>
+<p><strong>此段內容為全 AI 生成，自行查驗真偽</strong></p>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="API.API.roll">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">roll</span></span><a class="headerlink" href="#API.API.roll" title="連結到這個定義"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="API.API.pitch">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">pitch</span></span><a class="headerlink" href="#API.API.pitch" title="連結到這個定義"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="API.API.yaw">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">yaw</span></span><a class="headerlink" href="#API.API.yaw" title="連結到這個定義"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="API.API.pose">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">pose</span></span><a class="headerlink" href="#API.API.pose" title="連結到這個定義"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="API.API.lm_fps_ema">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">lm_fps_ema</span></span><a class="headerlink" href="#API.API.lm_fps_ema" title="連結到這個定義"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="API.API.label_matrix_stamp">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">label_matrix_stamp</span></span><a class="headerlink" href="#API.API.label_matrix_stamp" title="連結到這個定義"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API.sendWalkParameter">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">sendWalkParameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">com_y_swing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period_t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_dsp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lift_height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stand_height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">com_height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.API.sendWalkParameter" title="連結到這個定義"></a></dt>
+<dd><p>發送標準步態參數。</p>
+<p>將基礎的行走參數封裝為 <cite>Parameter</cite> 訊息並發布。此函式主要用於
+一般的平地行走與基本的運動控制。</p>
+<dl class="field-list simple">
+<dt class="field-odd">參數<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mode</strong> (<em>int</em>) -- 步態模式。</p></li>
+<li><p><strong>com_y_swing</strong> (<em>float</em>) -- 重心 (CoM) 的左右擺幅。</p></li>
+<li><p><strong>width_size</strong> (<em>float</em>) -- 雙腳間距（步寬）。</p></li>
+<li><p><strong>period_t</strong> (<em>int</em>) -- 步態週期時間（單位通常為 ms）。</p></li>
+<li><p><strong>t_dsp</strong> (<em>float</em>) -- 雙支撐相 (Double Support Phase) 時間比例。</p></li>
+<li><p><strong>lift_height</strong> (<em>float</em>) -- 抬腳高度。</p></li>
+<li><p><strong>stand_height</strong> (<em>float</em>) -- 站立高度（從地面到髖部）。</p></li>
+<li><p><strong>com_height</strong> (<em>float</em>) -- 質心高度。</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API._clamp">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">_clamp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hi</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#API.API._clamp" title="連結到這個定義"></a></dt>
+<dd><p>將數值限制在指定的區間內（數值鉗位）。</p>
+<p>此函式用於確保輸入參數（如馬達角度、移動速度等）不會超出物理硬體
+或演算法所能承受的範圍，是預防硬體損毀的重要保護機制。</p>
+<dl class="field-list simple">
+<dt class="field-odd">參數<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v</strong> (<em>float</em>) -- 待處理的原始數值。</p></li>
+<li><p><strong>lo</strong> (<em>float</em>) -- 允許的最小值（下限）。</p></li>
+<li><p><strong>hi</strong> (<em>float</em>) -- 允許的最大值（上限）。</p></li>
+</ul>
+</dd>
+<dt class="field-even">回傳<span class="colon">:</span></dt>
+<dd class="field-even"><p><p><em>float</em> --</p>
+<dl class="simple">
+<dt>處理後的數值。若 <cite>v</cite> 小於 <cite>lo</cite> 則回傳 <cite>lo</cite>；若大於 <cite>hi</cite> 則回傳 <cite>hi</cite>；</dt><dd><p>若在區間內則回傳 <cite>v</cite> 本身。</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+<p class="rubric">範例</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">API</span><span class="o">.</span><span class="n">_clamp</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">API</span><span class="o">.</span><span class="n">_clamp</span><span class="p">(</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="go">-1.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API.imu">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">imu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tku_msgs.msg.SensorPackage</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#API.API.imu" title="連結到這個定義"></a></dt>
+<dd><p>處理慣性測量單元 (IMU) 數據的回呼函式。</p>
+<p>接收來自底層感測器節點的姿態訊息，並將歐拉角 (Euler Angles) 同步至內部的
+狀態變數中。這些數據對於機器人的跌倒偵測與動態平衡控制至關重要。</p>
+<dl class="field-list simple">
+<dt class="field-odd">參數<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>msg</strong> (<em>SensorPackage</em>) -- 包含 <cite>roll</cite> (翻滾角)、<cite>pitch</cite> (俯仰角) 與
+<cite>yaw</cite> (偏航角) 的感測器數據包。</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<ul class="simple">
+<li><p><strong>座標系統</strong>：數據通常以弧度或角度表示，具體取決於底層驅動的定義。</p></li>
+<li><p><strong>資料同步</strong>：函式同時更新獨立的 <cite>roll/pitch/yaw</cite> 變數與整合後的 <cite>imu_rpy</cite> 清單。</p></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API.Yolo_Zed">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">Yolo_Zed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">geometry_msgs.msg.Point</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#API.API.Yolo_Zed" title="連結到這個定義"></a></dt>
+<dd><p>處理 YOLO 與 ZED 相機整合後的空間定位數據回呼函式。</p>
+<p>接收來自視覺偵測節點的 3D 座標訊息，並將其同步至內部的姿態變數中。
+這些數據代表目標物相對於機器人相機座標系的實際物理位置 (x, y, z)。</p>
+<dl class="field-list simple">
+<dt class="field-odd">參數<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>msg</strong> (<em>Point</em>) -- 包含 <cite>x</cite> (左右偏移)、<cite>y</cite> (前後距離/深度) 與
+<cite>z</cite> (上下高度) 的空間點位數據。</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<ul class="simple">
+<li><p><strong>座標映射</strong>：根據 ZED 的標準，<cite>x</cite> 通常代表水平偏移，<cite>y</cite> 代表物體距離，<cite>z</cite> 代表物體高度。</p></li>
+<li><p><strong>資料同步</strong>：函式會同步更新獨立的 <cite>pose_x/y/z</cite> 與整合後的 <cite>pose</cite> 清單。</p></li>
+<li><p><strong>應用場景</strong>：常用於自動導引 (AR) 任務中精確追蹤目標物或避障。</p></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="API.API.latest_objects">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">latest_objects</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#API.API.latest_objects" title="連結到這個定義"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="API.API.label_matrix">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">label_matrix</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">np.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#API.API.label_matrix" title="連結到這個定義"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="API.API.label_matrix_flatten">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">label_matrix_flatten</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">np.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#API.API.label_matrix_flatten" title="連結到這個定義"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API.ContinuousValueFunction">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">ContinuousValueFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tku_msgs.msg.Interface</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#API.API.ContinuousValueFunction" title="連結到這個定義"></a></dt>
+<dd><p>連續移動參數的狀態同步回呼函式。</p>
+<p>監聽來自 <cite>/ChangeContinuousValue_Topic</cite> 的訊息，並將其數值同步至內部變數
+<cite>xx</cite>, <cite>yy</cite>, <cite>tt</cite> 中。</p>
+<p>此函式用於紀錄系統目前的「預計移動狀態」，方便在不直接存取發布者的情況下讀取運動參數。</p>
+<dl class="field-list simple">
+<dt class="field-odd">參數<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>msg</strong> (<em>Interface</em>) -- 包含 x, y, theta 的運動指令訊息。</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="System.html" class="btn btn-neutral float-left" title="系統進程與狀態 (System &amp; Process)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Topic.html" class="btn btn-neutral float-right" title="Topic" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Yang,Shu-kai.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

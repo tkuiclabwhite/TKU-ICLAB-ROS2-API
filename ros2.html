@@ -1,0 +1,457 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-TW" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ROS2 內建輔助功能 &mdash; TKU ICLAB ROS2 API  說明文件</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=0d9984b1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=cbf116e0"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜尋" href="search.html" />
+    <link rel="next" title="變數與狀態 (Variables &amp; States)" href="States.html" />
+    <link rel="prev" title="TKU ICLAB ROS2 API" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            TKU ICLAB ROS2 API
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API 分類目錄:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ROS2 內建輔助功能</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">訊息輸出與畫面控制</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#get_logger"><code class="docutils literal notranslate"><span class="pre">get_logger()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sys.stdout.write"><code class="docutils literal notranslate"><span class="pre">sys.stdout.write()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sys.stdout.flush"><code class="docutils literal notranslate"><span class="pre">sys.stdout.flush()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">時間管理與任務排程</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#get_clock"><code class="docutils literal notranslate"><span class="pre">get_clock()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create_timer"><code class="docutils literal notranslate"><span class="pre">create_timer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create_rate"><code class="docutils literal notranslate"><span class="pre">create_rate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#time.sleep"><code class="docutils literal notranslate"><span class="pre">time.sleep()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="States.html">變數與狀態 (Variables &amp; States)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Walking.html">步態控制 (Walking Control)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Motion.html">馬達控制 (Motion Control)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VisionSensors.html">視覺與感測器數據 (Vision &amp; Sensors)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="System.html">系統進程與狀態 (System &amp; Process)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Other.html">未實驗分類(Other)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Topic.html">Topic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Version.html">API 版本</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TKU ICLAB ROS2 API</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">ROS2 內建輔助功能</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/ros2.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ros2">
+<h1>ROS2 內建輔助功能<a class="headerlink" href="#ros2" title="連結到這個標頭"></a></h1>
+<section id="id1">
+<h2>訊息輸出與畫面控制<a class="headerlink" href="#id1" title="連結到這個標頭"></a></h2>
+<dl class="py method">
+<dt class="sig sig-object py" id="get_logger">
+<span class="sig-name descname"><span class="pre">get_logger</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_logger" title="連結到這個定義"></a></dt>
+<dd><p>獲取節點的日誌紀錄器。此功能繼承自 <code class="docutils literal notranslate"><span class="pre">rclpy.node.Node</span></code>。</p>
+<ul class="simple">
+<li><p><strong>所需套件</strong>：<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">rclpy</span></code></p></li>
+<li><p><strong>備註</strong>：這是 ROS 2 最標準的訊息輸出方式，會自動附帶時間戳記與節點名稱。</p></li>
+</ul>
+<p class="rubric">日誌層級詳解表</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 15.0%" />
+<col style="width: 15.0%" />
+<col style="width: 25.0%" />
+<col style="width: 45.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>層級</p></th>
+<th class="head"><p>預設顏色</p></th>
+<th class="head"><p>顯示範例</p></th>
+<th class="head"><p>輸出時機</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>DEBUG</strong></p></td>
+<td><p>藍/灰色</p></td>
+<td><p>[DEBUG] [node]:</p></td>
+<td><p>開發除錯用。預設不顯示。</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>INFO</strong></p></td>
+<td><p>綠/白色</p></td>
+<td><p>[INFO] [node]:</p></td>
+<td><p><strong>最常用</strong>。回報機器人正常運作狀態。</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>WARN</strong></p></td>
+<td><p>黃色</p></td>
+<td><p>[WARN] [node]:</p></td>
+<td><p>異常但暫不影響系統運作。</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>ERROR</strong></p></td>
+<td><p>紅色</p></td>
+<td><p>[ERROR] [node]:</p></td>
+<td><p>功能失效，但程式尚未崩潰。</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>FATAL</strong></p></td>
+<td><p>底色紅</p></td>
+<td><p>[FATAL] [node]:</p></td>
+<td><p>嚴重錯誤，系統即將停止運作。</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sys.stdout.write">
+<span class="sig-prename descclassname"><span class="pre">sys.stdout.</span></span><span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sys.stdout.write" title="連結到這個定義"></a></dt>
+<dd><p>將字串直接寫入標準輸出流。與 <code class="docutils literal notranslate"><span class="pre">print()</span></code> 不同，它不會自動換行，適合用於「原地更新」數據。</p>
+<ul class="simple">
+<li><p><strong>所需套件</strong>：<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">sys</span></code></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sys.stdout.flush">
+<span class="sig-prename descclassname"><span class="pre">sys.stdout.</span></span><span class="sig-name descname"><span class="pre">flush</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sys.stdout.flush" title="連結到這個定義"></a></dt>
+<dd><p>強制刷新輸出緩衝區。在 ROS 2 高頻迴圈中，若不呼叫此功能，輸出可能會因為緩衝機制而延遲顯示。</p>
+<ul class="simple">
+<li><p><strong>所需套件</strong>：<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">sys</span></code></p></li>
+</ul>
+<dl>
+<dt><strong>範例: 實現「儀表板模式」原地更新數據</strong></dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># \r 回行首，\033[K 清除殘影</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">目前馬達角度: </span><span class="si">{</span><span class="n">angle</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="se">\033</span><span class="s2">[K&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">終端機畫面控制碼 (僅限 sys.stdout)</p>
+<p>這些代碼用於控制游標位置與螢幕狀態，通常不建議放在 <code class="docutils literal notranslate"><span class="pre">get_logger()</span></code> 中使用。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 45.0%" />
+<col style="width: 30.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>轉義碼</p></th>
+<th class="head"><p>功能說明</p></th>
+<th class="head"><p>建議用途</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\033[H\033[J</span></code></p></td>
+<td><p>回到原點並清空全螢幕</p></td>
+<td><p>初始化或重繪儀表板</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\r</span></code></p></td>
+<td><p>歸位 (Carriage Return)</p></td>
+<td><p>回到當前行首進行覆蓋</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\033[K</span></code></p></td>
+<td><p>清除從游標到行尾的內容</p></td>
+<td><p>避免長短數字重疊殘留</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">\033[?25l</span></code> / <code class="docutils literal notranslate"><span class="pre">\033[?25h</span></code></p></td>
+<td><p>隱藏 / 顯示游標</p></td>
+<td><p>提升監控畫面美觀度</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">萬用 ANSI 顏色與樣式字典 (通用於 get_logger 與 stdout)</p>
+<p>格式公式：<code class="docutils literal notranslate"><span class="pre">\033[模式;前景色;背景色m</span> <span class="pre">內容</span> <span class="pre">\033[0m</span></code>。<strong>必須以 0m 結尾以重置樣式。</strong></p>
+<dl class="simple">
+<dt><strong>1. 文字樣式 (Styles)</strong></dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code>：重置 | <code class="docutils literal notranslate"><span class="pre">1</span></code>：<strong>粗體</strong> | <code class="docutils literal notranslate"><span class="pre">2</span></code>：微暗 | <code class="docutils literal notranslate"><span class="pre">4</span></code>：底線 | <code class="docutils literal notranslate"><span class="pre">5</span></code>：閃爍 | <code class="docutils literal notranslate"><span class="pre">7</span></code>：反白</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>2. 前景色與背景色對照表</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>顏色名稱</p></th>
+<th class="head"><p>前景 (標準)</p></th>
+<th class="head"><p>前景 (亮色)</p></th>
+<th class="head"><p>背景 (標準)</p></th>
+<th class="head"><p>背景 (亮色)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>黑色</strong></p></td>
+<td><p>30</p></td>
+<td><p>90</p></td>
+<td><p>40</p></td>
+<td><p>100</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>紅色</strong></p></td>
+<td><p>31</p></td>
+<td><p>91</p></td>
+<td><p>41</p></td>
+<td><p>101</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>綠色</strong></p></td>
+<td><p>32</p></td>
+<td><p>92</p></td>
+<td><p>42</p></td>
+<td><p>102</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>黃色</strong></p></td>
+<td><p>33</p></td>
+<td><p>93</p></td>
+<td><p>43</p></td>
+<td><p>103</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>藍色</strong></p></td>
+<td><p>34</p></td>
+<td><p>94</p></td>
+<td><p>44</p></td>
+<td><p>104</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>洋紅</strong></p></td>
+<td><p>35</p></td>
+<td><p>95</p></td>
+<td><p>45</p></td>
+<td><p>105</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>青色</strong></p></td>
+<td><p>36</p></td>
+<td><p>96</p></td>
+<td><p>46</p></td>
+<td><p>106</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>白色</strong></p></td>
+<td><p>37</p></td>
+<td><p>97</p></td>
+<td><p>47</p></td>
+<td><p>107</p></td>
+</tr>
+</tbody>
+</table>
+<dl>
+<dt><strong>混合使用範例:</strong></dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 加粗(1); 亮綠字(92); 紅底(41)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[1;92;41m [系統重啟] </span><span class="se">\033</span><span class="s2">[0m&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="id2">
+<h2>時間管理與任務排程<a class="headerlink" href="#id2" title="連結到這個標頭"></a></h2>
+<dl class="py method">
+<dt class="sig sig-object py" id="get_clock">
+<span class="sig-name descname"><span class="pre">get_clock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">).now(</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#get_clock" title="連結到這個定義"></a></dt>
+<dd><p>獲取當前系統時鐘的精確時間。此方法最適合用於「非阻塞式」的時間差計算。</p>
+<ul class="simple">
+<li><p><strong>所需套件</strong>：<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">rclpy</span></code></p></li>
+</ul>
+<dl>
+<dt><strong>範例:</strong></dt><dd><p><strong>如何實現「等待 1 秒」的邏輯判斷：</strong></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 紀錄起始時間</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 在策略迴圈中不斷檢查是否已過 1 秒</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">now</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="p">(</span><span class="n">now</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span><span class="o">.</span><span class="n">nanoseconds</span> <span class="o">&gt;=</span> <span class="mf">1e9</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;已過 1 秒，執行下一步動作！&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="create_timer">
+<span class="sig-name descname"><span class="pre">create_timer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timer_period_sec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#create_timer" title="連結到這個定義"></a></dt>
+<dd><p>建立非同步定時器。</p>
+<ul class="simple">
+<li><p><strong>所需套件</strong>：<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">rclpy</span></code>, <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">typing</span> <span class="pre">import</span> <span class="pre">Callable</span></code></p></li>
+</ul>
+<dl>
+<dt><strong>範例:</strong></dt><dd><p><strong>如何實現「每 1 秒」執行一次任務：</strong></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 設定週期為 1.0 秒</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_timer</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">my_callback</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span><span class="w"> </span><span class="nf">my_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;計時器：1 秒時間到！&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="create_rate">
+<span class="sig-name descname"><span class="pre">create_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#create_rate" title="連結到這個定義"></a></dt>
+<dd><p>建立固定頻率控制器。</p>
+<ul class="simple">
+<li><p><strong>所需套件</strong>：<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">rclpy</span></code></p></li>
+</ul>
+<dl>
+<dt><strong>範例:</strong></dt><dd><p><strong>如何實現「每 1 秒」循環一次的迴圈：</strong></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 設定頻率為 1 Hz (即每秒一次)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_rate</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">while</span> <span class="n">rclpy</span><span class="o">.</span><span class="n">ok</span><span class="p">():</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="c1"># ... 執行你的控制邏輯 ...</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">rate</span><span class="o">.</span><span class="n">sleep</span><span class="p">()</span>  <span class="c1"># 自動補償運算時間，確保每次循環間隔剛好 1 秒</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="time.sleep">
+<span class="sig-prename descclassname"><span class="pre">time.</span></span><span class="sig-name descname"><span class="pre">sleep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seconds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#time.sleep" title="連結到這個定義"></a></dt>
+<dd><p>強制暫停當前執行緒。</p>
+<ul class="simple">
+<li><p><strong>所需套件</strong>：<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">time</span></code></p></li>
+</ul>
+<div class="admonition danger">
+<p class="admonition-title">危險</p>
+<p><strong>警告</strong>：嚴禁在 ROS 2 的回呼函式（Callback）中使用，這會導致節點失去反應！</p>
+</div>
+<dl>
+<dt><strong>範例:</strong></dt><dd><p><strong>簡單強制的等待 1 秒：</strong></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 直接讓當前程式碼暫停 1 秒</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">時間管理工具對照表</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+<col style="width: 30.0%" />
+<col style="width: 30.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>工具名稱</p></th>
+<th class="head"><p>運作類型</p></th>
+<th class="head"><p>「等待 1 秒」的實現方式</p></th>
+<th class="head"><p>系統安全性</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>get_clock</strong></p></td>
+<td><p>手動比對</p></td>
+<td><p>計算 <code class="docutils literal notranslate"><span class="pre">now</span> <span class="pre">-</span> <span class="pre">start</span> <span class="pre">&gt;=</span> <span class="pre">1.0s</span></code></p></td>
+<td><p><strong>最高 (不受卡頓影響)</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>create_timer</strong></p></td>
+<td><p>非同步事件</p></td>
+<td><p>設定週期為 <code class="docutils literal notranslate"><span class="pre">1.0</span></code> 秒觸發</p></td>
+<td><p>高 (ROS 2 內建標準)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>create_rate</strong></p></td>
+<td><p>頻率控制</p></td>
+<td><p>設定頻率為 <code class="docutils literal notranslate"><span class="pre">1.0</span></code> Hz 循環</p></td>
+<td><p>中 (需搭配執行緒)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>time.sleep</strong></p></td>
+<td><p>強制阻塞</p></td>
+<td><p>呼叫 <code class="docutils literal notranslate"><span class="pre">time.sleep(1.0)</span></code></p></td>
+<td><p><strong>低 (會卡死節點回呼)</strong></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="TKU ICLAB ROS2 API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="States.html" class="btn btn-neutral float-right" title="變數與狀態 (Variables &amp; States)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Yang,Shu-kai.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
