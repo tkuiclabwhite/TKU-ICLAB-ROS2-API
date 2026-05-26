@@ -1,0 +1,282 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-TW" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>新策略開發 &mdash; TKU ICLAB ROS2 API 2026.05.19 說明文件</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=94c394b5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=cbf116e0"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜尋" href="search.html" />
+    <link rel="next" title="版本" href="Version.html" />
+    <link rel="prev" title="各 Package 詳細說明" href="Packages.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            TKU ICLAB ROS2 API
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API 分類目錄:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Command.html">Terminal 指令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ros2.html">ROS2 內建輔助功能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="States.html">變數與狀態 (Variables &amp; States)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Walking.html">步態控制 (Walking Control)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Motion.html">馬達控制 (Motion Control)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VisionSensors.html">視覺與感測器數據 (Vision &amp; Sensors)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="System.html">系統進程與狀態 (System &amp; Process)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Other.html">未實驗分類(Other)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">系統架構:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="SystemArchitecture.html">系統架構總覽</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Packages.html">各 Package 詳細說明</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">新策略開發</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">程式骨架</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setup-py">setup.py 設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api-strategy-map">API._strategy_map 註冊</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id3">網頁操作介面</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id4">設定檔位置</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">版本資訊:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Version.html">版本</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TKU ICLAB ROS2 API</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">新策略開發</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Development.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>新策略開發<a class="headerlink" href="#id1" title="連結到這個標頭"></a></h1>
+<p>每個子策略只需繼承 <code class="docutils literal notranslate"><span class="pre">API</span></code>，在主迴圈回呼中實作邏輯。</p>
+<section id="id2">
+<h2>程式骨架<a class="headerlink" href="#id2" title="連結到這個標頭"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.executors</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultiThreadedExecutor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">strategy.API</span><span class="w"> </span><span class="kn">import</span> <span class="n">API</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyStrategy</span><span class="p">(</span><span class="n">API</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;my_strategy&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_timer</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">main</span><span class="p">)</span>  <span class="c1"># 10Hz 主迴圈</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_start</span><span class="p">:</span>   <span class="c1"># 硬體開關未開啟時不執行</span>
+            <span class="k">return</span>
+
+        <span class="c1"># --- 視覺 ---</span>
+        <span class="c1"># self.color_counts[0]          → 橘色物件數量</span>
+        <span class="c1"># self.object_sizes[0]          → 橘色各物件面積列表</span>
+        <span class="c1"># self.object_x_min/max[0][i]   → 第 i 個橘色物件邊界</span>
+
+        <span class="c1"># --- 步態 ---</span>
+        <span class="c1"># self.sendBodyAutoCmd(x=500, y=0, theta=0)     # 啟動步態並前進</span>
+        <span class="c1"># self.sendContinuousValue(x=500, y=0, theta=0) # 只更新步長</span>
+        <span class="c1"># self.sendbodyAuto(0)                           # 停止步態</span>
+
+        <span class="c1"># --- 動作 ---</span>
+        <span class="c1"># self.sendBodySector(29)   # 執行站姿</span>
+
+        <span class="c1"># --- 頭部 ---</span>
+        <span class="c1"># self.sendHeadMotor(1, 2048, 100)  # 水平居中</span>
+
+        <span class="c1"># --- IMU ---</span>
+        <span class="c1"># self.yaw, self.pitch, self.roll</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="n">MyStrategy</span><span class="p">()</span>
+    <span class="n">executor</span> <span class="o">=</span> <span class="n">MultiThreadedExecutor</span><span class="p">()</span>
+    <span class="n">executor</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">executor</span><span class="o">.</span><span class="n">spin</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">destroy_node</span><span class="p">()</span>
+        <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="setup-py">
+<h2>setup.py 設定<a class="headerlink" href="#setup-py" title="連結到這個標頭"></a></h2>
+<p>在 <code class="docutils literal notranslate"><span class="pre">src/strategy/setup.py</span></code> 的 <code class="docutils literal notranslate"><span class="pre">console_scripts</span></code> 加入一行，才能用 <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">run</span></code> 啟動：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;my_strategy = strategy.my_folder.my_file:main&#39;</span><span class="p">,</span>
+</pre></div>
+</div>
+</section>
+<section id="api-strategy-map">
+<h2>API._strategy_map 註冊<a class="headerlink" href="#api-strategy-map" title="連結到這個標頭"></a></h2>
+<p>在 <code class="docutils literal notranslate"><span class="pre">API.py</span></code> 的 <code class="docutils literal notranslate"><span class="pre">_strategy_map</span></code> 中加入名稱，讓網頁介面可以切換到此策略：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;my&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;strategy&quot;</span><span class="p">,</span> <span class="s2">&quot;my_strategy&quot;</span><span class="p">),</span>
+</pre></div>
+</div>
+<p>---</p>
+</section>
+</section>
+<section id="id3">
+<h1>網頁操作介面<a class="headerlink" href="#id3" title="連結到這個標頭"></a></h1>
+<p>位於 <code class="docutils literal notranslate"><span class="pre">hurocup_interface/</span></code>，使用瀏覽器開啟對應 HTML 檔案。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>頁面</p></th>
+<th class="head"><p>說明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">index.html</span></code></p></td>
+<td><p>主頁，策略選擇與啟動</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">WalkingInterface.html</span></code></p></td>
+<td><p>步態參數調整（步長/步寬/質心高度等）</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ImageProcessInterface.html</span></code></p></td>
+<td><p>HSV 色彩校正，即時預覽</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MotionControlInterface.html</span></code></p></td>
+<td><p>動作序列錄製與播放</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NodeMonitor.html</span></code></p></td>
+<td><p>節點狀態監控</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">miniDRC.html</span></code></p></td>
+<td><p>精簡遙控介面</p></td>
+</tr>
+</tbody>
+</table>
+<p>---</p>
+</section>
+<section id="id4">
+<h1>設定檔位置<a class="headerlink" href="#id4" title="連結到這個標頭"></a></h1>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>路徑</p></th>
+<th class="head"><p>說明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">src/walking/walking/Parameter.py</span></code></p></td>
+<td><p>步態初始參數（質心高度、步寬等）</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">src/strategy/strategy/{策略}/Parameter/WalkingParameter.ini</span></code></p></td>
+<td><p>各策略步態設定</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">src/strategy/strategy/{策略}/Parameter/UpStair.ini</span></code></p></td>
+<td><p>各策略上板步態參數</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">src/strategy/strategy/{策略}/Parameter/DownStair.ini</span></code></p></td>
+<td><p>各策略下板步態參數</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">src/strategy/strategy/{策略}/Parameter/hsv.ini</span></code></p></td>
+<td><p>各策略顏色偵測門檻</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">src/strategy/strategy/{策略}/Parameter/{N}.ini</span></code></p></td>
+<td><p>各策略動作序列（Sector 編號對應）</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">src/strategy/strategy/strategy.ini</span></code></p></td>
+<td><p>記錄當前載入哪個策略的參數路徑</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">src/usb_cam/config/CameraSet.ini</span></code></p></td>
+<td><p>相機縮放等設定</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">src/strategy/best1.engine</span></code> 等</p></td>
+<td><p>YOLO 推論模型（ONNX/TensorRT Engine）</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">snap/</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mp.py</span></code> 拍照時存放照片的位置</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Packages.html" class="btn btn-neutral float-left" title="各 Package 詳細說明" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Version.html" class="btn btn-neutral float-right" title="版本" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Yang,Shu-kai.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

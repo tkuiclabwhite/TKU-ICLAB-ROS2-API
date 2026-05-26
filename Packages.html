@@ -1,0 +1,703 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-TW" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>各 Package 詳細說明 &mdash; TKU ICLAB ROS2 API 2026.05.19 說明文件</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=94c394b5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=cbf116e0"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜尋" href="search.html" />
+    <link rel="next" title="新策略開發" href="Development.html" />
+    <link rel="prev" title="系統架構總覽" href="SystemArchitecture.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            TKU ICLAB ROS2 API
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API 分類目錄:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Command.html">Terminal 指令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ros2.html">ROS2 內建輔助功能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="States.html">變數與狀態 (Variables &amp; States)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Walking.html">步態控制 (Walking Control)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Motion.html">馬達控制 (Motion Control)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VisionSensors.html">視覺與感測器數據 (Vision &amp; Sensors)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="System.html">系統進程與狀態 (System &amp; Process)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Other.html">未實驗分類(Other)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">系統架構:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="SystemArchitecture.html">系統架構總覽</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">各 Package 詳細說明</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#motor-control">motor_control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#walking">walking</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#walkingwebbridge-walking-web-bridge-py">WalkingWebBridge (<code class="docutils literal notranslate"><span class="pre">walking_web_bridge.py</span></code>) — 步態參數橋接節點</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#motionpackage">motionpackage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#motionnode-motionpackage-py">MotionNode (<code class="docutils literal notranslate"><span class="pre">motionpackage.py</span></code>) — 固定動作序列執行器</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#unifiedsensornode-switch-py-imu">UnifiedSensorNode (<code class="docutils literal notranslate"><span class="pre">switch.py</span></code>) — IMU 與硬體開關節點</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#imageprocess">imageprocess</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usb-cam">usb_cam</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#strategy-api">strategy / API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tku-msgs">tku_msgs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Development.html">新策略開發</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Development.html#id3">網頁操作介面</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Development.html#id4">設定檔位置</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">版本資訊:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Version.html">版本</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TKU ICLAB ROS2 API</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">各 Package 詳細說明</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Packages.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="package">
+<h1>各 Package 詳細說明<a class="headerlink" href="#package" title="連結到這個標頭"></a></h1>
+<section id="motor-control">
+<h2>motor_control<a class="headerlink" href="#motor-control" title="連結到這個標頭"></a></h2>
+<p><strong>節點：</strong> <code class="docutils literal notranslate"><span class="pre">DynamixelDriver</span></code> (<code class="docutils literal notranslate"><span class="pre">driver_node.py</span></code>)</p>
+<p>底層 Dynamixel 馬達驅動。透過 3 個 U2D2 USB-to-RS485 介面連接全身 23 顆馬達（ID 1–23）。</p>
+<ul class="simple">
+<li><p>啟動時自動掃描各馬達在哪個 Port，建立 ID → Port 映射</p></li>
+<li><p>控制迴圈 <strong>50ms（20Hz）</strong>：先 SyncWrite（位置+速度+加速度 12-byte），再 GroupSyncRead 回傳現在位置</p></li>
+<li><p>將馬達現在位置發布為 <code class="docutils literal notranslate"><span class="pre">/joint_states</span></code> （JointState，name 欄位為馬達 ID 字串）</p></li>
+</ul>
+<p><strong>馬達 ID 分配：</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 80.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ID</p></th>
+<th class="head"><p>說明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1–8</p></td>
+<td><p>手臂</p></td>
+</tr>
+<tr class="row-odd"><td><p>9</p></td>
+<td><p>腰部</p></td>
+</tr>
+<tr class="row-even"><td><p>10–15</p></td>
+<td><p>左腳（HipYaw / HipRoll / HipPitch / Knee / AnklePitch / AnkleRoll）</p></td>
+</tr>
+<tr class="row-odd"><td><p>16–21</p></td>
+<td><p>右腳</p></td>
+</tr>
+<tr class="row-even"><td><p>22–23</p></td>
+<td><p>頭部</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>訂閱：</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 25.0%" />
+<col style="width: 40.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Topic</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>說明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/joint_commands</span></code></p></td>
+<td><p>JointState</p></td>
+<td><p>目標位置（0–4096 ticks）</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/set_torque</span></code></p></td>
+<td><p>Int16MultiArray</p></td>
+<td><p>開關扭力</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Head_Topic</span></code></p></td>
+<td><p>HeadPackage</p></td>
+<td><p>頭部馬達指令（ID 1=水平→22, ID 2=垂直→23）</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>發布：</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 25.0%" />
+<col style="width: 40.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Topic</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>說明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/joint_states</span></code></p></td>
+<td><p>JointState</p></td>
+<td><p>各馬達現在位置</p></td>
+</tr>
+</tbody>
+</table>
+<p>---</p>
+</section>
+<section id="walking">
+<h2>walking<a class="headerlink" href="#walking" title="連結到這個標頭"></a></h2>
+<p><strong>節點：</strong> <code class="docutils literal notranslate"><span class="pre">WalkingNode</span></code> (<code class="docutils literal notranslate"><span class="pre">walking_node.py</span></code>)</p>
+<p>基於 <strong>LIPM（線性倒立擺模型）</strong> 的步態生成器，控制迴圈 <strong>50Hz（20ms）</strong>。</p>
+<p><strong>核心模組：</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>檔案</p></th>
+<th class="head"><p>說明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Parameter.py</span></code></p></td>
+<td><p>所有步態可調參數（步長、步寬、質心高度、步態週期等）</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Walkinggait.py</span></code></p></td>
+<td><p>LIPM 步態計算核心（<code class="docutils literal notranslate"><span class="pre">WalkingGaitByLIPM</span></code>），輸出雙腳末端在 body frame 的位置</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Inverse_kinematic.py</span></code></p></td>
+<td><p>六軸腳部逆運動學，將足端位置轉換成 12 個腳部關節角度，再換算為 Dynamixel ticks</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">walking_node.py</span></code></p></td>
+<td><p>主控制迴圈：管理步態啟動/停止、落地緩衝、Idle 站姿調整</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">imu_node.py</span></code> / <code class="docutils literal notranslate"><span class="pre">imu.py</span></code></p></td>
+<td><p>IMU 數據節點</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">walking_web_bridge.py</span></code></p></td>
+<td><p>步態參數的儲存/載入橋接節點（見下方說明）</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>步態狀態機：</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">StartStep</span></code> → 起步預備（左右換重心，不前進）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FirstStep</span></code> → 第一步跨出</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Repeat</span></code> → 穩態行走</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">StopStep</span></code> → 收腳站定</p></li>
+</ul>
+<p><strong>特殊模式：</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">walking_mode</span> <span class="pre">=</span> <span class="pre">1</span></code>：上板（LC_up）步態，使用貝茲曲線足端軌跡</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">walking_mode</span> <span class="pre">=</span> <span class="pre">2</span></code>：下板（LC_down）步態，L 型路徑防刮邊緣</p></li>
+</ul>
+<p><strong>訂閱：</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 25.0%" />
+<col style="width: 35.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Topic</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>說明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/joint_states</span></code></p></td>
+<td><p>JointState</p></td>
+<td><p>馬達現在位置（作為 baseline）</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/ContinousMode_Topic</span></code></p></td>
+<td><p>Int16</p></td>
+<td><p>1=啟動步態, 0=停止</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/SendBodyAuto_Topic</span></code></p></td>
+<td><p>Interface</p></td>
+<td><p>步態指令（x/y/theta + 模式）</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/ChangeContinuousValue_Topic</span></code></p></td>
+<td><p>Interface</p></td>
+<td><p>步態即時調整</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/walking_params_update</span></code></p></td>
+<td><p>String</p></td>
+<td><p>JSON 格式步態參數更新</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/walking_params_request</span></code></p></td>
+<td><p>Bool</p></td>
+<td><p>要求發布現在參數</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/walking_reset_anchor</span></code></p></td>
+<td><p>Bool</p></td>
+<td><p>重設基準姿態錨點</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>發布：</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 25.0%" />
+<col style="width: 40.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Topic</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>說明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/joint_commands</span></code></p></td>
+<td><p>JointState</p></td>
+<td><p>腳部馬達目標 ticks</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/walking_params</span></code></p></td>
+<td><p>String</p></td>
+<td><p>現在步態參數（JSON）</p></td>
+</tr>
+</tbody>
+</table>
+<section id="walkingwebbridge-walking-web-bridge-py">
+<h3>WalkingWebBridge (<code class="docutils literal notranslate"><span class="pre">walking_web_bridge.py</span></code>) — 步態參數橋接節點<a class="headerlink" href="#walkingwebbridge-walking-web-bridge-py" title="連結到這個標頭"></a></h3>
+<p>負責步態參數在網頁介面與 <code class="docutils literal notranslate"><span class="pre">WalkingNode</span></code> 之間的儲存與載入。</p>
+<ul class="simple">
+<li><p>啟動時讀取 <code class="docutils literal notranslate"><span class="pre">strategy.ini</span></code> 找到當前策略，自動載入對應的 <code class="docutils literal notranslate"><span class="pre">WalkingParameter.ini</span></code> 並發送給 <code class="docutils literal notranslate"><span class="pre">WalkingNode</span></code></p></li>
+<li><p>網頁點選 <strong>Save</strong> 時，將參數寫回該策略的 <code class="docutils literal notranslate"><span class="pre">WalkingParameter.ini</span></code></p></li>
+<li><p>網頁點選 <strong>Load</strong> 時，從硬碟重新讀取並發送</p></li>
+<li><p>上下板參數（LC）分別儲存在 <code class="docutils literal notranslate"><span class="pre">UpStair.ini</span></code> 與 <code class="docutils literal notranslate"><span class="pre">DownStair.ini</span></code></p></li>
+<li><p>收到 <code class="docutils literal notranslate"><span class="pre">/location</span></code> 時，自動切換到新策略的參數路徑並重新載入</p></li>
+</ul>
+<p>---</p>
+</section>
+</section>
+<section id="motionpackage">
+<h2>motionpackage<a class="headerlink" href="#motionpackage" title="連結到這個標頭"></a></h2>
+<p>此 Package 包含兩個功能不同的節點。</p>
+<section id="motionnode-motionpackage-py">
+<h3>MotionNode (<code class="docutils literal notranslate"><span class="pre">motionpackage.py</span></code>) — 固定動作序列執行器<a class="headerlink" href="#motionnode-motionpackage-py" title="連結到這個標頭"></a></h3>
+<p>讀取各策略資料夾下的 <code class="docutils literal notranslate"><span class="pre">.ini</span></code> 動作檔，依 Sector 編號播放預錄的關節角度序列（站起、踢球等）。</p>
+<p><strong>INI 動作檔格式：</strong></p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="c1">; 路徑：src/strategy/strategy/{策略名}/Parameter/{Sector編號}.ini</span>
+<span class="c1">; 每行為一個關節指令：馬達ID, 目標位置(ticks), 速度</span>
+<span class="na">10,2048,50</span>
+<span class="na">11,1800,50</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>動作序列位於各策略的 <code class="docutils literal notranslate"><span class="pre">Parameter/</span></code> 資料夾</p></li>
+<li><p>共用站姿放在 <code class="docutils literal notranslate"><span class="pre">strategy/strategy/Parameter/stand.ini</span></code> 與 <code class="docutils literal notranslate"><span class="pre">29.ini</span></code></p></li>
+<li><p>Sector 29：基礎站姿（所有策略共用）</p></li>
+</ul>
+<p><strong>訂閱：</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 45.0%" />
+<col style="width: 55.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Topic</p></th>
+<th class="head"><p>說明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/package/Sector</span></code> (Int16)</p></td>
+<td><p>執行指定動作編號</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/package/InterfaceSend2Sector</span></code></p></td>
+<td><p>網頁介面動作控制</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/package/InterfaceSaveMotion</span></code></p></td>
+<td><p>儲存動作</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/package/SingleMotorData</span></code></p></td>
+<td><p>相對位置單軸控制</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/package/SingleAbsolutePosition</span></code></p></td>
+<td><p>絕對位置單軸控制</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="unifiedsensornode-switch-py-imu">
+<h3>UnifiedSensorNode (<code class="docutils literal notranslate"><span class="pre">switch.py</span></code>) — IMU 與硬體開關節點<a class="headerlink" href="#unifiedsensornode-switch-py-imu" title="連結到這個標頭"></a></h3>
+<p>從串口 <code class="docutils literal notranslate"><span class="pre">/dev/ttyACM0</span></code> （Arduino）同時讀取 IMU 姿態與背部實體撥桿開關訊號。</p>
+<ul class="simple">
+<li><p>IMU 資料格式：<code class="docutils literal notranslate"><span class="pre">ypr:</span> <span class="pre">&lt;yaw&gt;,</span> <span class="pre">&lt;pitch&gt;,</span> <span class="pre">&lt;roll&gt;</span></code> （由 Arduino 輸出）</p></li>
+<li><p>開關訊號：Arduino 送出 <code class="docutils literal notranslate"><span class="pre">&quot;START&quot;</span></code> 或 <code class="docutils literal notranslate"><span class="pre">&quot;STOP&quot;</span></code> 字串</p></li>
+<li><p>發送空白鍵至串口可觸發 Arduino 端 IMU 歸零</p></li>
+</ul>
+<p><strong>發布：</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 25.0%" />
+<col style="width: 35.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Topic</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>說明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/package/sensorpackage</span></code></p></td>
+<td><p>SensorPackage</p></td>
+<td><p>IMU yaw/pitch/roll（20Hz）</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/package/dioarray</span></code></p></td>
+<td><p>Dio</p></td>
+<td><p>硬體開關狀態（<code class="docutils literal notranslate"><span class="pre">strategy=True/False</span></code>）</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>訂閱：</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 65.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Topic</p></th>
+<th class="head"><p>說明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/sensorset</span></code></p></td>
+<td><p>接收後發送歸零指令給 Arduino</p></td>
+</tr>
+</tbody>
+</table>
+<p>---</p>
+</section>
+</section>
+<section id="imageprocess">
+<h2>imageprocess<a class="headerlink" href="#imageprocess" title="連結到這個標頭"></a></h2>
+<p><strong>節點：</strong> <code class="docutils literal notranslate"><span class="pre">ImageNode</span></code> (<code class="docutils literal notranslate"><span class="pre">image.py</span></code>)</p>
+<p>HSV 色彩切割視覺節點，處理解析度 320×240。</p>
+<ul class="simple">
+<li><p>讀取各策略資料夾的 <code class="docutils literal notranslate"><span class="pre">hsv.ini</span></code> 設定各顏色門檻</p></li>
+<li><p>對每幀影像做 HSV inRange，支援跨 0 度 Hue 的紅色處理</p></li>
+<li><p>形態學後處理（OPEN / ERODE / DILATE 等，可由網頁調整）</p></li>
+<li><p>連通元件分析（ConnectedComponents）輸出物件 bbox / centroid / area</p></li>
+<li><p>偵測結果每色各發一個 <code class="docutils literal notranslate"><span class="pre">/detections/{color}</span></code> JSON topic（節流 20Hz）</p></li>
+</ul>
+<p><strong>顏色索引：</strong> orange(0), yellow(1), blue(2), green(3), black(4), red(5), white(6), others(7)</p>
+<p><strong>訂閱：</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 45.0%" />
+<col style="width: 55.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Topic</p></th>
+<th class="head"><p>說明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/camera1/image_raw</span></code></p></td>
+<td><p>相機原始影像</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/HSVValue_Topic</span></code></p></td>
+<td><p>即時調整 HSV 門檻（建模模式）</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/Zoom_In_Topic</span></code></p></td>
+<td><p>數位縮放比例</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/location</span></code></p></td>
+<td><p>切換策略對應的 hsv.ini 路徑</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>發布：</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 45.0%" />
+<col style="width: 55.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Topic</p></th>
+<th class="head"><p>說明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/detections/{color}</span></code></p></td>
+<td><p>各顏色偵測 JSON（8 個 topic）</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/label_matrix</span></code></p></td>
+<td><p>二值化 mask 影像（mono8）</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">zoom_in</span></code></p></td>
+<td><p>縮放後的顯示影像</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">processed_image</span></code></p></td>
+<td><p>色彩標示後的視覺化影像</p></td>
+</tr>
+</tbody>
+</table>
+<p>---</p>
+</section>
+<section id="usb-cam">
+<h2>usb_cam<a class="headerlink" href="#usb-cam" title="連結到這個標頭"></a></h2>
+<p>USB 相機驅動 Package，發布 <code class="docutils literal notranslate"><span class="pre">/camera1/image_raw</span></code>。</p>
+<p><strong>設定檔：</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>路徑</p></th>
+<th class="head"><p>說明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">src/usb_cam/config/CameraSet.ini</span></code></p></td>
+<td><p>縮放比例等</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">src/usb_cam/config/params_1.yaml</span></code> / <code class="docutils literal notranslate"><span class="pre">params_2.yaml</span></code></p></td>
+<td><p>相機參數</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">src/usb_cam/config/camera_info.yaml</span></code></p></td>
+<td><p>相機標定資訊</p></td>
+</tr>
+</tbody>
+</table>
+<p>---</p>
+</section>
+<section id="strategy-api">
+<h2>strategy / API<a class="headerlink" href="#strategy-api" title="連結到這個標頭"></a></h2>
+<p>所有賽項策略的父類別與子策略集合。</p>
+<p><strong>API.py（基底類別）</strong></p>
+<p>所有策略節點的基類，繼承 <code class="docutils literal notranslate"><span class="pre">rclpy.Node</span></code>，提供：</p>
+<ul class="simple">
+<li><p>IMU 資料（<code class="docutils literal notranslate"><span class="pre">roll</span></code> / <code class="docutils literal notranslate"><span class="pre">pitch</span></code> / <code class="docutils literal notranslate"><span class="pre">yaw</span></code>）</p></li>
+<li><p>視覺偵測資料（<code class="docutils literal notranslate"><span class="pre">color_counts</span></code>, <code class="docutils literal notranslate"><span class="pre">object_sizes</span></code>, <code class="docutils literal notranslate"><span class="pre">object_x/y_min/max</span></code>）</p></li>
+<li><p>DIO 硬體開關狀態（<code class="docutils literal notranslate"><span class="pre">is_start</span></code>）</p></li>
+<li><p>策略進程管理（<code class="docutils literal notranslate"><span class="pre">StrategyProcessManager</span></code>）：可透過 <code class="docutils literal notranslate"><span class="pre">/strategy/name</span></code> + <code class="docutils literal notranslate"><span class="pre">/strategy/start</span></code> 遠端啟動/停止子策略</p></li>
+</ul>
+<p><strong>主要 API 方法：</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 45.0%" />
+<col style="width: 55.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>方法</p></th>
+<th class="head"><p>說明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sendBodyAutoCmd(x,</span> <span class="pre">y,</span> <span class="pre">theta,</span> <span class="pre">mode)</span></code></p></td>
+<td><p>送步態指令並同時啟動步態</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sendContinuousValue(x,</span> <span class="pre">y,</span> <span class="pre">theta)</span></code></p></td>
+<td><p>更新步長（不改變啟動狀態）</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sendbodyAuto(1/0)</span></code></p></td>
+<td><p>啟動/停止步態</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sendBodySector(sector)</span></code></p></td>
+<td><p>執行固定動作（踢球等）</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sendHeadMotor(ID,</span> <span class="pre">pos,</span> <span class="pre">speed)</span></code></p></td>
+<td><p>控制頭部馬達</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sendLCWalkParameter(...)</span></code></p></td>
+<td><p>發送步態參數（含上下板參數）</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">get_objects(color)</span></code></p></td>
+<td><p>取得目前偵測到的物體列表</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">drawImageFunction(...)</span></code></p></td>
+<td><p>在網頁影像上畫圖形</p></td>
+</tr>
+</tbody>
+</table>
+<p>---</p>
+</section>
+<section id="tku-msgs">
+<h2>tku_msgs<a class="headerlink" href="#tku-msgs" title="連結到這個標頭"></a></h2>
+<p>自定義訊息與服務 Package，所有節點共用。</p>
+<p><strong>常用 Messages：</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 40.0%" />
+<col style="width: 35.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>訊息</p></th>
+<th class="head"><p>欄位</p></th>
+<th class="head"><p>說明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Interface</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x,</span> <span class="pre">y,</span> <span class="pre">z,</span> <span class="pre">theta,</span> <span class="pre">walking_mode,</span> <span class="pre">walking_state</span></code></p></td>
+<td><p>步態移動指令（x=前後, y=左右, theta=轉向）</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SensorPackage</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">yaw,</span> <span class="pre">pitch,</span> <span class="pre">roll</span></code></p></td>
+<td><p>IMU 姿態資料</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SensorSet</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">reset</span></code> (bool)</p></td>
+<td><p>觸發 IMU 歸零</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Dio</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">strategy</span></code> (bool), <code class="docutils literal notranslate"><span class="pre">data</span></code> (uint8)</p></td>
+<td><p>硬體撥桿開關狀態</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">HeadPackage</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">id,</span> <span class="pre">position,</span> <span class="pre">speed</span></code> (int16)</p></td>
+<td><p>頭部馬達指令</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SingleMotorData</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">id,</span> <span class="pre">position,</span> <span class="pre">speed</span></code> (int16)</p></td>
+<td><p>單軸馬達指令</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DrawImage</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cnt,</span> <span class="pre">mode,</span> <span class="pre">xmin,</span> <span class="pre">xmax,</span> <span class="pre">ymin,</span> <span class="pre">ymax,</span> <span class="pre">rvalue,</span> <span class="pre">gvalue,</span> <span class="pre">bvalue,</span> <span class="pre">thickness</span></code></p></td>
+<td><p>網頁影像繪圖指令</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Parameter</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mode,</span> <span class="pre">period_t,</span> <span class="pre">com_y_swing,</span> <span class="pre">width_size,</span> <span class="pre">t_dsp,</span> <span class="pre">lift_height,</span> <span class="pre">stand_height,</span> <span class="pre">com_height</span></code></p></td>
+<td><p>一般步態參數</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">LCParameter</span></code></p></td>
+<td><p>同 Parameter + <code class="docutils literal notranslate"><span class="pre">board_high,</span> <span class="pre">clearance,</span> <span class="pre">hip_roll,</span> <span class="pre">ankle_roll</span></code></p></td>
+<td><p>上下板步態參數</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Location</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">data</span></code> (string)</p></td>
+<td><p>策略路徑切換（如 <code class="docutils literal notranslate"><span class="pre">&quot;ar/Parameter&quot;</span></code>）</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SaveMotion</span></code></p></td>
+<td><p>—</p></td>
+<td><p>動作錄製儲存觸發</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>常用 Services：</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 65.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>服務</p></th>
+<th class="head"><p>說明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">WalkingGaitParameter</span></code></p></td>
+<td><p>載入一般步態參數（req: 無, res: 全部步態欄位）</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">LCWalkingGaitParameter</span></code></p></td>
+<td><p>載入上下板步態參數（req: mode, res: 含 LC 欄位）</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">HSVInfo</span></code> / <code class="docutils literal notranslate"><span class="pre">SaveHSV</span></code></p></td>
+<td><p>讀取/儲存 HSV 色彩設定</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CheckSector</span></code></p></td>
+<td><p>查詢動作 Sector 狀態</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ReadMotion</span></code></p></td>
+<td><p>讀取已儲存的動作序列</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">BuildModel</span></code></p></td>
+<td><p>觸發 HSV 色彩模型重建</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="SystemArchitecture.html" class="btn btn-neutral float-left" title="系統架構總覽" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Development.html" class="btn btn-neutral float-right" title="新策略開發" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Yang,Shu-kai.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
