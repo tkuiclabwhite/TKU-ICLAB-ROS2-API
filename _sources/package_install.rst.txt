@@ -1,0 +1,61 @@
+套件安裝
+========
+
+rosdep 初始化
+-------------
+
+.. code-block:: bash
+
+   sudo apt install python3-rosdep
+   sudo rosdep init
+   rosdep update
+
+apt 套件
+--------
+
+.. code-block:: bash
+
+   sudo apt install python3-colcon-common-extensions
+   sudo apt install python3-opencv
+   sudo apt install ros-humble-rosbridge-server
+   sudo apt install ros-humble-cv-bridge
+   sudo apt install ros-humble-librealsense2*
+   sudo apt install ros-humble-realsense2-*
+   sudo apt install python3-tk
+
+pip 套件
+--------
+
+.. code-block:: bash
+
+   pip install numpy
+   pip install Pillow
+   pip install pyserial
+   pip install pyyaml
+   pip install dynamixel-sdk
+   pip install pupil-apriltags
+   pip install pydantic
+   pip install matplotlib
+   pip install mediapipe
+   pip install ultralytics
+   pip install torch
+
+.. tabs::
+
+   .. tab:: 小人型 (KID)
+
+      KID 不需額外安裝 GPIO 相關套件。
+
+   .. tab:: 大人型 (ADULT)
+
+      ADULT 使用 Jetson AGX 的實體 GPIO，需額外安裝：
+
+      .. code-block:: bash
+
+         sudo pip install Jetson.GPIO
+         sudo groupadd -f -r gpio
+         sudo usermod -a -G gpio $USER
+
+.. note::
+
+   以上套件清單可能不完整，若執行時出現 ``ModuleNotFoundError``，請依錯誤訊息補裝對應套件。
