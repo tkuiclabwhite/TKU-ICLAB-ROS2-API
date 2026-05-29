@@ -6,17 +6,19 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Terminal 指令 &mdash; TKU ICLAB ROS2 API 2026.05.19 說明文件</title>
+  <title>Terminal 指令 &mdash; TKU ICLAB ROS2 API 2026.05.26 說明文件</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=a5c4661c" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=94c394b5"></script>
+      <script src="_static/documentation_options.js?v=a24187a8"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="_static/translations.js?v=cbf116e0"></script>
+      <script src="_static/tabs.js?v=3030b3cb"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜尋" href="search.html" />
@@ -59,6 +61,10 @@
 <li class="toctree-l1"><a class="reference internal" href="System.html">系統進程與狀態 (System &amp; Process)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Other.html">未實驗分類(Other)</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">操作介面:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="WebInterfaces.html">網頁操作介面教學</a></li>
+</ul>
 <p class="caption" role="heading"><span class="caption-text">系統架構:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="SystemArchitecture.html">系統架構總覽</a></li>
@@ -66,6 +72,13 @@
 <li class="toctree-l1"><a class="reference internal" href="Development.html">新策略開發</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Development.html#id3">網頁操作介面</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Development.html#id4">設定檔位置</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">安裝與設定:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ros2_install.html">ROS2 安裝（Humble）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="package_install.html">套件安裝</a></li>
+<li class="toctree-l1"><a class="reference internal" href="robot_setup.html">機器人命令設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sphinx_setup.html">Sphinx 文件建置</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">版本資訊:</span></p>
 <ul>
@@ -100,20 +113,35 @@
 <h1>Terminal 指令<a class="headerlink" href="#terminal" title="連結到這個標頭"></a></h1>
 <section id="id1">
 <h2>開啟主系統<a class="headerlink" href="#id1" title="連結到這個標頭"></a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/ros2_kid
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/ros2_kid
 <span class="nb">source</span><span class="w"> </span>install/setup.bash
 ros2<span class="w"> </span>launch<span class="w"> </span>usb_cam<span class="w"> </span>camera.launch.py
 </pre></div>
 </div>
+</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/ros2_adult
+<span class="nb">source</span><span class="w"> </span>install/setup.bash
+ros2<span class="w"> </span>launch<span class="w"> </span>usb_cam<span class="w"> </span>camera.launch.py
+</pre></div>
+</div>
+</div></div>
 </section>
 <section id="id2">
 <h2>開啟策略<a class="headerlink" href="#id2" title="連結到這個標頭"></a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/ros2_kid
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-1-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-1-1-0" name="1-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-1-1-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-1" name="1-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-1-1-0" class="sphinx-tabs-panel" id="panel-1-1-0" name="1-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/ros2_kid
 <span class="nb">source</span><span class="w"> </span>install/setup.bash
 ros2<span class="w"> </span>run<span class="w"> </span>strategy<span class="w"> </span>&lt;策略名稱&gt;
 </pre></div>
 </div>
 <p><strong>可用策略：</strong> <code class="docutils literal notranslate"><span class="pre">us</span></code>（足球）、<code class="docutils literal notranslate"><span class="pre">ar</span></code>（射箭）、<code class="docutils literal notranslate"><span class="pre">bb</span></code>（籃球）、<code class="docutils literal notranslate"><span class="pre">sp</span></code>（競走）、<code class="docutils literal notranslate"><span class="pre">obs</span></code>（避障）、<code class="docutils literal notranslate"><span class="pre">sr</span></code>（斯巴達）、<code class="docutils literal notranslate"><span class="pre">wl</span></code>（舉重）、<code class="docutils literal notranslate"><span class="pre">mar</span></code>（馬拉松）、<code class="docutils literal notranslate"><span class="pre">bm</span></code>（平衡木）、<code class="docutils literal notranslate"><span class="pre">lc</span></code>（上下板）</p>
+</div><div aria-labelledby="tab-1-1-1" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-1" name="1-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/ros2_adult
+<span class="nb">source</span><span class="w"> </span>install/setup.bash
+ros2<span class="w"> </span>run<span class="w"> </span>strategy<span class="w"> </span>&lt;策略名稱&gt;
+</pre></div>
+</div>
+<p><strong>可用策略：</strong> <code class="docutils literal notranslate"><span class="pre">ar</span></code>（射箭）、<code class="docutils literal notranslate"><span class="pre">bb</span></code>（籃球）、<code class="docutils literal notranslate"><span class="pre">sp</span></code>（競走）、<code class="docutils literal notranslate"><span class="pre">obs</span></code>（避障）、<code class="docutils literal notranslate"><span class="pre">sr</span></code>（斯巴達）、<code class="docutils literal notranslate"><span class="pre">wl</span></code>（舉重）、<code class="docutils literal notranslate"><span class="pre">mar</span></code>（馬拉松）、<code class="docutils literal notranslate"><span class="pre">pk</span></code>（罰踢）、<code class="docutils literal notranslate"><span class="pre">rc</span></code>（攀岩）</p>
+</div></div>
 </section>
 <section id="id3">
 <h2>編譯<a class="headerlink" href="#id3" title="連結到這個標頭"></a></h2>

@@ -6,14 +6,14 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TKU ICLAB ROS2 API &mdash; TKU ICLAB ROS2 API 2026.05.19 說明文件</title>
+  <title>TKU ICLAB ROS2 API &mdash; TKU ICLAB ROS2 API 2026.05.26 說明文件</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=94c394b5"></script>
+      <script src="_static/documentation_options.js?v=a24187a8"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="_static/translations.js?v=cbf116e0"></script>
@@ -53,6 +53,10 @@
 <li class="toctree-l1"><a class="reference internal" href="System.html">系統進程與狀態 (System &amp; Process)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Other.html">未實驗分類(Other)</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">操作介面:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="WebInterfaces.html">網頁操作介面教學</a></li>
+</ul>
 <p class="caption" role="heading"><span class="caption-text">系統架構:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="SystemArchitecture.html">系統架構總覽</a></li>
@@ -60,6 +64,13 @@
 <li class="toctree-l1"><a class="reference internal" href="Development.html">新策略開發</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Development.html#id3">網頁操作介面</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Development.html#id4">設定檔位置</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">安裝與設定:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ros2_install.html">ROS2 安裝（Humble）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="package_install.html">套件安裝</a></li>
+<li class="toctree-l1"><a class="reference internal" href="robot_setup.html">機器人命令設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sphinx_setup.html">Sphinx 文件建置</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">版本資訊:</span></p>
 <ul>
@@ -173,6 +184,20 @@
 </ul>
 </div>
 <div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">操作介面:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="WebInterfaces.html">網頁操作介面教學</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="WebInterfaces.html#shared-elements">共用介面元素</a></li>
+<li class="toctree-l2"><a class="reference internal" href="WebInterfaces.html#imageprocessinterface">ImageProcessInterface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="WebInterfaces.html#motioncontrolinterface">MotionControlInterface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="WebInterfaces.html#walkinginterface">WalkingInterface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="WebInterfaces.html#minidrc">miniDRC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="WebInterfaces.html#id25">其他界面</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">系統架構:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="SystemArchitecture.html">系統架構總覽</a><ul>
@@ -203,6 +228,37 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Development.html#id3">網頁操作介面</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Development.html#id4">設定檔位置</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">安裝與設定:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ros2_install.html">ROS2 安裝（Humble）</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ros2_install.html#locale">設定 Locale</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros2_install.html#ros2">加入 ROS2 套件庫</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ros2_install.html#ros2-humble-desktop">安裝 ROS2 Humble Desktop</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="package_install.html">套件安裝</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="package_install.html#rosdep">rosdep 初始化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package_install.html#apt">apt 套件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package_install.html#pip">pip 套件</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="robot_setup.html">機器人命令設定</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="robot_setup.html#udev">udev 規則</a></li>
+<li class="toctree-l2"><a class="reference internal" href="robot_setup.html#bashrc">~/.bashrc 設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="robot_setup.html#git-sync-sh">git_sync.sh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="robot_setup.html#github">GitHub 初始化</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sphinx_setup.html">Sphinx 文件建置</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sphinx_setup.html#id1">安裝 Sphinx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphinx_setup.html#id2">初始化專案（僅首次設定）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphinx_setup.html#html">編譯 HTML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphinx_setup.html#id3">自動重建（開發用）</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
