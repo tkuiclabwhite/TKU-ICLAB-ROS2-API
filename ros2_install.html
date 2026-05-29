@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>版本 &mdash; TKU ICLAB ROS2 API 2026.05.26 說明文件</title>
+  <title>ROS2 安裝（Humble） &mdash; TKU ICLAB ROS2 API 2026.05.26 說明文件</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
 
@@ -20,7 +20,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜尋" href="search.html" />
-    <link rel="prev" title="Sphinx 文件建置" href="sphinx_setup.html" /> 
+    <link rel="next" title="套件安裝" href="package_install.html" />
+    <link rel="prev" title="新策略開發" href="Development.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -66,15 +67,20 @@
 <li class="toctree-l1"><a class="reference internal" href="Development.html#id4">設定檔位置</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">安裝與設定:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="ros2_install.html">ROS2 安裝（Humble）</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ROS2 安裝（Humble）</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#locale">設定 Locale</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ros2">加入 ROS2 套件庫</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ros2-humble-desktop">安裝 ROS2 Humble Desktop</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="package_install.html">套件安裝</a></li>
 <li class="toctree-l1"><a class="reference internal" href="robot_setup.html">機器人命令設定</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sphinx_setup.html">Sphinx 文件建置</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">版本資訊:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">版本</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Version.html">版本</a></li>
 </ul>
 
         </div>
@@ -91,9 +97,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">版本</li>
+      <li class="breadcrumb-item active">ROS2 安裝（Humble）</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/Version.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/ros2_install.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -101,17 +107,51 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="id1">
-<h1>版本<a class="headerlink" href="#id1" title="連結到這個標頭"></a></h1>
-<p>最後更新：2026.05.26</p>
-<p>完整程式：<a class="reference external" href="https://github.com/tkuiclabwhite/ros2_kid">https://github.com/tkuiclabwhite/ros2_kid</a></p>
+  <section id="ros2-humble">
+<h1>ROS2 安裝（Humble）<a class="headerlink" href="#ros2-humble" title="連結到這個標頭"></a></h1>
+<p>兩台機器人均使用 <strong>ROS2 Humble</strong>，安裝步驟相同。</p>
+<section id="locale">
+<h2>設定 Locale<a class="headerlink" href="#locale" title="連結到這個標頭"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>locale<span class="w">   </span><span class="c1"># 確認目前設定</span>
+
+sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>locales
+sudo<span class="w"> </span>locale-gen<span class="w"> </span>en_US<span class="w"> </span>en_US.UTF-8
+sudo<span class="w"> </span>update-locale<span class="w"> </span><span class="nv">LC_ALL</span><span class="o">=</span>en_US.UTF-8<span class="w"> </span><span class="nv">LANG</span><span class="o">=</span>en_US.UTF-8
+<span class="nb">export</span><span class="w"> </span><span class="nv">LANG</span><span class="o">=</span>en_US.UTF-8
+
+locale<span class="w">   </span><span class="c1"># 驗證設定</span>
+</pre></div>
+</div>
+</section>
+<section id="ros2">
+<h2>加入 ROS2 套件庫<a class="headerlink" href="#ros2" title="連結到這個標頭"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>software-properties-common
+sudo<span class="w"> </span>add-apt-repository<span class="w"> </span>universe
+
+sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>curl<span class="w"> </span>-y
+
+<span class="nb">export</span><span class="w"> </span><span class="nv">ROS_APT_SOURCE_VERSION</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-s<span class="w"> </span>https://api.github.com/repos/ros-infrastructure/ros-apt-source/releases/latest<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;tag_name&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span>-F<span class="s1">&#39;&quot;&#39;</span><span class="w"> </span><span class="s1">&#39;{print $4}&#39;</span><span class="k">)</span>
+curl<span class="w"> </span>-L<span class="w"> </span>-o<span class="w"> </span>/tmp/ros2-apt-source.deb<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">&quot;https://github.com/ros-infrastructure/ros-apt-source/releases/download/</span><span class="si">${</span><span class="nv">ROS_APT_SOURCE_VERSION</span><span class="si">}</span><span class="s2">/ros2-apt-source_</span><span class="si">${</span><span class="nv">ROS_APT_SOURCE_VERSION</span><span class="si">}</span><span class="s2">.</span><span class="k">$(</span>.<span class="w"> </span>/etc/os-release<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">UBUNTU_CODENAME</span><span class="k">:-</span><span class="si">${</span><span class="nv">VERSION_CODENAME</span><span class="si">}}</span><span class="k">)</span><span class="s2">_all.deb&quot;</span>
+sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>/tmp/ros2-apt-source.deb
+</pre></div>
+</div>
+</section>
+<section id="ros2-humble-desktop">
+<h2>安裝 ROS2 Humble Desktop<a class="headerlink" href="#ros2-humble-desktop" title="連結到這個標頭"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-desktop
+</pre></div>
+</div>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="sphinx_setup.html" class="btn btn-neutral float-left" title="Sphinx 文件建置" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Development.html" class="btn btn-neutral float-left" title="新策略開發" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="package_install.html" class="btn btn-neutral float-right" title="套件安裝" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

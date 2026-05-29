@@ -1,0 +1,219 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-TW" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sphinx 文件建置 &mdash; TKU ICLAB ROS2 API 2026.05.26 說明文件</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=a5c4661c" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=a24187a8"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=cbf116e0"></script>
+      <script src="_static/tabs.js?v=3030b3cb"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜尋" href="search.html" />
+    <link rel="next" title="版本" href="Version.html" />
+    <link rel="prev" title="機器人命令設定" href="robot_setup.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            TKU ICLAB ROS2 API
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API 分類目錄:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Command.html">Terminal 指令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ros2.html">ROS2 內建輔助功能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="States.html">變數與狀態 (Variables &amp; States)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Walking.html">步態控制 (Walking Control)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Motion.html">馬達控制 (Motion Control)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VisionSensors.html">視覺與感測器數據 (Vision &amp; Sensors)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="System.html">系統進程與狀態 (System &amp; Process)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Other.html">未實驗分類(Other)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">操作介面:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="WebInterfaces.html">網頁操作介面教學</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">系統架構:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="SystemArchitecture.html">系統架構總覽</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Packages.html">各 Package 詳細說明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Development.html">新策略開發</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Development.html#id3">網頁操作介面</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Development.html#id4">設定檔位置</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">安裝與設定:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ros2_install.html">ROS2 安裝（Humble）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="package_install.html">套件安裝</a></li>
+<li class="toctree-l1"><a class="reference internal" href="robot_setup.html">機器人命令設定</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Sphinx 文件建置</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">安裝 Sphinx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">初始化專案（僅首次設定）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#html">編譯 HTML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">自動重建（開發用）</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">版本資訊:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Version.html">版本</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TKU ICLAB ROS2 API</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Sphinx 文件建置</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/sphinx_setup.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sphinx">
+<h1>Sphinx 文件建置<a class="headerlink" href="#sphinx" title="連結到這個標頭"></a></h1>
+<section id="id1">
+<h2>安裝 Sphinx<a class="headerlink" href="#id1" title="連結到這個標頭"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>sphinx<span class="w"> </span>sphinx-rtd-theme<span class="w"> </span>sphinx-tabs
+pip<span class="w"> </span>install<span class="w"> </span>sphinx-autobuild
+
+<span class="c1"># 選配：從 Python 型別標注自動生成說明</span>
+pip<span class="w"> </span>install<span class="w"> </span>sphinx-autodoc-typehints
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h2>初始化專案（僅首次設定）<a class="headerlink" href="#id2" title="連結到這個標頭"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>本專案文件已初始化完成，此步驟僅供**全新建立**文件時參考。</p>
+</div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/ros2_kid/src/strategy/strategy/docs/
+sphinx-quickstart
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/ros2_adult/src/strategy/strategy/docs/
+sphinx-quickstart
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="html">
+<h2>編譯 HTML<a class="headerlink" href="#html" title="連結到這個標頭"></a></h2>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-1-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-1-1-0" name="1-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-1-1-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-1" name="1-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-1-1-0" class="sphinx-tabs-panel" id="panel-1-1-0" name="1-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/ros2_kid/src/strategy/strategy/docs/
+
+<span class="c1"># 清除舊的編譯檔案（換新電腦或大改後建議先執行）</span>
+make<span class="w"> </span>clean
+
+<span class="c1"># 生成 HTML 網頁</span>
+make<span class="w"> </span>html
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-1-1-1" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-1" name="1-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/ros2_adult/src/strategy/strategy/docs/
+
+<span class="c1"># 清除舊的編譯檔案（換新電腦或大改後建議先執行）</span>
+make<span class="w"> </span>clean
+
+<span class="c1"># 生成 HTML 網頁</span>
+make<span class="w"> </span>html
+</pre></div>
+</div>
+</div></div>
+<p>編譯完成後，輸出位於 <code class="docutils literal notranslate"><span class="pre">build/html/index.html</span></code>。</p>
+</section>
+<section id="id3">
+<h2>自動重建（開發用）<a class="headerlink" href="#id3" title="連結到這個標頭"></a></h2>
+<p>修改 RST 檔案時自動重新編譯並即時預覽，不需每次手動 <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">html</span></code>。</p>
+<p>啟動：</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-2-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-2-2-0" name="2-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-2-2-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-2-2-1" name="2-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-2-2-0" class="sphinx-tabs-panel" id="panel-2-2-0" name="2-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/ros2_kid/src/strategy/strategy/docs
+sphinx-autobuild<span class="w"> </span><span class="nb">source</span><span class="w"> </span>build/html<span class="w"> </span>--host<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span>--port<span class="w"> </span><span class="m">8080</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-2-2-1" class="sphinx-tabs-panel" hidden="true" id="panel-2-2-1" name="2-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/ros2_adult/src/strategy/strategy/docs
+sphinx-autobuild<span class="w"> </span><span class="nb">source</span><span class="w"> </span>build/html<span class="w"> </span>--host<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span>--port<span class="w"> </span><span class="m">8080</span>
+</pre></div>
+</div>
+</div></div>
+<p>瀏覽器開啟 <code class="docutils literal notranslate"><span class="pre">http://localhost:8080</span></code> 即可預覽。</p>
+<p>關閉 Server：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pkill<span class="w"> </span>-f<span class="w"> </span>sphinx-autobuild
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="robot_setup.html" class="btn btn-neutral float-left" title="機器人命令設定" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Version.html" class="btn btn-neutral float-right" title="版本" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Yang,Shu-kai.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

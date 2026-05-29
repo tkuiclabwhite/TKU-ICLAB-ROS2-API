@@ -1,0 +1,519 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-TW" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>機器人命令設定 &mdash; TKU ICLAB ROS2 API 2026.05.26 說明文件</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=a5c4661c" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=a24187a8"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=cbf116e0"></script>
+      <script src="_static/tabs.js?v=3030b3cb"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜尋" href="search.html" />
+    <link rel="next" title="Sphinx 文件建置" href="sphinx_setup.html" />
+    <link rel="prev" title="套件安裝" href="package_install.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            TKU ICLAB ROS2 API
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API 分類目錄:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Command.html">Terminal 指令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ros2.html">ROS2 內建輔助功能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="States.html">變數與狀態 (Variables &amp; States)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Walking.html">步態控制 (Walking Control)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Motion.html">馬達控制 (Motion Control)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VisionSensors.html">視覺與感測器數據 (Vision &amp; Sensors)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="System.html">系統進程與狀態 (System &amp; Process)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Other.html">未實驗分類(Other)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">操作介面:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="WebInterfaces.html">網頁操作介面教學</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">系統架構:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="SystemArchitecture.html">系統架構總覽</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Packages.html">各 Package 詳細說明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Development.html">新策略開發</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Development.html#id3">網頁操作介面</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Development.html#id4">設定檔位置</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">安裝與設定:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ros2_install.html">ROS2 安裝（Humble）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="package_install.html">套件安裝</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">機器人命令設定</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#udev">udev 規則</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#u2d2">U2D2（兩台皆需設定）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#esp32-kid">ESP32（僅 KID）</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#bashrc">~/.bashrc 設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#git-sync-sh">git_sync.sh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#github">GitHub 初始化</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ssh">前置步驟：SSH 金鑰設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#repo-github">情況一：全新 repo（GitHub 上還沒有）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#repo-github-clone">情況二：已有 repo（換機器人，直接從 GitHub clone）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sphinx_setup.html">Sphinx 文件建置</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">版本資訊:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Version.html">版本</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TKU ICLAB ROS2 API</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">機器人命令設定</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/robot_setup.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>機器人命令設定<a class="headerlink" href="#id1" title="連結到這個標頭"></a></h1>
+<section id="udev">
+<h2>udev 規則<a class="headerlink" href="#udev" title="連結到這個標頭"></a></h2>
+<p>設定 udev 規則可讓裝置在每次連接時都使用固定的設備名稱。</p>
+<section id="u2d2">
+<h3>U2D2（兩台皆需設定）<a class="headerlink" href="#u2d2" title="連結到這個標頭"></a></h3>
+<p>U2D2 是 Dynamixel 馬達的 USB 轉接器，兩台機器人各有 3 顆，需依序號綁定固定名稱。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/udev/rules.d/99-u2d2.rules
+</pre></div>
+</div>
+<p>填入以下內容（序號依各台機器人實際情況填寫）：</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>SUBSYSTEM==&quot;tty&quot;, ATTRS{serial}==&quot;FTA2U1JF&quot;, SYMLINK+=&quot;U2D2_P1&quot;, GROUP=&quot;dialout&quot;, MODE=&quot;0660&quot;, RUN+=&quot;/bin/sh -c &#39;echo 1 &gt; /sys/bus/usb-serial/devices/%k/latency_timer&#39;&quot;
+SUBSYSTEM==&quot;tty&quot;, ATTRS{serial}==&quot;FT3FSJEP&quot;, SYMLINK+=&quot;U2D2_P2&quot;, GROUP=&quot;dialout&quot;, MODE=&quot;0660&quot;, RUN+=&quot;/bin/sh -c &#39;echo 1 &gt; /sys/bus/usb-serial/devices/%k/latency_timer&#39;&quot;
+SUBSYSTEM==&quot;tty&quot;, ATTRS{serial}==&quot;FT45B9HW&quot;, SYMLINK+=&quot;U2D2_P3&quot;, GROUP=&quot;dialout&quot;, MODE=&quot;0660&quot;, RUN+=&quot;/bin/sh -c &#39;echo 1 &gt; /sys/bus/usb-serial/devices/%k/latency_timer&#39;&quot;
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>SUBSYSTEM==&quot;tty&quot;, ATTRS{serial}==&quot;&lt;ADULT_U2D2_SERIAL_1&gt;&quot;, SYMLINK+=&quot;U2D2_P1&quot;, GROUP=&quot;dialout&quot;, MODE=&quot;0660&quot;, RUN+=&quot;/bin/sh -c &#39;echo 1 &gt; /sys/bus/usb-serial/devices/%k/latency_timer&#39;&quot;
+SUBSYSTEM==&quot;tty&quot;, ATTRS{serial}==&quot;&lt;ADULT_U2D2_SERIAL_2&gt;&quot;, SYMLINK+=&quot;U2D2_P2&quot;, GROUP=&quot;dialout&quot;, MODE=&quot;0660&quot;, RUN+=&quot;/bin/sh -c &#39;echo 1 &gt; /sys/bus/usb-serial/devices/%k/latency_timer&#39;&quot;
+SUBSYSTEM==&quot;tty&quot;, ATTRS{serial}==&quot;&lt;ADULT_U2D2_SERIAL_3&gt;&quot;, SYMLINK+=&quot;U2D2_P3&quot;, GROUP=&quot;dialout&quot;, MODE=&quot;0660&quot;, RUN+=&quot;/bin/sh -c &#39;echo 1 &gt; /sys/bus/usb-serial/devices/%k/latency_timer&#39;&quot;
+</pre></div>
+</div>
+</div></div>
+<p>查詢 U2D2 序號（接上後執行）：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>udevadm<span class="w"> </span>info<span class="w"> </span>-a<span class="w"> </span>-n<span class="w"> </span>/dev/ttyUSB0<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>serial
+udevadm<span class="w"> </span>info<span class="w"> </span>-a<span class="w"> </span>-n<span class="w"> </span>/dev/ttyUSB1<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>serial
+udevadm<span class="w"> </span>info<span class="w"> </span>-a<span class="w"> </span>-n<span class="w"> </span>/dev/ttyUSB2<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>serial
+</pre></div>
+</div>
+</section>
+<section id="esp32-kid">
+<h3>ESP32（僅 KID）<a class="headerlink" href="#esp32-kid" title="連結到這個標頭"></a></h3>
+<p>KID 使用 ESP32 作為 IMU 與 DIO 的通訊介面，掛載為 <code class="docutils literal notranslate"><span class="pre">/dev/ttyACM0</span></code>，需設定存取權限。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/udev/rules.d/99-ttyacm.rules
+</pre></div>
+</div>
+<p>填入以下內容：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>KERNEL==&quot;ttyACM0&quot;, MODE=&quot;0666&quot;
+</pre></div>
+</div>
+<p>套用規則（設定完所有規則後執行一次即可）：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>udevadm<span class="w"> </span>control<span class="w"> </span>--reload-rules<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>udevadm<span class="w"> </span>trigger
+</pre></div>
+</div>
+</section>
+</section>
+<section id="bashrc">
+<h2>~/.bashrc 設定<a class="headerlink" href="#bashrc" title="連結到這個標頭"></a></h2>
+<p>在 <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> 末尾加入以下自定義設定：</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-1-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-1-1-0" name="1-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-1-1-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-1" name="1-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-1-1-0" class="sphinx-tabs-panel" id="panel-1-1-0" name="1-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+
+<span class="c1"># ROS 2 環境</span>
+<span class="nb">source</span><span class="w"> </span>/opt/ros/humble/setup.bash
+
+<span class="c1"># 自動補完</span>
+<span class="nb">source</span><span class="w"> </span>/usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
+
+<span class="c1"># ROS Domain</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DOMAIN_ID</span><span class="o">=</span><span class="m">1</span>
+
+<span class="c1">#限定接線設備連接</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">ROS_LOCALHOST_ONLY</span><span class="o">=</span><span class="m">1</span>
+
+<span class="c1"># 自定義快捷鍵</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">cb</span><span class="o">=</span><span class="s1">&#39;colcon build --symlink-install &amp;&amp; source install/setup.bash&#39;</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">cbp</span><span class="o">=</span><span class="s1">&#39;colcon build --symlink-install --packages-select strategy &amp;&amp; source install/setup.bash&#39;</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">gitpush</span><span class="o">=</span><span class="s1">&#39;bash ~/ros2_kid/git_sync.sh&#39;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-1-1-1" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-1" name="1-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+
+<span class="c1"># ROS 2 環境</span>
+<span class="nb">source</span><span class="w"> </span>/opt/ros/humble/setup.bash
+
+<span class="c1"># 自動補完</span>
+<span class="nb">source</span><span class="w"> </span>/usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
+
+<span class="c1"># ROS Domain</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DOMAIN_ID</span><span class="o">=</span><span class="m">1</span>
+
+<span class="c1">#限定接線設備連接</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">ROS_LOCALHOST_ONLY</span><span class="o">=</span><span class="m">1</span>
+
+<span class="c1"># 自定義快捷鍵</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">cb</span><span class="o">=</span><span class="s1">&#39;colcon build --symlink-install &amp;&amp; source install/setup.bash&#39;</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">cbp</span><span class="o">=</span><span class="s1">&#39;colcon build --symlink-install --packages-select strategy &amp;&amp; source install/setup.bash&#39;</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">gitpush</span><span class="o">=</span><span class="s1">&#39;bash ~/ros2_adult/git_sync.sh&#39;</span>
+</pre></div>
+</div>
+</div></div>
+<p>套用設定：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>~/.bashrc
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p><code class="docutils literal notranslate"><span class="pre">cb</span></code> 與 <code class="docutils literal notranslate"><span class="pre">cbp</span></code> 會在當前目錄下執行，使用前請先 <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~/ros2_kid</span></code>（或 <code class="docutils literal notranslate"><span class="pre">~/ros2_adult</span></code>）。</p>
+<p>若有安裝 Miniconda，conda 初始化區段會由 <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">init</span> <span class="pre">bash</span></code> 自動加入 <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code>。</p>
+</div>
+</section>
+<section id="git-sync-sh">
+<h2>git_sync.sh<a class="headerlink" href="#git-sync-sh" title="連結到這個標頭"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">git_sync.sh</span></code> 放在專案根目錄，支援以暱稱或路徑指定要上傳的範圍，預設上傳全部。</p>
+<p>用法：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gitpush<span class="w">           </span><span class="c1"># 上傳全部</span>
+gitpush<span class="w"> </span>strategy<span class="w">  </span><span class="c1"># 只上傳 strategy package</span>
+gitpush<span class="w"> </span>obs<span class="w">       </span><span class="c1"># 只上傳 obs 策略</span>
+</pre></div>
+</div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-2-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-2-2-0" name="2-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-2-2-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-2-2-1" name="2-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-2-2-0" class="sphinx-tabs-panel" id="panel-2-2-0" name="2-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
+
+<span class="c1"># --- 1. 設定身分 ---</span>
+git<span class="w"> </span>config<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;tkuiclabwhite&quot;</span>
+git<span class="w"> </span>config<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;tkuiclabwhite@gmail.com&quot;</span>
+
+<span class="c1"># --- 2. 定義暱稱映射表 (在這邊增加你的縮寫) ---</span>
+<span class="c1"># 格式為： [暱稱]=&quot;實際完整路徑&quot;</span>
+<span class="nb">declare</span><span class="w"> </span>-A<span class="w"> </span>NICKNAMES
+<span class="nv">NICKNAMES</span><span class="o">=(</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;ar&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/ar&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;bb&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/bb&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;bm&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/bm&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;lc&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/lc&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;mar&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/mar&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;obs&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/obs&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;sp&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/sp&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;sr&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/sr&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;wl&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/wl&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;us&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/us&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;strategy&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;image&quot;</span><span class="o">]=</span><span class="s2">&quot;src/imageprocess&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;motion&quot;</span><span class="o">]=</span><span class="s2">&quot;src/motionpackage&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;motor&quot;</span><span class="o">]=</span><span class="s2">&quot;src/motor_control&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;msgs&quot;</span><span class="o">]=</span><span class="s2">&quot;src/tku_msgs&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;usb_cam&quot;</span><span class="o">]=</span><span class="s2">&quot;src/usb_cam&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;walking&quot;</span><span class="o">]=</span><span class="s2">&quot;src/walking&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;all&quot;</span><span class="o">]=</span><span class="s2">&quot;.&quot;</span>
+<span class="o">)</span>
+
+<span class="c1"># --- 3. 處理輸入參數 ---</span>
+<span class="nv">INPUT</span><span class="o">=</span><span class="nv">$1</span>
+
+<span class="c1"># 如果沒輸入參數，預設上傳全部 (.)</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$INPUT</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nv">TARGET</span><span class="o">=</span><span class="s2">&quot;.&quot;</span>
+<span class="c1"># 如果輸入的字在暱稱表裡有對應</span>
+<span class="k">elif</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NICKNAMES</span><span class="p">[</span><span class="nv">$INPUT</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nv">TARGET</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NICKNAMES</span><span class="p">[</span><span class="nv">$INPUT</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="c1"># 如果輸入的不是暱稱，就當作它是原始路徑</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="nv">TARGET</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$INPUT</span><span class="s2">&quot;</span>
+<span class="k">fi</span>
+
+<span class="c1"># --- 4. 執行 Git 流程 ---</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;:open_file_folder: 目標路徑：</span><span class="nv">$TARGET</span><span class="s2">&quot;</span>
+
+<span class="c1"># 檢查資料夾是否存在，防止打錯字</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>!<span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$TARGET</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$TARGET</span><span class="s2">&quot;</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="s2">&quot;.&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;:x: 錯誤：找不到路徑 &#39;</span><span class="nv">$TARGET</span><span class="s2">&#39;，請檢查暱稱或路徑是否正確。&quot;</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fi</span>
+
+git<span class="w"> </span>add<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$TARGET</span><span class="s2">&quot;</span>
+
+<span class="c1"># 檢查是否有變動</span>
+<span class="k">if</span><span class="w"> </span>git<span class="w"> </span>diff-index<span class="w"> </span>--quiet<span class="w"> </span>HEAD<span class="w"> </span>--<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;:information_source:  沒有偵測到變動，取消上傳。&quot;</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
+<span class="k">fi</span>
+
+<span class="nv">current_date</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+<span class="s2">&quot;%Y-%m-%d %H:%M&quot;</span><span class="k">)</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Update (</span><span class="nv">$TARGET</span><span class="s2">): </span><span class="nv">$current_date</span><span class="s2">&quot;</span>
+
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;-------------------------------&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;上傳成功！[push package: </span><span class="si">${</span><span class="nv">INPUT</span><span class="k">:-</span><span class="nv">all</span><span class="si">}</span><span class="s2">] -&gt; </span><span class="nv">$TARGET</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;上傳成功！日期: </span><span class="nv">$current_date</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;-------------------------------&quot;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-2-2-1" class="sphinx-tabs-panel" hidden="true" id="panel-2-2-1" name="2-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
+
+<span class="c1"># --- 1. 設定身分 ---</span>
+git<span class="w"> </span>config<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;tkuiclabwhite&quot;</span>
+git<span class="w"> </span>config<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;tkuiclabwhite@gmail.com&quot;</span>
+
+<span class="c1"># --- 2. 定義暱稱映射表 (在這邊增加你的縮寫) ---</span>
+<span class="c1"># 格式為： [暱稱]=&quot;實際完整路徑&quot;</span>
+<span class="nb">declare</span><span class="w"> </span>-A<span class="w"> </span>NICKNAMES
+<span class="nv">NICKNAMES</span><span class="o">=(</span>
+<span class="w">   </span><span class="o">[</span><span class="s2">&quot;ar&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/ar&quot;</span>
+<span class="w">   </span><span class="o">[</span><span class="s2">&quot;bb&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/bb&quot;</span>
+<span class="w">   </span><span class="o">[</span><span class="s2">&quot;mar&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/mar&quot;</span>
+<span class="w">   </span><span class="o">[</span><span class="s2">&quot;obs&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/obs&quot;</span>
+<span class="w">   </span><span class="o">[</span><span class="s2">&quot;pk&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/pk&quot;</span>
+<span class="w">   </span><span class="o">[</span><span class="s2">&quot;rc&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/rc&quot;</span>
+<span class="w">   </span><span class="o">[</span><span class="s2">&quot;sp&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/sp&quot;</span>
+<span class="w">   </span><span class="o">[</span><span class="s2">&quot;sr&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/sr&quot;</span>
+<span class="w">   </span><span class="o">[</span><span class="s2">&quot;wl&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/wl&quot;</span>
+<span class="w">   </span><span class="o">[</span><span class="s2">&quot;strategy&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy&quot;</span>
+<span class="w">   </span><span class="o">[</span><span class="s2">&quot;image&quot;</span><span class="o">]=</span><span class="s2">&quot;src/imageprocess&quot;</span>
+<span class="w">   </span><span class="o">[</span><span class="s2">&quot;motion&quot;</span><span class="o">]=</span><span class="s2">&quot;src/motionpackage&quot;</span>
+<span class="w">   </span><span class="o">[</span><span class="s2">&quot;motor&quot;</span><span class="o">]=</span><span class="s2">&quot;src/motor_control&quot;</span>
+<span class="w">   </span><span class="o">[</span><span class="s2">&quot;msgs&quot;</span><span class="o">]=</span><span class="s2">&quot;src/tku_msgs&quot;</span>
+<span class="w">   </span><span class="o">[</span><span class="s2">&quot;usb_cam&quot;</span><span class="o">]=</span><span class="s2">&quot;src/usb_cam&quot;</span>
+<span class="w">   </span><span class="o">[</span><span class="s2">&quot;walking&quot;</span><span class="o">]=</span><span class="s2">&quot;src/walking&quot;</span>
+<span class="w">   </span><span class="o">[</span><span class="s2">&quot;all&quot;</span><span class="o">]=</span><span class="s2">&quot;.&quot;</span>
+<span class="o">)</span>
+
+<span class="c1"># --- 3. 處理輸入參數 ---</span>
+<span class="nv">INPUT</span><span class="o">=</span><span class="nv">$1</span>
+
+<span class="c1"># 如果沒輸入參數，預設上傳全部 (.)</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$INPUT</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nv">TARGET</span><span class="o">=</span><span class="s2">&quot;.&quot;</span>
+<span class="c1"># 如果輸入的字在暱稱表裡有對應</span>
+<span class="k">elif</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NICKNAMES</span><span class="p">[</span><span class="nv">$INPUT</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nv">TARGET</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NICKNAMES</span><span class="p">[</span><span class="nv">$INPUT</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="c1"># 如果輸入的不是暱稱，就當作它是原始路徑</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="nv">TARGET</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$INPUT</span><span class="s2">&quot;</span>
+<span class="k">fi</span>
+
+<span class="c1"># --- 4. 執行 Git 流程 ---</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;:open_file_folder: 目標路徑：</span><span class="nv">$TARGET</span><span class="s2">&quot;</span>
+
+<span class="c1"># 檢查資料夾是否存在，防止打錯字</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>!<span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$TARGET</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$TARGET</span><span class="s2">&quot;</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="s2">&quot;.&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;:x: 錯誤：找不到路徑 &#39;</span><span class="nv">$TARGET</span><span class="s2">&#39;，請檢查暱稱或路徑是否正確。&quot;</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fi</span>
+
+git<span class="w"> </span>add<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$TARGET</span><span class="s2">&quot;</span>
+
+<span class="c1"># 檢查是否有變動</span>
+<span class="k">if</span><span class="w"> </span>git<span class="w"> </span>diff-index<span class="w"> </span>--quiet<span class="w"> </span>HEAD<span class="w"> </span>--<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;:information_source:  沒有偵測到變動，取消上傳。&quot;</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
+<span class="k">fi</span>
+
+<span class="nv">current_date</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+<span class="s2">&quot;%Y-%m-%d %H:%M&quot;</span><span class="k">)</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Update (</span><span class="nv">$TARGET</span><span class="s2">): </span><span class="nv">$current_date</span><span class="s2">&quot;</span>
+
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;-------------------------------&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;上傳成功！[push package: </span><span class="si">${</span><span class="nv">INPUT</span><span class="k">:-</span><span class="nv">all</span><span class="si">}</span><span class="s2">] -&gt; </span><span class="nv">$TARGET</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;上傳成功！日期: </span><span class="nv">$current_date</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;-------------------------------&quot;</span>
+</pre></div>
+</div>
+</div></div>
+<p>賦予執行權限：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>~/ros2_kid/git_sync.sh<span class="w">    </span><span class="c1"># KID</span>
+chmod<span class="w"> </span>+x<span class="w"> </span>~/ros2_adult/git_sync.sh<span class="w">  </span><span class="c1"># ADULT</span>
+</pre></div>
+</div>
+</section>
+<section id="github">
+<h2>GitHub 初始化<a class="headerlink" href="#github" title="連結到這個標頭"></a></h2>
+<p>首次在機器人上設定 Git 與 GitHub 連線。SSH 金鑰設定是兩種情況的共用前置步驟。</p>
+<section id="ssh">
+<h3>前置步驟：SSH 金鑰設定<a class="headerlink" href="#ssh" title="連結到這個標頭"></a></h3>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-3-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-3-3-0" name="3-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-3-3-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-3-3-1" name="3-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-3-3-0" class="sphinx-tabs-panel" id="panel-3-3-0" name="3-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.ssh
+ssh-keygen<span class="w"> </span>-t<span class="w"> </span>ed25519<span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;tkuiclabwhite@gmail.com&quot;</span>
+<span class="c1"># Enter file in which to save the key: /home/iclab/.ssh/ros2_kid</span>
+<span class="c1"># Enter passphrase: （直接按 Enter，不設密碼）</span>
+
+ls<span class="w"> </span>-l<span class="w"> </span>~/.ssh/ros2_kid*
+cat<span class="w"> </span>~/.ssh/ros2_kid.pub
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-3-3-1" class="sphinx-tabs-panel" hidden="true" id="panel-3-3-1" name="3-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.ssh
+ssh-keygen<span class="w"> </span>-t<span class="w"> </span>ed25519<span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;tkuiclabwhite@gmail.com&quot;</span>
+<span class="c1"># Enter file in which to save the key: /home/iclab/.ssh/ros2_adult</span>
+<span class="c1"># Enter passphrase: （直接按 Enter，不設密碼）</span>
+
+ls<span class="w"> </span>-l<span class="w"> </span>~/.ssh/ros2_adult*
+cat<span class="w"> </span>~/.ssh/ros2_adult.pub
+</pre></div>
+</div>
+</div></div>
+<p>將 <code class="docutils literal notranslate"><span class="pre">cat</span></code> 輸出的公鑰完整複製，前往 <strong>GitHub → Settings → SSH and GPG keys → New SSH key</strong>，貼上後儲存。</p>
+<p>設定 <code class="docutils literal notranslate"><span class="pre">~/.ssh/config</span></code>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nano<span class="w"> </span>~/.ssh/config
+</pre></div>
+</div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-4-4-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-4-4-0" name="4-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-4-4-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-4-4-1" name="4-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-4-4-0" class="sphinx-tabs-panel" id="panel-4-4-0" name="4-0" role="tabpanel" tabindex="0"><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/ros2_kid
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-4-4-1" class="sphinx-tabs-panel" hidden="true" id="panel-4-4-1" name="4-1" role="tabpanel" tabindex="0"><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/ros2_adult
+</pre></div>
+</div>
+</div></div>
+<p>測試連線（出現 <code class="docutils literal notranslate"><span class="pre">Hi</span> <span class="pre">tkuiclabwhite!</span></code> 即成功）：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>-T<span class="w"> </span>git@github.com
+</pre></div>
+</div>
+</section>
+<section id="repo-github">
+<h3>情況一：全新 repo（GitHub 上還沒有）<a class="headerlink" href="#repo-github" title="連結到這個標頭"></a></h3>
+<p>先在 <strong>GitHub 網站建立空白倉庫</strong> （不要勾選 Initialize this repository with a README）。</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-5-5-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-5-5-0" name="5-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-5-5-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-5-5-1" name="5-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-5-5-0" class="sphinx-tabs-panel" id="panel-5-5-0" name="5-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/ros2_kid
+git<span class="w"> </span>init
+git<span class="w"> </span>config<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;tkuiclabwhite&quot;</span>
+git<span class="w"> </span>config<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;tkuiclabwhite@gmail.com&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;build/&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.gitignore
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;install/&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.gitignore
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;log/&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.gitignore
+git<span class="w"> </span>status
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Initial commit: first push&quot;</span>
+git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>git@github.com:tkuiclabwhite/ros2_kid.git
+git<span class="w"> </span>branch<span class="w"> </span>-M<span class="w"> </span>main
+git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>main
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-5-5-1" class="sphinx-tabs-panel" hidden="true" id="panel-5-5-1" name="5-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/ros2_adult
+git<span class="w"> </span>init
+git<span class="w"> </span>config<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;tkuiclabwhite&quot;</span>
+git<span class="w"> </span>config<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;tkuiclabwhite@gmail.com&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;build/&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.gitignore
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;install/&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.gitignore
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;log/&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.gitignore
+git<span class="w"> </span>status
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Initial commit: first push&quot;</span>
+git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>git@github.com:tkuiclabwhite/ros2_adult.git
+git<span class="w"> </span>branch<span class="w"> </span>-M<span class="w"> </span>main
+git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>main
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="repo-github-clone">
+<h3>情況二：已有 repo（換機器人，直接從 GitHub clone）<a class="headerlink" href="#repo-github-clone" title="連結到這個標頭"></a></h3>
+<p>SSH 金鑰設定完成後，直接 clone 即可，不需要 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">init</span></code>。</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-6-6-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-6-6-0" name="6-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-6-6-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-6-6-1" name="6-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-6-6-0" class="sphinx-tabs-panel" id="panel-6-6-0" name="6-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~
+git<span class="w"> </span>clone<span class="w"> </span>git@github.com:tkuiclabwhite/ros2_kid.git
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-6-6-1" class="sphinx-tabs-panel" hidden="true" id="panel-6-6-1" name="6-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~
+git<span class="w"> </span>clone<span class="w"> </span>git@github.com:tkuiclabwhite/ros2_adult.git
+</pre></div>
+</div>
+</div></div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="package_install.html" class="btn btn-neutral float-left" title="套件安裝" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sphinx_setup.html" class="btn btn-neutral float-right" title="Sphinx 文件建置" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Yang,Shu-kai.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

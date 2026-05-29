@@ -1,0 +1,1533 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-TW" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>網頁操作介面教學 &mdash; TKU ICLAB ROS2 API 2026.05.26 說明文件</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=a5c4661c" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=a24187a8"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=cbf116e0"></script>
+      <script src="_static/tabs.js?v=3030b3cb"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜尋" href="search.html" />
+    <link rel="next" title="系統架構總覽" href="SystemArchitecture.html" />
+    <link rel="prev" title="未實驗分類(Other)" href="Other.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            TKU ICLAB ROS2 API
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API 分類目錄:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Command.html">Terminal 指令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ros2.html">ROS2 內建輔助功能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="States.html">變數與狀態 (Variables &amp; States)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Walking.html">步態控制 (Walking Control)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Motion.html">馬達控制 (Motion Control)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VisionSensors.html">視覺與感測器數據 (Vision &amp; Sensors)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="System.html">系統進程與狀態 (System &amp; Process)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Other.html">未實驗分類(Other)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">操作介面:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">網頁操作介面教學</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#shared-elements">共用介面元素</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#strategy">策略狀態顯示</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#address">連線地址（Address）</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#imageprocessinterface">ImageProcessInterface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#image-strategy-select">策略選擇</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#saveall">SaveAll</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#image-strategy-toggle">策略指撥開關</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#image-camera">原始影像</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hsv">HSV 色模顯示</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#image-head-torque">頭部馬達扭力</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#image-save-camera">儲存相機參數</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#image-head-motor">頭部馬達控制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#image-camera-settings">相機參數設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-table">Build Table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#color-select">Color Select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reset-close">Reset / Close</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#image-hsv">色模參數設定（HSV）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#savehsv">SaveHsv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#buildhsv">BuildHsv</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#motioncontrolinterface">MotionControlInterface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#history-undo-redo">History 面板與 Undo/Redo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#save-read">檔案操作（Save / Read）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#save-stand-read-stand-locked">Save Stand / Read Stand / Locked</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reset">Reset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#send-sector">Send / Sector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#execute-stand">execute / stand</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiple">Multiple</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#merge">Merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-delete-reverse-copy">表格列操作（Add / Delete / Reverse / Copy）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#checksum">CheckSum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#label-stand-label">label / stand_label</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#motion-data-tables">動作資料表格（分頁）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#motion-id-adjust">ID 上下調整</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#motion-torque-all">總扭力開關</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#motion-robot-visual">馬達圖示控制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#x-series-pro-series">X_Series / Pro_Series 換算面板</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#motion-part-torque">各部位扭力開關</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#motion-single-torque">單顆扭力控制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#motion-motor-detail">即時馬達刻度顯示</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#motion-create-id">創建新 ID（複製全部馬達刻度）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#motion-copy-motor">複製指定馬達至指定 ID</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#walkinginterface">WalkingInterface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#imu">IMU 顯示</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#walking-mode">Walking Mode 調整</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#walking-step-size">步長調整</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#load">Load</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#generate">Generate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#walking-direction">方向控制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#walking-params">步態參數</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#save">Save</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#send">Send</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#minidrc">miniDRC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#walking-setup">步態調整面板按鈕（Walking Setup）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#camera-setup">相機調整面板按鈕（Camera Setup）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#minidrc-panel">切換面板（三種狀態）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#motion">執行指定 Motion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id25">其他界面</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">系統架構:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="SystemArchitecture.html">系統架構總覽</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Packages.html">各 Package 詳細說明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Development.html">新策略開發</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Development.html#id3">網頁操作介面</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Development.html#id4">設定檔位置</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">安裝與設定:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ros2_install.html">ROS2 安裝（Humble）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="package_install.html">套件安裝</a></li>
+<li class="toctree-l1"><a class="reference internal" href="robot_setup.html">機器人命令設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sphinx_setup.html">Sphinx 文件建置</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">版本資訊:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Version.html">版本</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TKU ICLAB ROS2 API</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">網頁操作介面教學</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/WebInterfaces.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>網頁操作介面教學<a class="headerlink" href="#id1" title="連結到這個標頭"></a></h1>
+<p>各節的 <strong>▶ 開啟 DEMO</strong> 按鈕開啟模擬版，不需連接機器人即可互動試用。</p>
+<p>點選圖片中虛線匡內可直接跳轉至該功能說明。</p>
+<hr class="docutils" />
+<section id="shared-elements">
+<span id="id2"></span><h2>共用介面元素<a class="headerlink" href="#shared-elements" title="連結到這個標頭"></a></h2>
+<p>各介面頁面共用以下控制項，操作方式一致。</p>
+<section id="strategy">
+<span id="id3"></span><h3>策略狀態顯示<a class="headerlink" href="#strategy" title="連結到這個標頭"></a></h3>
+<p>左上角的 Strategy 框顯示目前載入的策略名稱，訂閱自 <code class="docutils literal notranslate"><span class="pre">/locationBack</span></code> 話題，連線後自動更新。</p>
+<p>正常狀態顯示策略簡稱（例如 <code class="docutils literal notranslate"><span class="pre">us</span></code>、<code class="docutils literal notranslate"><span class="pre">ar</span></code>、<code class="docutils literal notranslate"><span class="pre">lc</span></code>）；未連線時顯示 <code class="docutils literal notranslate"><span class="pre">---</span></code>。</p>
+</section>
+<section id="address">
+<span id="shared-address"></span><h3>連線地址（Address）<a class="headerlink" href="#address" title="連結到這個標頭"></a></h3>
+<p>下拉選單選擇機器人 IP，點擊 <strong>Enter Address</strong> 後重新建立 WebSocket 連線（<code class="docutils literal notranslate"><span class="pre">ws://{IP}:9090</span></code>）。</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><p>預設 IP：<code class="docutils literal notranslate"><span class="pre">192.168.1.58</span></code>（小白）/ <code class="docutils literal notranslate"><span class="pre">192.168.1.59</span></code>（小黑）</p>
+</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><p>預設 IP：<code class="docutils literal notranslate"><span class="pre">172.17.121.10</span></code></p>
+</div></div>
+<p>連線成功後頁面顯示 <strong>Connected</strong>（綠色），背景切換為正常背景圖；連線中斷則切換為紅色背景。</p>
+<hr class="docutils" />
+</section>
+</section>
+<section id="imageprocessinterface">
+<span id="interface-image"></span><h2>ImageProcessInterface<a class="headerlink" href="#imageprocessinterface" title="連結到這個標頭"></a></h2>
+<a href="_static/ImageProcess_demo.html" target="_blank"
+   style="background:#03e9f4;color:#000;padding:5px 14px;border-radius:4px;
+          text-decoration:none;font-weight:bold;font-family:monospace;">
+  &#9654; 開啟 DEMO
+</a><div class="iface-map-wrap">
+  <img src="_static/screenshots/ImageProcess.png" alt="ImageProcess 介面截圖">
+
+ <!-- Address(各網頁共用) -->
+ <a class="area-overlay" href="#shared-address"
+   style="top:18.5%;left:36%;width:12.75%;height:4.25%;color:#ffcc00"></a>
+
+ <!-- 策略選擇 -->
+ <a class="area-overlay" href="#image-strategy-select"
+   style="top:18.5%;left:48.75%;width:10.75%;height:4.25%;color:#ffcc00"></a>
+
+ <!-- SaveAll -->
+ <a class="area-overlay" href="#image-save-all"
+   style="top:18.5%;left:59.5%;width:5%;height:4.25%;color:#ffcc00"></a>
+
+ <!-- 策略指撥開關 -->
+ <a class="area-overlay" href="#image-strategy-toggle"
+   style="top:22.5%;left:46%;width:8.5%;height:4.25%;color:#ffcc00"></a>
+
+ <!-- 原始影像 -->
+ <a class="area-overlay" href="#image-camera"
+   style="top:30%;left:27.5%;width:19%;height:24.25%;color:#ffcc00"></a>
+
+ <!-- HSV色模 -->
+ <a class="area-overlay" href="#image-model-view"
+   style="top:30%;left:53.8%;width:19%;height:24.25%;color:#ffcc00"></a>
+
+ <!-- 頭部馬扭力 -->
+ <a class="area-overlay" href="#image-head-torque"
+   style="top:57%;left:27.5%;width:12.5%;height:3.5%;color:#ffcc00"></a>
+
+ <!-- 儲存相機參數 -->
+ <a class="area-overlay" href="#image-save-camera"
+   style="top:57%;left:40.5%;width:5.75%;height:3.5%;color:#ffcc00"></a>
+
+ <!-- 頭部馬達控制 -->
+ <a class="area-overlay" href="#image-head-motor"
+   style="top:60.25%;left:27.5%;width:19%;height:14%;color:#ffcc00"></a>
+
+ <!-- 相機參數設定 -->
+ <a class="area-overlay" href="#image-camera-settings"
+   style="top:73.75%;left:27.5%;width:19%;height:23.5%;color:#ffcc00"></a>
+
+ <!-- Build table -->
+ <a class="area-overlay" href="#image-build-table"
+   style="top:57.25%;left:53.8%;width:19%;height:3.5%;color:#ffcc00"></a>
+
+ <!-- Color Select -->
+ <a class="area-overlay" href="#image-color-labels"
+   style="top:60.5%;left:53.8%;width:10.25%;height:3.5%;color:#ffcc00"></a>
+
+ <!-- Reset/Close -->
+ <a class="area-overlay" href="#image-reset-close"
+   style="top:60.5%;left:66%;width:6.75%;height:3.5%;color:#ffcc00"></a>
+
+ <!-- 色模參數設定 -->
+ <a class="area-overlay" href="#image-hsv"
+   style="top:63.75%;left:53.8%;width:19%;height:20.5%;color:#ffcc00"></a>
+
+ <!-- SaveHsv -->
+ <a class="area-overlay" href="#image-save-hsv"
+   style="top:84%;left:53.8%;width:9.5%;height:4%;color:#ffcc00"></a>
+
+ <!-- BuildHsv -->
+ <a class="area-overlay" href="#image-build-hsv"
+   style="top:84%;left:63.3%;width:9.5%;height:4%;color:#ffcc00"></a>
+
+
+</div><section id="image-strategy-select">
+<span id="id4"></span><h3>策略選擇<a class="headerlink" href="#image-strategy-select" title="連結到這個標頭"></a></h3>
+<p>下拉選單，選擇目前要使用的策略模組。選定後點擊 <code class="docutils literal notranslate"><span class="pre">location_load</span></code> 按鈕，載入該策略所有參數。</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-1-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-1-1-0" name="1-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-1-1-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-1" name="1-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-1-1-0" class="sphinx-tabs-panel" id="panel-1-1-0" name="1-0" role="tabpanel" tabindex="0"><p><code class="docutils literal notranslate"><span class="pre">us</span></code>（足球）、<code class="docutils literal notranslate"><span class="pre">ar</span></code>（射箭）、<code class="docutils literal notranslate"><span class="pre">bb</span></code>（籃球）、<code class="docutils literal notranslate"><span class="pre">sp</span></code>（競走）、<code class="docutils literal notranslate"><span class="pre">obs</span></code>（避障）、<code class="docutils literal notranslate"><span class="pre">sr</span></code>（斯巴達）、<code class="docutils literal notranslate"><span class="pre">wl</span></code>（舉重）、<code class="docutils literal notranslate"><span class="pre">mar</span></code>（馬拉松）、<code class="docutils literal notranslate"><span class="pre">bm</span></code>（平衡木）、<code class="docutils literal notranslate"><span class="pre">lc</span></code>（上下板）</p>
+</div><div aria-labelledby="tab-1-1-1" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-1" name="1-1" role="tabpanel" tabindex="0"><p><code class="docutils literal notranslate"><span class="pre">ar</span></code>（射箭）、<code class="docutils literal notranslate"><span class="pre">bb</span></code>（籃球）、<code class="docutils literal notranslate"><span class="pre">sp</span></code>（競走）、<code class="docutils literal notranslate"><span class="pre">obs</span></code>（避障）、<code class="docutils literal notranslate"><span class="pre">sr</span></code>（斯巴達）、<code class="docutils literal notranslate"><span class="pre">wl</span></code>（舉重）、<code class="docutils literal notranslate"><span class="pre">mar</span></code>（馬拉松）、<code class="docutils literal notranslate"><span class="pre">pk</span></code>（罰踢）、<code class="docutils literal notranslate"><span class="pre">rc</span></code>（攀岩）</p>
+</div></div>
+</section>
+<section id="saveall">
+<span id="image-save-all"></span><h3>SaveAll<a class="headerlink" href="#saveall" title="連結到這個標頭"></a></h3>
+<p>一鍵儲存所有設定的快捷按鈕，等同於同時執行 <a class="reference internal" href="#image-save-camera"><span class="std std-ref">儲存相機參數</span></a> 與 <a class="reference internal" href="#image-save-hsv"><span class="std std-ref">SaveHsv</span></a>。
+調整完相機參數與 HSV 色模後，按此確保所有變更都寫入檔案。</p>
+</section>
+<section id="image-strategy-toggle">
+<span id="id5"></span><h3>策略指撥開關<a class="headerlink" href="#image-strategy-toggle" title="連結到這個標頭"></a></h3>
+<p>模擬實體 DIO 撥動開關，控制 API.py 內的 <code class="docutils literal notranslate"><span class="pre">is_start</span></code> 旗標。</p>
+<ul class="simple">
+<li><p><strong>開（Start）</strong>：發送 <code class="docutils literal notranslate"><span class="pre">true</span></code></p></li>
+<li><p><strong>關（Stop）</strong>：發送 <code class="docutils literal notranslate"><span class="pre">false</span></code></p></li>
+</ul>
+</section>
+<section id="image-camera">
+<span id="id6"></span><h3>原始影像<a class="headerlink" href="#image-camera" title="連結到這個標頭"></a></h3>
+<p>顯示相機的原始影像，畫面大小為320*240。</p>
+</section>
+<section id="hsv">
+<span id="image-model-view"></span><h3>HSV 色模顯示<a class="headerlink" href="#hsv" title="連結到這個標頭"></a></h3>
+<p>顯示經過 HSV 遮罩處理後的影像，畫面大小為320*240，顯示各顏色抓取HSV遮罩的結果。</p>
+<p>各顏色在 HSV 色模顯示畫面中對應的標示顏色（OpenCV BGR 轉換）：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>偵測目標</p></th>
+<th class="head"><p>Label ID</p></th>
+<th class="head"><p>畫面標示顏色</p></th>
+<th class="head"><p>BGR 值</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Black</p></td>
+<td><p>1</p></td>
+<td><p>洋紅（Magenta）</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[255,</span> <span class="pre">0,</span> <span class="pre">255]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Blue</p></td>
+<td><p>2</p></td>
+<td><p>紫色（Purple）</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[128,</span> <span class="pre">0,</span> <span class="pre">128]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Green</p></td>
+<td><p>3</p></td>
+<td><p>深紅（Dark Red）</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">0,</span> <span class="pre">128]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Orange</p></td>
+<td><p>4</p></td>
+<td><p>深藍（Dark Blue）</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[128,</span> <span class="pre">0,</span> <span class="pre">0]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Red</p></td>
+<td><p>5</p></td>
+<td><p>青色（Cyan）</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[255,</span> <span class="pre">255,</span> <span class="pre">0]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Yellow</p></td>
+<td><p>6</p></td>
+<td><p>暗青（Dark Teal）</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[128,</span> <span class="pre">128,</span> <span class="pre">0]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>White</p></td>
+<td><p>7</p></td>
+<td><p>黃色（Yellow）</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">255,</span> <span class="pre">255]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Others</p></td>
+<td><p>8</p></td>
+<td><p>粉紫（Violet）</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[255,</span> <span class="pre">0,</span> <span class="pre">128]</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="image-head-torque">
+<span id="id7"></span><h3>頭部馬達扭力<a class="headerlink" href="#image-head-torque" title="連結到這個標頭"></a></h3>
+<p>切換頭部馬達（水平/垂直軸）的扭力開關。</p>
+</section>
+<section id="image-save-camera">
+<span id="id8"></span><h3>儲存相機參數<a class="headerlink" href="#image-save-camera" title="連結到這個標頭"></a></h3>
+<p>將目前 <a class="reference internal" href="#image-camera-settings"><span class="std std-ref">相機參數設定</span></a> 的所有數值（亮度、對比、飽和度、白平衡、自動曝光、縮放），寫入設定檔(CameraSet.ini)以供下次啟動時自動載入。</p>
+</section>
+<section id="image-head-motor">
+<span id="id9"></span><h3>頭部馬達控制<a class="headerlink" href="#image-head-motor" title="連結到這個標頭"></a></h3>
+<p>滑桿控制頭部相機的水平（Horizontal）與垂直（Vertical）方向。最小值與最大值為走線物理限制，非馬達刻度極限。</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-2-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-2-2-0" name="2-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-2-2-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-2-2-1" name="2-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-2-2-0" class="sphinx-tabs-panel" id="panel-2-2-0" name="2-0" role="tabpanel" tabindex="0"><table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>參數</p></th>
+<th class="head"><p>說明</p></th>
+<th class="head"><p>預設值</p></th>
+<th class="head"><p>最小值</p></th>
+<th class="head"><p>最大值</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Horizontal Position</p></td>
+<td><p>水平刻度</p></td>
+<td><p>2048（中心）</p></td>
+<td><p>1024</p></td>
+<td><p>3096</p></td>
+</tr>
+<tr class="row-odd"><td><p>Horizontal Speed</p></td>
+<td><p>水平轉速</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>200</p></td>
+</tr>
+<tr class="row-even"><td><p>Vertical Position</p></td>
+<td><p>垂直刻度</p></td>
+<td><p>2048（中心）</p></td>
+<td><p>1023</p></td>
+<td><p>2548</p></td>
+</tr>
+<tr class="row-odd"><td><p>Vertical Speed</p></td>
+<td><p>垂直轉速</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>200</p></td>
+</tr>
+</tbody>
+</table>
+</div><div aria-labelledby="tab-2-2-1" class="sphinx-tabs-panel" hidden="true" id="panel-2-2-1" name="2-1" role="tabpanel" tabindex="0"><table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>參數</p></th>
+<th class="head"><p>說明</p></th>
+<th class="head"><p>預設值</p></th>
+<th class="head"><p>最小值</p></th>
+<th class="head"><p>最大值</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Horizontal Position</p></td>
+<td><p>水平刻度</p></td>
+<td><p>2048（中心）</p></td>
+<td><p>1024</p></td>
+<td><p>3096</p></td>
+</tr>
+<tr class="row-odd"><td><p>Horizontal Speed</p></td>
+<td><p>水平轉速</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>200</p></td>
+</tr>
+<tr class="row-even"><td><p>Vertical Position</p></td>
+<td><p>垂直刻度</p></td>
+<td><p>2048（中心）</p></td>
+<td><p>1023</p></td>
+<td><p>2548</p></td>
+</tr>
+<tr class="row-odd"><td><p>Vertical Speed</p></td>
+<td><p>垂直轉速</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>200</p></td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</section>
+<section id="image-camera-settings">
+<span id="id10"></span><h3>相機參數設定<a class="headerlink" href="#image-camera-settings" title="連結到這個標頭"></a></h3>
+<p>即時調整相機的影像擷取參數，調整後畫面立即更新：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>參數</p></th>
+<th class="head"><p>說明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">brightness</span></code></p></td>
+<td><p>亮度</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">contrast</span></code></p></td>
+<td><p>對比度</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">saturation</span></code></p></td>
+<td><p>飽和度</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">white_balance</span></code></p></td>
+<td><p>色溫（手動白平衡值）</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">auto_white_balance</span></code></p></td>
+<td><p>自動白平衡開關</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">auto_exposure</span></code></p></td>
+<td><p>自動曝光開關</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">zoomin</span></code></p></td>
+<td><p>數位縮放倍率（預設 1.0）</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="build-table">
+<span id="image-build-table"></span><h3>Build Table<a class="headerlink" href="#build-table" title="連結到這個標頭"></a></h3>
+<p>選擇色模重建的範圍後觸發建表：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">All_color_build</span></code>：重建所有顏色的偵測模型，上方 <a class="reference internal" href="#image-model-view"><span class="std std-ref">HSV 色模顯示</span></a> 所有顏色遮罩結果。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Single_color_build</span></code>：僅重建目前 <a class="reference internal" href="#image-color-labels"><span class="std std-ref">Color Select</span></a> 所選的顏色，上方 <a class="reference internal" href="#image-model-view"><span class="std std-ref">HSV 色模顯示</span></a> 目前顏色遮罩與原始畫面疊加結果。</p></li>
+</ul>
+</section>
+<section id="color-select">
+<span id="image-color-labels"></span><h3>Color Select<a class="headerlink" href="#color-select" title="連結到這個標頭"></a></h3>
+<p>下拉選單，選擇目前要編輯的顏色標籤（Orange、Yellow、Blue、Red、green、White、Other）。</p>
+</section>
+<section id="reset-close">
+<span id="image-reset-close"></span><h3>Reset / Close<a class="headerlink" href="#reset-close" title="連結到這個標頭"></a></h3>
+<ul class="simple">
+<li><p><strong>Reset</strong>：將 HSV 滑桿重設為全範圍（H: 0–180、S/V: 0–255），並即時發布至 HSV topic，
+適合重新開始調色時使用。</p></li>
+<li><p><strong>Close</strong>：將所有 HSV 值設為 0，相當於關閉該顏色的偵測（偵測不到任何像素）。</p></li>
+</ul>
+</section>
+<section id="image-hsv">
+<span id="id11"></span><h3>色模參數設定（HSV）<a class="headerlink" href="#image-hsv" title="連結到這個標頭"></a></h3>
+<p>六組滑桿定義顏色偵測的 HSV 範圍，調整後即時發布至 ROS topic 並更新 <a class="reference internal" href="#image-model-view"><span class="std std-ref">HSV 色模顯示</span></a> 顯示：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>參數</p></th>
+<th class="head"><p>範圍</p></th>
+<th class="head"><p>說明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hmin</span></code> / <code class="docutils literal notranslate"><span class="pre">hmax</span></code></p></td>
+<td><p>0 – 180</p></td>
+<td><p>色相下/上限</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">smin</span></code> / <code class="docutils literal notranslate"><span class="pre">smax</span></code></p></td>
+<td><p>0 – 255</p></td>
+<td><p>飽和度下/上限</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">vmin</span></code> / <code class="docutils literal notranslate"><span class="pre">vmax</span></code></p></td>
+<td><p>0 – 255</p></td>
+<td><p>明度下/上限</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">小訣竅</p>
+<p>先調整 H 範圍鎖定目標顏色，再縮小 S/V 範圍排除背景雜訊。</p>
+</div>
+</section>
+<section id="savehsv">
+<span id="image-save-hsv"></span><h3>SaveHsv<a class="headerlink" href="#savehsv" title="連結到這個標頭"></a></h3>
+<p>將目前 <a class="reference internal" href="#image-hsv"><span class="std std-ref">色模參數設定（HSV）</span></a> 的參數寫入檔案(hsv.ini)。</p>
+<p>若未執行 SaveHsv 而直接 BuildHsv，使用的仍是上次儲存的舊參數。</p>
+</section>
+<section id="buildhsv">
+<span id="image-build-hsv"></span><h3>BuildHsv<a class="headerlink" href="#buildhsv" title="連結到這個標頭"></a></h3>
+<p>讀出hsv.ini內的參數，並更新 <a class="reference internal" href="#image-model-view"><span class="std std-ref">HSV 色模顯示</span></a> 與 <a class="reference internal" href="#image-hsv"><span class="std std-ref">色模參數設定（HSV）</span></a>。</p>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>建議流程：調整 HSV → <a class="reference internal" href="#image-save-hsv"><span class="std std-ref">SaveHsv</span></a> 儲存 → <a class="reference internal" href="#image-build-hsv"><span class="std std-ref">BuildHsv</span></a> 重建 → 確認 <a class="reference internal" href="#image-model-view"><span class="std std-ref">HSV 色模顯示</span></a> 結果。</p>
+</div>
+<hr class="docutils" />
+</section>
+</section>
+<section id="motioncontrolinterface">
+<span id="interface-motion"></span><h2>MotionControlInterface<a class="headerlink" href="#motioncontrolinterface" title="連結到這個標頭"></a></h2>
+<a href="_static/MotionControl_demo.html" target="_blank"
+   style="background:#03e9f4;color:#000;padding:5px 14px;border-radius:4px;
+          text-decoration:none;font-weight:bold;font-family:monospace;
+          display:block;width:fit-content;margin-bottom:14px;">
+  &#9654; 開啟 DEMO
+</a><style>
+.iface-map-wrap{position:relative;display:inline-block;width:100%;margin:12px 0 20px 0;}
+.iface-map-wrap img{width:100%;display:block;border:1px solid #444;border-radius:4px;}
+.area-overlay{
+  position:absolute;background:rgba(3,233,244,0.12);border:1.5px dashed #03e9f4;
+  cursor:pointer;border-radius:3px;display:flex;align-items:center;
+  justify-content:center;font-size:11px;font-weight:bold;color:#03e9f4;
+  text-decoration:none;transition:background 0.2s;
+}
+.area-overlay:hover{background:rgba(3,233,244,0.28);}
+</style><div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-3-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-3-3-0" name="3-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-3-3-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-3-3-1" name="3-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-3-3-0" class="sphinx-tabs-panel" id="panel-3-3-0" name="3-0" role="tabpanel" tabindex="0"><div class="iface-map-wrap">
+ <img src="_static/screenshots/MotionControl.png" alt="MotionControl 介面截圖">
+
+ <!-- 現在策略顯示(各網頁共用) -->
+ <a class="area-overlay" href="#strategy"
+   style="top:9%;left:0.5%;width:9.5%;height:13%;color:#ffcc00"></a>
+
+ <!-- 歷史紀錄與UndoRedo -->
+ <a class="area-overlay" href="#motion-history"
+   style="top:22%;left:0.5%;width:9.5%;height:12.5%;color:#ffcc00"></a>
+ <a class="area-overlay" href="#motion-history"
+   style="top:26.5%;left:10%;width:16.5%;height:4.25%;color:#ffcc00"></a>
+
+ <!-- 檔案SaveRead -->
+ <a class="area-overlay" href="#motion-file-ops"
+   style="top:18.5%;left:10%;width:20.25%;height:4.25%;color:#ffcc00"></a>
+
+ <!-- SaveRead Stand與Lock -->
+ <a class="area-overlay" href="#motion-stand-file-ops"
+   style="top:18.5%;left:30.25%;width:9.5%;height:4.25%;color:#ffcc00"></a>
+ <a class="area-overlay" href="#motion-stand-file-ops"
+   style="top:22.5%;left:25.5%;width:12.75%;height:4.25%;color:#ffcc00"></a>
+
+ <!-- Reset -->
+ <a class="area-overlay" href="#motion-reset"
+   style="top:18.5%;left:39.75%;width:5%;height:4.25%;color:#ffcc00"></a>
+
+ <!-- Send Sector -->
+ <a class="area-overlay" href="#motion-exec-ops"
+   style="top:22.5%;left:10%;width:15.7%;height:4.25%;color:#ffcc00"></a>
+
+ <!-- ExecuteStand -->
+ <a class="area-overlay" href="#motion-execute"
+   style="top:22.5%;left:38.25%;width:9.7%;height:4.25%;color:#ffcc00"></a>
+
+ <!-- Multiple -->
+ <a class="area-overlay" href="#motion-multiple"
+   style="top:30.5%;left:10%;width:18.5%;height:4.25%;color:#ffcc00"></a>
+
+ <!-- Merge -->
+ <a class="area-overlay" href="#motion-merge"
+   style="top:30.5%;left:29.5%;width:19%;height:4.25%;color:#ffcc00"></a>
+
+ <!-- Address(各網頁共用) -->
+ <a class="area-overlay" href="#shared-address"
+   style="top:34.5%;left:10%;width:13%;height:4.25%;color:#ffcc00"></a>
+
+ <!-- label/stand_label -->
+ <a class="area-overlay" href="#motion-label"
+   style="top:34.5%;left:23%;width:25.5%;height:6.5%;color:#ffcc00"></a>
+
+ <!-- add/delete/reverse/copy -->
+ <a class="area-overlay" href="#motion-table-ops"
+   style="top:45%;left:1.5%;width:8%;height:10%;color:#ffcc00"></a>
+
+ <!-- CheckSum -->
+ <a class="area-overlay" href="#motion-checksum"
+   style="top:56%;left:1.5%;width:7.5%;height:31%;color:#ffcc00"></a>
+
+ <!-- 動作資料/模式切換 -->
+ <a class="area-overlay" href="#motion-data-tables"
+   style="top:41%;left:10%;width:38.7%;height:41%;color:#ffcc00"></a>
+
+ <!-- ID上下調整 -->
+ <a class="area-overlay" href="#motion-id-adjust"
+   style="top:82%;left:10%;width:14%;height:4.25%;color:#ffcc00"></a>
+
+ <!-- 總扭力開關 -->
+ <a class="area-overlay" href="#motion-torque-all"
+   style="top:21%;left:51%;width:17.5%;height:7%;color:#ffcc00"></a>
+
+ <!-- 馬達編號與單顆控制 -->
+ <a class="area-overlay" href="#motion-robot-visual"
+   style="top:28%;left:51%;width:17.5%;height:50%;color:#ffcc00"></a>
+
+ <!-- 各部位扭力開關 -->
+ <a class="area-overlay" href="#motion-part-torque"
+   style="top:19%;left:71%;width:24%;height:3%;color:#ffcc00"></a>
+
+ <!-- 單顆扭力控制 -->
+ <a class="area-overlay" href="#motion-single-torque"
+   style="top:22.25%;left:71%;width:26.5%;height:5%;color:#ffcc00"></a>
+
+ <!-- 即時馬達刻度顯示 -->
+ <a class="area-overlay" href="#motion-motor-detail"
+   style="top:27.5%;left:71%;width:26.5%;height:47%;color:#ffcc00"></a>
+
+ <!-- 創建新ID 複製全部馬達刻度 -->
+ <a class="area-overlay" href="#motion-create-id"
+   style="top:75.25%;left:75.75%;width:8.5%;height:4%;color:#ffcc00"></a>
+
+ <!-- 複製指定馬達至指定ID -->
+ <a class="area-overlay" href="#motion-copy-motor"
+   style="top:75.25%;left:84.4%;width:8.5%;height:4%;color:#ffcc00"></a>
+ <a class="area-overlay" href="#motion-copy-motor"
+   style="top:79.5%;left:71.25%;width:25.75%;height:20%;color:#ffcc00"></a>
+</div></div><div aria-labelledby="tab-3-3-1" class="sphinx-tabs-panel" hidden="true" id="panel-3-3-1" name="3-1" role="tabpanel" tabindex="0"><div class="iface-map-wrap">
+ <img src="_static/screenshots/MotionControl_adult.png" alt="MotionControl 介面截圖（大人型）">
+
+ <!-- 現在策略顯示(各網頁共用) -->
+ <a class="area-overlay" href="#strategy"
+   style="top:7.5%;left:0.5%;width:9.5%;height:9%;color:#ffcc00"></a>
+
+ <!-- 歷史紀錄與UndoRedo -->
+ <a class="area-overlay" href="#motion-history"
+   style="top:18%;left:0.5%;width:9.5%;height:10%;color:#ffcc00"></a>
+ <a class="area-overlay" href="#motion-history"
+   style="top:21.25%;left:10%;width:16.5%;height:3.5%;color:#ffcc00"></a>
+
+ <!-- 檔案SaveRead -->
+ <a class="area-overlay" href="#motion-file-ops"
+   style="top:15%;left:10%;width:20.25%;height:3.5%;color:#ffcc00"></a>
+
+ <!-- SaveRead Stand與Lock -->
+ <a class="area-overlay" href="#motion-stand-file-ops"
+   style="top:15%;left:30.25%;width:9.5%;height:3.5%;color:#ffcc00"></a>
+ <a class="area-overlay" href="#motion-stand-file-ops"
+   style="top:18%;left:25.5%;width:12.75%;height:3.5%;color:#ffcc00"></a>
+
+ <!-- Reset -->
+ <a class="area-overlay" href="#motion-reset"
+   style="top:15%;left:39.75%;width:5%;height:3.5%;color:#ffcc00"></a>
+
+ <!-- Send Sector -->
+ <a class="area-overlay" href="#motion-exec-ops"
+   style="top:18%;left:10%;width:15.7%;height:3.5%;color:#ffcc00"></a>
+
+ <!-- ExecuteStand -->
+ <a class="area-overlay" href="#motion-execute"
+   style="top:18%;left:38.25%;width:9.7%;height:3.5%;color:#ffcc00"></a>
+
+ <!-- Multiple -->
+ <a class="area-overlay" href="#motion-multiple"
+   style="top:24.5%;left:10%;width:18.5%;height:3.5%;color:#ffcc00"></a>
+
+ <!-- Merge -->
+ <a class="area-overlay" href="#motion-merge"
+   style="top:24.5%;left:29.5%;width:19%;height:3.5%;color:#ffcc00"></a>
+
+ <!-- Address(各網頁共用) -->
+ <a class="area-overlay" href="#shared-address"
+   style="top:28%;left:10%;width:13.5%;height:3.75%;color:#ffcc00"></a>
+
+ <!-- label/stand_label -->
+ <a class="area-overlay" href="#motion-label"
+   style="top:28%;left:23.5%;width:25.5%;height:6%;color:#ffcc00"></a>
+
+ <!-- add/delete/reverse/copy -->
+ <a class="area-overlay" href="#motion-table-ops"
+   style="top:37%;left:1.5%;width:8%;height:8%;color:#ffcc00"></a>
+
+ <!-- CheckSum -->
+ <a class="area-overlay" href="#motion-checksum"
+   style="top:46%;left:1.5%;width:7.5%;height:27%;color:#ffcc00"></a>
+
+ <!-- 動作資料/模式切換 -->
+ <a class="area-overlay" href="#motion-data-tables"
+   style="top:34%;left:10%;width:39%;height:34%;color:#ffcc00"></a>
+
+ <!-- ID上下調整 -->
+ <a class="area-overlay" href="#motion-id-adjust"
+   style="top:68%;left:10%;width:14%;height:4.25%;color:#ffcc00"></a>
+
+ <!-- 總扭力開關 -->
+ <a class="area-overlay" href="#motion-torque-all"
+   style="top:17%;left:51%;width:17.75%;height:6.5%;color:#ffcc00"></a>
+
+ <!-- 馬達編號與單顆控制 -->
+ <a class="area-overlay" href="#motion-robot-visual"
+   style="top:23%;left:51%;width:17.5%;height:42%;color:#ffcc00"></a>
+
+ <!-- X/Pro Series -->
+ <a class="area-overlay" href="#motion-xpro-conversion"
+   style="top:65%;left:51%;width:17.5%;height:7.5%;color:#ffcc00"></a>
+
+ <!-- 各部位扭力開關 -->
+ <a class="area-overlay" href="#motion-part-torque"
+   style="top:15.5%;left:71%;width:24.25%;height:2.75%;color:#ffcc00"></a>
+
+ <!-- 單顆扭力控制 -->
+ <a class="area-overlay" href="#motion-single-torque"
+   style="top:18%;left:71%;width:26.5%;height:4.25%;color:#ffcc00"></a>
+
+ <!-- 即時馬達刻度顯示 -->
+ <a class="area-overlay" href="#motion-motor-detail"
+   style="top:22%;left:71%;width:26.5%;height:44%;color:#ffcc00"></a>
+
+ <!-- 創建新ID 複製全部馬達刻度 -->
+ <a class="area-overlay" href="#motion-create-id"
+   style="top:67.5%;left:75.75%;width:8.5%;height:4%;color:#ffcc00"></a>
+
+ <!-- 複製指定馬達至指定ID -->
+ <a class="area-overlay" href="#motion-copy-motor"
+   style="top:67.5%;left:84.4%;width:8.5%;height:4%;color:#ffcc00"></a>
+ <a class="area-overlay" href="#motion-copy-motor"
+   style="top:73%;left:71.25%;width:26.5%;height:26%;color:#ffcc00"></a>
+</div></div></div>
+<section id="history-undo-redo">
+<span id="motion-history"></span><h3>History 面板與 Undo/Redo<a class="headerlink" href="#history-undo-redo" title="連結到這個標頭"></a></h3>
+<p>左側 History 面板記錄所有對表格的操作，支援多步(20步)撤銷與重做：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">↩</span> <span class="pre">Undo</span></code>：撤銷最後一次操作，恢復前一個狀態。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">↪</span> <span class="pre">Redo</span></code>：重新執行被撤銷的操作。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Clear</span> <span class="pre">History</span></code>：清除全部操作記錄，不影響目前表格內容。</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>切換策略或存檔會清除所有紀錄</p>
+</div>
+</section>
+<section id="save-read">
+<span id="motion-file-ops"></span><h3>檔案操作（Save / Read）<a class="headerlink" href="#save-read" title="連結到這個標頭"></a></h3>
+<p>在檔名輸入框填入名稱後操作：</p>
+<ul class="simple">
+<li><p><strong>Save</strong>：彈出確認對話框，確認後將以指定檔名儲存到目前策略Parameter資料夾內。</p></li>
+<li><p><strong>Read</strong>：讀取目前策略Parameter資料夾內指定檔名檔案。</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>Save 前會清除 <a class="reference internal" href="#motion-history"><span class="std std-ref">History 面板與 Undo/Redo</span></a> 記錄。</p>
+</div>
+</section>
+<section id="save-stand-read-stand-locked">
+<span id="motion-stand-file-ops"></span><h3>Save Stand / Read Stand / Locked<a class="headerlink" href="#save-stand-read-stand-locked" title="連結到這個標頭"></a></h3>
+<div class="admonition danger">
+<p class="admonition-title">危險</p>
+<p>專題生請勿擅自使用此功能</p>
+</div>
+<p>站立姿勢（stand）的獨立儲存/讀取，檔名固定為 <code class="docutils literal notranslate"><span class="pre">stand</span></code>，不受檔名輸入框影響：</p>
+<ul class="simple">
+<li><p><strong>SaveStand</strong>：將29.ini內的資料複製至stand.ini請在使用前先send Sector 29。需先取消勾選 <code class="docutils literal notranslate"><span class="pre">Locked</span> <span class="pre">Stand</span></code> 才能執行，避免誤覆蓋。</p></li>
+<li><p><strong>ReadStand</strong>：載入 stand.ini 的姿勢資料。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Locked</span> <span class="pre">Stand</span></code> 勾選框：勾選時禁止 SaveStand/ReadStand，預設勾選作為保護。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Locked</span> <span class="pre">29</span></code> 勾選框：勾選時禁止 Send 使用 Sector 29，避免誤改站姿。</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<ul class="simple">
+<li><p>ReadStand會清除目前網頁上所有資料並讀取Stand.ini使用前請確保已存檔或另開新頁。</p></li>
+<li><p>操作順序：取消勾選 <code class="docutils literal notranslate"><span class="pre">Locked</span> <span class="pre">Stand</span></code> → <code class="docutils literal notranslate"><span class="pre">ReadStand</span></code> →調整Absolute ID29內的數值→取消勾選 <code class="docutils literal notranslate"><span class="pre">Locked</span> <span class="pre">29</span></code> →send Sector 29→execute確認調整結果→ <code class="docutils literal notranslate"><span class="pre">SaveStand</span></code> →測試stand是否與Sector 29動作一致。</p></li>
+</ul>
+</div>
+</section>
+<section id="reset">
+<span id="motion-reset"></span><h3>Reset<a class="headerlink" href="#reset" title="連結到這個標頭"></a></h3>
+<p>重新啟用所有操作按鈕。</p>
+<p>執行任何動作卡住或無回應時可 <code class="docutils literal notranslate"><span class="pre">Reset</span></code> 恢復。</p>
+</section>
+<section id="send-sector">
+<span id="motion-exec-ops"></span><h3>Send / Sector<a class="headerlink" href="#send-sector" title="連結到這個標頭"></a></h3>
+<p>指定 ID 與 Sector 後送出動作：</p>
+<ul class="simple">
+<li><p><strong>ID</strong>：要送出的動作序號（網頁中的號碼）。</p></li>
+<li><p><strong>Sector</strong>：動作 Sector 編號（程式/檔案中的號碼， Sector 29 預設被 <a class="reference internal" href="#motion-stand-file-ops"><span class="std std-ref">Save Stand / Read Stand / Locked</span></a> 的 Locked 29 保護）。</p></li>
+<li><p><strong>Send</strong>：將現在ID(網頁)的內容send到Sector(檔案)。</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>需要釐清ID與Sector的差異，ID是網頁上的值，Sector是現在系統檔案內的值，兩者不一定相等。</p>
+</div>
+</section>
+<section id="execute-stand">
+<span id="motion-execute"></span><h3>execute / stand<a class="headerlink" href="#execute-stand" title="連結到這個標頭"></a></h3>
+<ul class="simple">
+<li><p><strong>execute</strong>：先驗證輸入的Sector號碼檔案是否存在後執行動作。</p></li>
+<li><p><strong>stand</strong>：執行stand.ini內的動作，是共同預設站姿。</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>execute只會讀取現在Sector輸入的值，ID可不輸入</p>
+</div>
+</section>
+<section id="multiple">
+<span id="motion-multiple"></span><h3>Multiple<a class="headerlink" href="#multiple" title="連結到這個標頭"></a></h3>
+<p>將指定 ID 列的所有馬達數值乘以倍數：</p>
+<ul class="simple">
+<li><p><strong>ID</strong>：要縮放的動作 ID。</p></li>
+<li><p><strong>multipy × times</strong>：乘以幾倍（支援小數）。</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>僅在 RelativePosition / RelativeSpeed 有效，MotionList 與 Absolute 不支援。</p>
+</div>
+</section>
+<section id="merge">
+<span id="motion-merge"></span><h3>Merge<a class="headerlink" href="#merge" title="連結到這個標頭"></a></h3>
+<p>將 ID1 的馬達數值加到 ID2 上，並刪除 ID1 列：</p>
+<ul class="simple">
+<li><p><strong>ID1 merge to ID2</strong>：兩組相對位移合併為一個 ID2 動作。</p></li>
+<li><p>RelativeSpeed 的對應列也會同步處理（非零值保留，零值覆蓋為 20）。</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>執行後會只剩ID2，ID1會刪除並無法復原，請謹慎使用。</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>僅在 RelativePosition / RelativeSpeed 檢視下有效，MotionList 與 Absolute 不支援。</p>
+</div>
+</section>
+<section id="add-delete-reverse-copy">
+<span id="motion-table-ops"></span><h3>表格列操作（Add / Delete / Reverse / Copy）<a class="headerlink" href="#add-delete-reverse-copy" title="連結到這個標頭"></a></h3>
+<p>對目前表格檢視的列進行操作，所有操作都會被記錄到 <a class="reference internal" href="#motion-history"><span class="std std-ref">History 面板與 Undo/Redo</span></a>：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>按鈕</p></th>
+<th class="head"><p>說明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Add</span></code></p></td>
+<td><p>在目前表格新增一列空白/預設資料列。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Delete</span> <span class="pre">:</span> <span class="pre">ID</span></code></p></td>
+<td><p>刪除指定 ID 的列（Position/Speed 同步刪除）。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Reverse</span> <span class="pre">:</span> <span class="pre">ID</span></code></p></td>
+<td><p>將指定 ID 列的所有馬達數值正負號反轉（僅限 RelativePosition）。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Copy</span> <span class="pre">:</span> <span class="pre">ID</span></code></p></td>
+<td><p>複製指定 ID 的列，新增一個內容相同的列。</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="checksum">
+<span id="motion-checksum"></span><h3>CheckSum<a class="headerlink" href="#checksum" title="連結到這個標頭"></a></h3>
+<p>輸入 ID 後顯示該列所有馬達各自的數值總和，主要用於檢查MotionList。
+結果顯示在下方 CheckSum 欄位。</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-4-4-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-4-4-0" name="4-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-4-4-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-4-4-1" name="4-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-4-4-0" class="sphinx-tabs-panel" id="panel-4-4-0" name="4-0" role="tabpanel" tabindex="0"><p>顯示範圍：M1–M21（21 顆馬達）</p>
+</div><div aria-labelledby="tab-4-4-1" class="sphinx-tabs-panel" hidden="true" id="panel-4-4-1" name="4-1" role="tabpanel" tabindex="0"><p>顯示範圍：M1–M27（27 顆馬達）</p>
+</div></div>
+</section>
+<section id="label-stand-label">
+<span id="motion-label"></span><h3>label / stand_label<a class="headerlink" href="#label-stand-label" title="連結到這個標頭"></a></h3>
+<p>介面頂部的狀態訊息列，顯示最近一次操作的結果：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">label</span></code>：一般操作回饋，如 <code class="docutils literal notranslate"><span class="pre">&quot;Add</span> <span class="pre">is</span> <span class="pre">successful</span> <span class="pre">!!&quot;</span></code>、<code class="docutils literal notranslate"><span class="pre">&quot;Sector</span> <span class="pre">29</span> <span class="pre">is</span> <span class="pre">Locked&quot;</span></code>。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stand_label</span></code>：Stand 相關操作的訊息。</p></li>
+</ul>
+</section>
+<section id="motion-data-tables">
+<span id="id12"></span><h3>動作資料表格（分頁）<a class="headerlink" href="#motion-data-tables" title="連結到這個標頭"></a></h3>
+<p>以 Radio button 切換五種資料檢視，各檢視共用同一組 ID：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>分頁</p></th>
+<th class="head"><p>說明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>MotionList</p></td>
+<td><p>動作串（ID、Name、A1/D1 … A8/D8 動作/延遲參數）</p></td>
+</tr>
+<tr class="row-odd"><td><p>RelativePosition</p></td>
+<td><p>各馬達相對目前刻度的位移量（正/負刻度差）</p></td>
+</tr>
+<tr class="row-even"><td><p>RelativeSpeed</p></td>
+<td><p>各馬達執行相對位移的速度</p></td>
+</tr>
+<tr class="row-odd"><td><p>AbsolutePosition</p></td>
+<td><p>各馬達的絕對刻度</p></td>
+</tr>
+<tr class="row-even"><td><p>AbsoluteSpeed</p></td>
+<td><p>各馬達執行絕對位置的速度</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>絕對刻度內輸入-1會跳過該馬達並維持當前刻度</p>
+</div>
+</section>
+<section id="motion-id-adjust">
+<span id="id"></span><h3>ID 上下調整<a class="headerlink" href="#motion-id-adjust" title="連結到這個標頭"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Move</span> <span class="pre">Up</span></code> / <code class="docutils literal notranslate"><span class="pre">Move</span> <span class="pre">Down</span></code> 搭配 ID 輸入框，將指定 ID 的列在目前表格中向上或向下移動一格，調整ID的顯示順序。</p>
+</section>
+<section id="motion-torque-all">
+<span id="id13"></span><h3>總扭力開關<a class="headerlink" href="#motion-torque-all" title="連結到這個標頭"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">扭力關閉</span></code> / <code class="docutils literal notranslate"><span class="pre">扭力已開啟</span></code> 切換按鈕：</p>
+<ul class="simple">
+<li><p>向所有馬達發送扭力開/關封包。</p></li>
+<li><p>同步更新 <a class="reference internal" href="#motion-robot-visual"><span class="std std-ref">馬達圖示控制</span></a> 圖示的顏色狀態。</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>關閉全體扭力後機器人身體會洩力，需有人在旁扶持。</p>
+</div>
+</section>
+<section id="motion-robot-visual">
+<span id="id14"></span><h3>馬達圖示控制<a class="headerlink" href="#motion-robot-visual" title="連結到這個標頭"></a></h3>
+<p>機器人正面圖示，各馬達編號按鈕疊加在對應關節位置，點擊可切換單顆馬達扭力。
+按鈕綠色代表扭力 ON，紅色代表扭力 OFF。</p>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>重開網頁時不會同步更新，請重新觸發總扭力開關來確保狀態正確</p>
+</div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-5-5-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-5-5-0" name="5-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-5-5-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-5-5-1" name="5-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-5-5-0" class="sphinx-tabs-panel" id="panel-5-5-0" name="5-0" role="tabpanel" tabindex="0"><p>馬達配置（共 23 顆）：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>部位</p></th>
+<th class="head"><p>ID</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>左手</p></td>
+<td><p>1–4</p></td>
+</tr>
+<tr class="row-odd"><td><p>右手</p></td>
+<td><p>5–8</p></td>
+</tr>
+<tr class="row-even"><td><p>腰</p></td>
+<td><p>9</p></td>
+</tr>
+<tr class="row-odd"><td><p>左腿</p></td>
+<td><p>10–15</p></td>
+</tr>
+<tr class="row-even"><td><p>右腿</p></td>
+<td><p>16–21</p></td>
+</tr>
+<tr class="row-odd"><td><p>頭部</p></td>
+<td><p>22–23</p></td>
+</tr>
+</tbody>
+</table>
+</div><div aria-labelledby="tab-5-5-1" class="sphinx-tabs-panel" hidden="true" id="panel-5-5-1" name="5-1" role="tabpanel" tabindex="0"><p>馬達配置（共 29 顆）：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>部位</p></th>
+<th class="head"><p>ID</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>左手</p></td>
+<td><p>1–7</p></td>
+</tr>
+<tr class="row-odd"><td><p>右手</p></td>
+<td><p>8–14</p></td>
+</tr>
+<tr class="row-even"><td><p>腰</p></td>
+<td><p>15</p></td>
+</tr>
+<tr class="row-odd"><td><p>左腿</p></td>
+<td><p>16–21</p></td>
+</tr>
+<tr class="row-even"><td><p>右腿</p></td>
+<td><p>22–27</p></td>
+</tr>
+<tr class="row-odd"><td><p>頭部</p></td>
+<td><p>28–29</p></td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</section>
+<section id="x-series-pro-series">
+<span id="motion-xpro-conversion"></span><h3>X_Series / Pro_Series 換算面板<a class="headerlink" href="#x-series-pro-series" title="連結到這個標頭"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>此功能僅大人型（ADULT）介面提供。</p>
+</div>
+<p>頭部馬達同時存在 X 系列與 Pro 系列，兩種系列刻度不相容。介面提供獨立的 Position 與 Speed
+欄位，輸入後可分別送出換算指令，避免直接混用刻度導致問題。</p>
+</section>
+<section id="motion-part-torque">
+<span id="id15"></span><h3>各部位扭力開關<a class="headerlink" href="#motion-part-torque" title="連結到這個標頭"></a></h3>
+<p>依部位批次切換扭力的群組按鈕：<code class="docutils literal notranslate"><span class="pre">left_hand</span></code>、<code class="docutils literal notranslate"><span class="pre">right_hand</span></code>、<code class="docutils literal notranslate"><span class="pre">waist</span></code>、<code class="docutils literal notranslate"><span class="pre">left_leg</span></code>、<code class="docutils literal notranslate"><span class="pre">right_leg</span></code>。</p>
+<ul class="simple">
+<li><p>點擊 → 該部位所有馬達 <strong>洩力（OFF）</strong>，方便手動調整關節角度。</p></li>
+<li><p>再次點擊 → 恢復 <strong>鎖死（ON）</strong>。</p></li>
+<li><p>同步更新 <a class="reference internal" href="#motion-robot-visual"><span class="std std-ref">馬達圖示控制</span></a> 圖示狀態。</p></li>
+</ul>
+</section>
+<section id="motion-single-torque">
+<span id="id16"></span><h3>單顆扭力控制<a class="headerlink" href="#motion-single-torque" title="連結到這個標頭"></a></h3>
+<p>輸入馬達 ID，點擊 <code class="docutils literal notranslate"><span class="pre">開啟</span> <span class="pre">(ON)</span></code> 或 <code class="docutils literal notranslate"><span class="pre">關閉</span> <span class="pre">(OFF)</span></code> 控制單顆馬達扭力，
+同步更新 <a class="reference internal" href="#motion-robot-visual"><span class="std std-ref">馬達圖示控制</span></a> 圖示狀態。</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-6-6-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-6-6-0" name="6-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-6-6-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-6-6-1" name="6-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-6-6-0" class="sphinx-tabs-panel" id="panel-6-6-0" name="6-0" role="tabpanel" tabindex="0"><p>ID 範圍：1–23</p>
+</div><div aria-labelledby="tab-6-6-1" class="sphinx-tabs-panel" hidden="true" id="panel-6-6-1" name="6-1" role="tabpanel" tabindex="0"><p>ID 範圍：1–29</p>
+</div></div>
+</section>
+<section id="motion-motor-detail">
+<span id="id17"></span><h3>即時馬達刻度顯示<a class="headerlink" href="#motion-motor-detail" title="連結到這個標頭"></a></h3>
+<p>訂閱 <code class="docutils literal notranslate"><span class="pre">/joint_states</span></code> topic，即時顯示所有馬達目前的絕對刻度。
+可用於確認機器人目前姿勢，配合 <a class="reference internal" href="#motion-create-id"><span class="std std-ref">創建新 ID（複製全部馬達刻度）</span></a> 擷取當前姿勢。</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-7-7-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-7-7-0" name="7-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-7-7-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-7-7-1" name="7-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-7-7-0" class="sphinx-tabs-panel" id="panel-7-7-0" name="7-0" role="tabpanel" tabindex="0"><p>顯示 ID 1–21（21 顆馬達）</p>
+</div><div aria-labelledby="tab-7-7-1" class="sphinx-tabs-panel" hidden="true" id="panel-7-7-1" name="7-1" role="tabpanel" tabindex="0"><p>顯示 ID 1–27（27 顆馬達）</p>
+</div></div>
+</section>
+<section id="motion-create-id">
+<span id="id18"></span><h3>創建新 ID（複製全部馬達刻度）<a class="headerlink" href="#motion-create-id" title="連結到這個標頭"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Copy</span> <span class="pre">To</span> <span class="pre">Absolute</span></code> 按鈕：</p>
+<ol class="arabic simple">
+<li><p>自動切換至 AbsolutePosition 檢視。</p></li>
+<li><p>新增一列空白資料列。</p></li>
+<li><p>將 <a class="reference internal" href="#motion-motor-detail"><span class="std std-ref">即時馬達刻度顯示</span></a> 的即時刻度值填入該列，速度預設 50。</p></li>
+</ol>
+<p>用於快速將機器人目前姿勢記錄為一個 Absolute 動作。</p>
+</section>
+<section id="motion-copy-motor">
+<span id="id19"></span><h3>複製指定馬達至指定 ID<a class="headerlink" href="#motion-copy-motor" title="連結到這個標頭"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Copy</span> <span class="pre">Selected</span> <span class="pre">→</span></code> 按鈕展開選擇面板：</p>
+<ol class="arabic simple">
+<li><p>勾選要複製的馬達（可按部位群組全選/全不選）。</p></li>
+<li><p>輸入目標 Row ID（AbsolutePosition 表格中已存在的 ID）。</p></li>
+<li><p>點擊 <code class="docutils literal notranslate"><span class="pre">Execute</span></code>：將勾選馬達的即時刻度值覆寫到目標列。</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>來源為 <a class="reference internal" href="#motion-motor-detail"><span class="std std-ref">即時馬達刻度顯示</span></a> 的即時數值；目標列必須已存在於 AbsolutePosition 表格中。</p>
+</div>
+<hr class="docutils" />
+</section>
+</section>
+<section id="walkinginterface">
+<span id="interface-walking"></span><h2>WalkingInterface<a class="headerlink" href="#walkinginterface" title="連結到這個標頭"></a></h2>
+<a href="_static/Walking_demo.html" target="_blank"
+   style="background:#03e9f4;color:#000;padding:5px 14px;border-radius:4px;
+          text-decoration:none;font-weight:bold;font-family:monospace;">
+  &#9654; 開啟 DEMO
+</a><div class="iface-map-wrap">
+  <img src="_static/screenshots/Walking.png" alt="Walking 介面截圖">
+
+ <!-- 現在策略顯示(各網頁共用) -->
+ <a class="area-overlay" href="#strategy"
+   style="top:9%;left:0.5%;width:7.5%;height:13%;color:#ffcc00"></a>
+
+ <!-- Address(各網頁共用) -->
+ <a class="area-overlay" href="#shared-address"
+   style="top:28.25%;left:44%;width:12%;height:5%;color:#ffcc00"></a>
+
+ <!-- IMU -->
+ <a class="area-overlay" href="#walking-imu"
+   style="top:35%;left:27.25%;width:11%;height:53%;color:#ffcc00"></a>
+
+ <!-- Walking Mode 調整 -->
+ <a class="area-overlay" href="#walking-mode"
+   style="top:35%;left:38.5%;width:21.25%;height:8.5%;color:#ffcc00"></a>
+
+ <!-- 步長調整 -->
+ <a class="area-overlay" href="#walking-step-size"
+   style="top:43%;left:38.5%;width:21.25%;height:12.5%;color:#ffcc00"></a>
+
+ <!-- Load -->
+ <a class="area-overlay" href="#walking-load"
+   style="top:55%;left:38.5%;width:10.625%;height:6.25%;color:#ffcc00"></a>
+
+ <!-- Generate -->
+ <a class="area-overlay" href="#walking-generate"
+   style="top:55%;left:49.125%;width:10.625%;height:6.25%;color:#ffcc00"></a>
+
+ <!-- 方向控制 -->
+ <a class="area-overlay" href="#walking-direction"
+   style="top:61%;left:38.5%;width:21.25%;height:14.25%;color:#ffcc00"></a>
+
+ <!-- 步態參數 -->
+ <a class="area-overlay" href="#walking-params"
+   style="top:35%;left:60%;width:18.5%;height:25.5%;color:#ffcc00"></a>
+
+ <!-- Save -->
+ <a class="area-overlay" href="#walking-save"
+   style="top:60.25%;left:60%;width:9.2%;height:6%;color:#ffcc00"></a>
+
+ <!-- Send -->
+ <a class="area-overlay" href="#walking-send"
+   style="top:60.25%;left:69.25%;width:9.2%;height:6%;color:#ffcc00"></a>
+
+</div><section id="imu">
+<span id="walking-imu"></span><h3>IMU 顯示<a class="headerlink" href="#imu" title="連結到這個標頭"></a></h3>
+<p>左側 Sensor_Value 區塊顯示即時 IMU 數值。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>欄位</p></th>
+<th class="head"><p>說明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Roll</p></td>
+<td><p>左右傾斜角（°）</p></td>
+</tr>
+<tr class="row-odd"><td><p>Pitch</p></td>
+<td><p>前後傾斜角（°）</p></td>
+</tr>
+<tr class="row-even"><td><p>Yaw</p></td>
+<td><p>旋轉角（°）</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>IMU Reset</strong> 按鈕：將 IMU 數值重置歸零。</p>
+</section>
+<section id="walking-mode">
+<span id="id20"></span><h3>Walking Mode 調整<a class="headerlink" href="#walking-mode" title="連結到這個標頭"></a></h3>
+<p>選擇步態模式的單選按鈕。切換模式後會自動呼叫 <a class="reference internal" href="#load">Load</a> 重新載入對應參數。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>模式</p></th>
+<th class="head"><p>statetype</p></th>
+<th class="head"><p>說明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Continuous</p></td>
+<td><p>0</p></td>
+<td><p>平地連續行走（預設）</p></td>
+</tr>
+<tr class="row-odd"><td><p>LC_up</p></td>
+<td><p>1</p></td>
+<td><p>上樓梯步態</p></td>
+</tr>
+<tr class="row-even"><td><p>LC_down</p></td>
+<td><p>2</p></td>
+<td><p>下樓梯步態</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>LC_up / LC_down 選項只有在目前策略為 <code class="docutils literal notranslate"><span class="pre">lc</span></code> 時才會顯示。</p>
+</div>
+</section>
+<section id="walking-step-size">
+<span id="id21"></span><h3>步長調整<a class="headerlink" href="#walking-step-size" title="連結到這個標頭"></a></h3>
+<p>輸入步態方向向量，數值單位為整數（內部以 1/100 cm 換算）。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>欄位</p></th>
+<th class="head"><p>說明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>X</p></td>
+<td><p>前進（正）／後退（負）</p></td>
+</tr>
+<tr class="row-odd"><td><p>Y</p></td>
+<td><p>左移（正）／右移（負）</p></td>
+</tr>
+<tr class="row-even"><td><p>Theta</p></td>
+<td><p>左轉（正）／右轉（負），單位：步</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>可通過 <a class="reference internal" href="#walking-direction"><span class="std std-ref">方向控制</span></a> 即時控制數值</p>
+</div>
+</section>
+<section id="load">
+<span id="walking-load"></span><h3>Load<a class="headerlink" href="#load" title="連結到這個標頭"></a></h3>
+<p>從機器人後端讀取目前存檔的步態參數，填回畫面上的參數欄位。</p>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>在啟動步態前建議先按下 <code class="docutils literal notranslate"><span class="pre">Load</span></code> 來確保數值正確</p>
+</div>
+</section>
+<section id="generate">
+<span id="walking-generate"></span><h3>Generate<a class="headerlink" href="#generate" title="連結到這個標頭"></a></h3>
+<p>啟動或切換步行狀態，並發布當前方向指令。</p>
+<ul class="simple">
+<li><p><strong>連續模式</strong>：作為開關，第一次點擊發送 <code class="docutils literal notranslate"><span class="pre">1</span></code>（開始），再次點擊發送 <code class="docutils literal notranslate"><span class="pre">0</span></code>（停止）。</p></li>
+<li><p><strong>單步模式（LC_up/LC_down）</strong>：每次點擊均發送 <code class="docutils literal notranslate"><span class="pre">1</span></code>，執行一次步行動作。</p></li>
+</ul>
+</section>
+<section id="walking-direction">
+<span id="id22"></span><h3>方向控制<a class="headerlink" href="#walking-direction" title="連結到這個標頭"></a></h3>
+<p>六個方向按鈕，每次點擊使對應值增減一個步長，並於連續模式下即時更新。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>按鈕</p></th>
+<th class="head"><p>鍵盤捷徑</p></th>
+<th class="head"><p>動作</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Forward</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">W</span></code></p></td>
+<td><p>X += 100</p></td>
+</tr>
+<tr class="row-odd"><td><p>Backward</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">S</span></code></p></td>
+<td><p>X -= 100</p></td>
+</tr>
+<tr class="row-even"><td><p>Left Move</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">A</span></code></p></td>
+<td><p>Y += 100</p></td>
+</tr>
+<tr class="row-odd"><td><p>Right Move</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">D</span></code></p></td>
+<td><p>Y -= 100</p></td>
+</tr>
+<tr class="row-even"><td><p>Left Turn</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Q</span></code></p></td>
+<td><p>Theta += 1</p></td>
+</tr>
+<tr class="row-odd"><td><p>Right Turn</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">E</span></code></p></td>
+<td><p>Theta -= 1</p></td>
+</tr>
+<tr class="row-even"><td><p>（Reset）</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">R</span></code></p></td>
+<td><p>X=Y=Theta=0</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="walking-params">
+<span id="id23"></span><h3>步態參數<a class="headerlink" href="#walking-params" title="連結到這個標頭"></a></h3>
+<p>參數面板依選取的 Walking Mode 顯示不同欄位組。</p>
+<p><strong>Continuous Step（平地連續步態）：</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>參數</p></th>
+<th class="head"><p>說明</p></th>
+<th class="head"><p>預設值</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">com_y_swing</span></code></p></td>
+<td><p>質心起步偏移（cm）</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">width_size</span></code></p></td>
+<td><p>腳寬（cm）</p></td>
+<td><p>4.5</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">period_t</span></code></p></td>
+<td><p>週期(20一單位)</p></td>
+<td><p>360</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">T_DSP</span></code></p></td>
+<td><p>雙支撐時間比例（0–1）</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lift_height</span></code></p></td>
+<td><p>抬腳高度（cm）</p></td>
+<td><p>2.5</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">STAND_HEIGHT</span></code></p></td>
+<td><p>站姿高度（cm）</p></td>
+<td><p>23.5</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">COM_HEIGHT</span></code></p></td>
+<td><p>質心高度（cm）</p></td>
+<td><p>29.5</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>LCup / LCdown Step（樓梯步態）：</strong> 額外包含 <code class="docutils literal notranslate"><span class="pre">Board_High</span></code> （階梯高度）、<code class="docutils literal notranslate"><span class="pre">Clearance</span></code> （越障餘裕）參數。</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-8-8-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-8-8-0" name="8-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-8-8-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-8-8-1" name="8-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-8-8-0" class="sphinx-tabs-panel" id="panel-8-8-0" name="8-0" role="tabpanel" tabindex="0"><p>預設值：<code class="docutils literal notranslate"><span class="pre">com_height</span></code> = 29.5 cm、<code class="docutils literal notranslate"><span class="pre">stand_height</span></code> = 23.5 cm、
+<code class="docutils literal notranslate"><span class="pre">period_t</span></code> = 360 ms、<code class="docutils literal notranslate"><span class="pre">lift_height</span></code> = 2.5 cm。</p>
+</div><div aria-labelledby="tab-8-8-1" class="sphinx-tabs-panel" hidden="true" id="panel-8-8-1" name="8-1" role="tabpanel" tabindex="0"><p>預設值：<code class="docutils literal notranslate"><span class="pre">com_height</span></code> = 40 cm、<code class="docutils literal notranslate"><span class="pre">stand_height</span></code> = 50 cm、
+<code class="docutils literal notranslate"><span class="pre">period_t</span></code> = 420 ms、<code class="docutils literal notranslate"><span class="pre">lift_height</span></code> = 5 cm。</p>
+</div></div>
+</section>
+<section id="save">
+<span id="walking-save"></span><h3>Save<a class="headerlink" href="#save" title="連結到這個標頭"></a></h3>
+<p>將畫面上的參數儲存至目前策略Parameter資料夾中的參數檔案。</p>
+<ul class="simple">
+<li><p>平地模式：儲存至WalkingParameter.ini。</p></li>
+<li><p>LC 模式：儲存至UpStair.ini/DownStair.ini。</p></li>
+</ul>
+</section>
+<section id="send">
+<span id="walking-send"></span><h3>Send<a class="headerlink" href="#send" title="連結到這個標頭"></a></h3>
+<p>將畫面上的參數即時套用至行走節點（不寫入檔案），並執行腳寬更變。</p>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>Send 僅更新執行中的節點，不寫入檔案。若要永久保存請改用 <a class="reference internal" href="#save">Save</a>。</p>
+</div>
+<hr class="docutils" />
+</section>
+</section>
+<section id="minidrc">
+<span id="interface-minidrc"></span><h2>miniDRC<a class="headerlink" href="#minidrc" title="連結到這個標頭"></a></h2>
+<a href="_static/miniDRC_demo.html" target="_blank"
+   style="background:#03e9f4;color:#000;padding:5px 14px;border-radius:4px;
+          text-decoration:none;font-weight:bold;font-family:monospace;">
+  &#9654; 開啟 DEMO
+</a><div class="iface-map-wrap">
+  <img src="_static/screenshots/miniDRC.png" alt="miniDRC 介面截圖">
+
+ <!-- 現在策略顯示(各網頁共用) -->
+ <a class="area-overlay" href="#strategy"
+   style="top:8%;left:0.5%;width:7.75%;height:10%;color:#ffcc00"></a>
+
+ <!-- Address(各網頁共用) -->
+ <a class="area-overlay" href="#shared-address"
+   style="top:14.5%;left:43.3%;width:13%;height:4.25%;color:#ffcc00"></a>
+
+ <!-- 相機畫面 -->
+ <a class="area-overlay" href="#image-camera"
+   style="top:22%;left:7.25%;width:62.5%;height:73.5%;color:#ffcc00"></a>
+
+ <!-- 步態調整面板 -->
+ <a class="area-overlay" href="#minidrc-walking-panel"
+   style="top:20.5%;left:72.5%;width:6.75%;height:3.25%;color:#ffcc00"></a>
+
+ <!-- 相機調整面板 -->
+ <a class="area-overlay" href="#minidrc-camera-panel"
+   style="top:20.5%;left:86.9%;width:6.75%;height:3.25%;color:#ffcc00"></a>
+
+ <!-- 頭部馬達控制 -->
+ <a class="area-overlay" href="#image-head-motor"
+   style="top:23.5%;left:72.5%;width:19%;height:13%;color:#ffcc00"></a>
+
+ <!-- 切換面板 -->
+ <a class="area-overlay" href="#minidrc-panel"
+   style="top:36.25%;left:72.5%;width:19%;height:17%;color:#ffcc00"></a>
+
+ <!-- Walking Mode 調整 -->
+ <a class="area-overlay" href="#walking-mode"
+   style="top:58%;left:70.5%;width:17%;height:4%;color:#ffcc00"></a>
+
+ <!-- 步長調整 -->
+ <a class="area-overlay" href="#walking-step-size"
+   style="top:61.75%;left:70.5%;width:17%;height:8.5%;color:#ffcc00"></a>
+
+ <!-- Generate -->
+ <a class="area-overlay" href="#walking-generate"
+   style="top:70%;left:77.5%;width:6.5%;height:4.5%;color:#ffcc00"></a>
+
+ <!-- IMU -->
+ <a class="area-overlay" href="#walking-imu"
+   style="top:74.25%;left:76%;width:8%;height:11.25%;color:#ffcc00"></a>
+
+ <!-- 執行指定motion -->
+ <a class="area-overlay" href="#minidrc-sector"
+   style="top:85.5%;left:70.5%;width:23%;height:14%;color:#ffcc00"></a>
+</div><p>將 WalkingInterface、ImageProcessInterface 與MotionControlInterface整合成單一精簡頁面。</p>
+<section id="walking-setup">
+<span id="minidrc-walking-panel"></span><h3>步態調整面板按鈕（Walking Setup）<a class="headerlink" href="#walking-setup" title="連結到這個標頭"></a></h3>
+<p>點擊後切換右側面板至步態參數調整畫面，功能與 WalkingInterface 的步態參數區塊相同。</p>
+<div class="admonition seealso">
+<p class="admonition-title">也參考</p>
+<p><a class="reference internal" href="#walking-params"><span class="std std-ref">步態參數</span></a>、<a class="reference internal" href="#walking-load"><span class="std std-ref">Load</span></a>、<a class="reference internal" href="#walking-send"><span class="std std-ref">Send</span></a></p>
+</div>
+</section>
+<section id="camera-setup">
+<span id="minidrc-camera-panel"></span><h3>相機調整面板按鈕（Camera Setup）<a class="headerlink" href="#camera-setup" title="連結到這個標頭"></a></h3>
+<p>點擊後切換右側面板至相機設定畫面，功能與 ImageProcessInterface 的相機設定區塊相同。</p>
+<div class="admonition seealso">
+<p class="admonition-title">也參考</p>
+<p><a class="reference internal" href="#image-camera-settings"><span class="std std-ref">相機參數設定</span></a></p>
+</div>
+</section>
+<section id="minidrc-panel">
+<span id="id24"></span><h3>切換面板（三種狀態）<a class="headerlink" href="#minidrc-panel" title="連結到這個標頭"></a></h3>
+<p>右側面板依點擊按鈕切換三種顯示模式：</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-9-9-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-9-9-0" name="9-0" role="tab" tabindex="0">① 預設（頭部位置按鈕）</button><button aria-controls="panel-9-9-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-9-9-1" name="9-1" role="tab" tabindex="-1">② Camera Setup</button><button aria-controls="panel-9-9-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-9-9-2" name="9-2" role="tab" tabindex="-1">③ Walking Setup</button></div><div aria-labelledby="tab-9-9-0" class="sphinx-tabs-panel" id="panel-9-9-0" name="9-0" role="tabpanel" tabindex="0"><p>點擊按鈕將兩顆頭部馬達轉至指定預設刻度</p>
+<a class="reference internal image-reference" href="_images/MiniDRCNormal.png"><img alt="_images/MiniDRCNormal.png" src="_images/MiniDRCNormal.png" style="width: 100%;" />
+</a>
+</div><div aria-labelledby="tab-9-9-1" class="sphinx-tabs-panel" hidden="true" id="panel-9-9-1" name="9-1" role="tabpanel" tabindex="0"><p>相機參數調整，功能與 <a class="reference internal" href="#image-camera-settings"><span class="std std-ref">相機參數設定</span></a> 相同</p>
+<a class="reference internal image-reference" href="_images/miniDRCCamera.png"><img alt="_images/miniDRCCamera.png" src="_images/miniDRCCamera.png" style="width: 100%;" />
+</a>
+</div><div aria-labelledby="tab-9-9-2" class="sphinx-tabs-panel" hidden="true" id="panel-9-9-2" name="9-2" role="tabpanel" tabindex="0"><p>步態參數調整，功能與 WalkingInterface 的步態參數區塊相同。
+<a class="reference internal" href="#walking-params"><span class="std std-ref">步態參數</span></a>、<a class="reference internal" href="#walking-load"><span class="std std-ref">Load</span></a>、<a class="reference internal" href="#walking-send"><span class="std std-ref">Send</span></a> 。</p>
+<a class="reference internal image-reference" href="_images/miniDRCWalk.png"><img alt="_images/miniDRCWalk.png" src="_images/miniDRCWalk.png" style="width: 100%;" />
+</a>
+</div></div>
+</section>
+<section id="motion">
+<span id="minidrc-sector"></span><h3>執行指定 Motion<a class="headerlink" href="#motion" title="連結到這個標頭"></a></h3>
+<p>頁面底部提供 11 個快捷動作按鈕（motion1–motion11），各自對應一個可編輯的 Sector 編號欄位。</p>
+<p>點擊按鈕後，讀取對應輸入欄的 Sector 編號，呼叫 <code class="docutils literal notranslate"><span class="pre">CheckSectorDRC(sector)</span></code> 向機器人下達執行指令。</p>
+<p>預設 Sector 對應表：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>按鈕</p></th>
+<th class="head"><p>預設 Sector</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>motion1</p></td>
+<td><p>209</p></td>
+</tr>
+<tr class="row-odd"><td><p>motion2</p></td>
+<td><p>208</p></td>
+</tr>
+<tr class="row-even"><td><p>motion3</p></td>
+<td><p>111</p></td>
+</tr>
+<tr class="row-odd"><td><p>motion4</p></td>
+<td><p>333</p></td>
+</tr>
+<tr class="row-even"><td><p>motion5</p></td>
+<td><p>1111</p></td>
+</tr>
+<tr class="row-odd"><td><p>motion6</p></td>
+<td><p>2222</p></td>
+</tr>
+<tr class="row-even"><td><p>motion7</p></td>
+<td><p>3333</p></td>
+</tr>
+<tr class="row-odd"><td><p>motion8</p></td>
+<td><p>103</p></td>
+</tr>
+<tr class="row-even"><td><p>motion9</p></td>
+<td><p>871</p></td>
+</tr>
+<tr class="row-odd"><td><p>motion10</p></td>
+<td><p>102</p></td>
+</tr>
+<tr class="row-even"><td><p>motion11</p></td>
+<td><p>872</p></td>
+</tr>
+</tbody>
+</table>
+<p>另有 <code class="docutils literal notranslate"><span class="pre">stand</span></code> 與 <code class="docutils literal notranslate"><span class="pre">notice</span></code> 按鈕。</p>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<ul class="simple">
+<li><p>Sector 編號可直接在欄位中修改，無需重新整理頁面，方便比賽現場臨時調整動作。</p></li>
+<li><p>預設編號可根據當年度負責人更改。</p></li>
+</ul>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id25">
+<h2>其他界面<a class="headerlink" href="#id25" title="連結到這個標頭"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>頁面</p></th>
+<th class="head"><p>說明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NodeMonitor.html</span></code></p></td>
+<td><p>節點狀態監控：即時顯示所有 ROS2 節點的 <code class="docutils literal notranslate"><span class="pre">/rosout</span></code> log，支援節點篩選與多視窗並排</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Other.html" class="btn btn-neutral float-left" title="未實驗分類(Other)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SystemArchitecture.html" class="btn btn-neutral float-right" title="系統架構總覽" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Yang,Shu-kai.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -6,9 +6,10 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>版本 &mdash; TKU ICLAB ROS2 API 2026.05.26 說明文件</title>
+  <title>套件安裝 &mdash; TKU ICLAB ROS2 API 2026.05.26 說明文件</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=a5c4661c" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
@@ -17,10 +18,12 @@
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="_static/translations.js?v=cbf116e0"></script>
+      <script src="_static/tabs.js?v=3030b3cb"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜尋" href="search.html" />
-    <link rel="prev" title="Sphinx 文件建置" href="sphinx_setup.html" /> 
+    <link rel="next" title="機器人命令設定" href="robot_setup.html" />
+    <link rel="prev" title="ROS2 安裝（Humble）" href="ros2_install.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -66,15 +69,20 @@
 <li class="toctree-l1"><a class="reference internal" href="Development.html#id4">設定檔位置</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">安裝與設定:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="ros2_install.html">ROS2 安裝（Humble）</a></li>
-<li class="toctree-l1"><a class="reference internal" href="package_install.html">套件安裝</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">套件安裝</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#rosdep">rosdep 初始化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#apt">apt 套件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pip">pip 套件</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="robot_setup.html">機器人命令設定</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sphinx_setup.html">Sphinx 文件建置</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">版本資訊:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">版本</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Version.html">版本</a></li>
 </ul>
 
         </div>
@@ -91,9 +99,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">版本</li>
+      <li class="breadcrumb-item active">套件安裝</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/Version.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/package_install.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -102,16 +110,64 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>版本<a class="headerlink" href="#id1" title="連結到這個標頭"></a></h1>
-<p>最後更新：2026.05.26</p>
-<p>完整程式：<a class="reference external" href="https://github.com/tkuiclabwhite/ros2_kid">https://github.com/tkuiclabwhite/ros2_kid</a></p>
+<h1>套件安裝<a class="headerlink" href="#id1" title="連結到這個標頭"></a></h1>
+<section id="rosdep">
+<h2>rosdep 初始化<a class="headerlink" href="#rosdep" title="連結到這個標頭"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-rosdep
+sudo<span class="w"> </span>rosdep<span class="w"> </span>init
+rosdep<span class="w"> </span>update
+</pre></div>
+</div>
+</section>
+<section id="apt">
+<h2>apt 套件<a class="headerlink" href="#apt" title="連結到這個標頭"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-colcon-common-extensions
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-opencv
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-rosbridge-server
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-cv-bridge
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-librealsense2*
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-realsense2-*
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-tk
+</pre></div>
+</div>
+</section>
+<section id="pip">
+<h2>pip 套件<a class="headerlink" href="#pip" title="連結到這個標頭"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>numpy
+pip<span class="w"> </span>install<span class="w"> </span>Pillow
+pip<span class="w"> </span>install<span class="w"> </span>pyserial
+pip<span class="w"> </span>install<span class="w"> </span>pyyaml
+pip<span class="w"> </span>install<span class="w"> </span>dynamixel-sdk
+pip<span class="w"> </span>install<span class="w"> </span>pupil-apriltags
+pip<span class="w"> </span>install<span class="w"> </span>pydantic
+pip<span class="w"> </span>install<span class="w"> </span>matplotlib
+pip<span class="w"> </span>install<span class="w"> </span>mediapipe
+pip<span class="w"> </span>install<span class="w"> </span>ultralytics
+pip<span class="w"> </span>install<span class="w"> </span>torch
+</pre></div>
+</div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><p>KID 不需額外安裝 GPIO 相關套件。</p>
+</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><p>ADULT 使用 Jetson AGX 的實體 GPIO，需額外安裝：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>Jetson.GPIO
+sudo<span class="w"> </span>groupadd<span class="w"> </span>-f<span class="w"> </span>-r<span class="w"> </span>gpio
+sudo<span class="w"> </span>usermod<span class="w"> </span>-a<span class="w"> </span>-G<span class="w"> </span>gpio<span class="w"> </span><span class="nv">$USER</span>
+</pre></div>
+</div>
+</div></div>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>以上套件清單可能不完整，若執行時出現 <code class="docutils literal notranslate"><span class="pre">ModuleNotFoundError</span></code>，請依錯誤訊息補裝對應套件。</p>
+</div>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="sphinx_setup.html" class="btn btn-neutral float-left" title="Sphinx 文件建置" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ros2_install.html" class="btn btn-neutral float-left" title="ROS2 安裝（Humble）" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="robot_setup.html" class="btn btn-neutral float-right" title="機器人命令設定" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
