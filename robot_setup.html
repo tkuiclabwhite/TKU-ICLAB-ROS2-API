@@ -79,13 +79,15 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#bashrc">~/.bashrc 設定</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#git-sync-sh">git_sync.sh</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#github">GitHub 初始化</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#ssh">前置步驟：SSH 金鑰設定</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#repo-github">情況一：全新 repo（GitHub 上還沒有）</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#repo-github-clone">情況二：已有 repo（換機器人，直接從 GitHub clone）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">小黑分支設定（副機器人）</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#git-sync-sh">git_sync.sh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#git-push-sh">git_push.sh（小黑專用）</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="sphinx_setup.html">Sphinx 文件建置</a></li>
@@ -168,9 +170,13 @@ udevadm<span class="w"> </span>info<span class="w"> </span>-a<span class="w"> </
 </section>
 <section id="bashrc">
 <h2>~/.bashrc 設定<a class="headerlink" href="#bashrc" title="連結到這個標頭"></a></h2>
-<p>在 <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> 末尾加入以下自定義設定：</p>
+<p>開啟 <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nano<span class="w"> </span>~/.bashrc
+</pre></div>
+</div>
+<p>在末尾加入以下內容：</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-1-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-1-1-0" name="1-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-1-1-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-1" name="1-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-1-1-0" class="sphinx-tabs-panel" id="panel-1-1-0" name="1-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-1-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-1-1-0" name="1-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-1-1-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-1" name="1-1" role="tab" tabindex="-1">大人型 (ADULT)</button><button aria-controls="panel-1-1-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-2" name="1-2" role="tab" tabindex="-1">小黑（副機器人）</button></div><div aria-labelledby="tab-1-1-0" class="sphinx-tabs-panel" id="panel-1-1-0" name="1-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
 
 <span class="c1"># ROS 2 環境</span>
 <span class="nb">source</span><span class="w"> </span>/opt/ros/humble/setup.bash
@@ -210,6 +216,27 @@ udevadm<span class="w"> </span>info<span class="w"> </span>-a<span class="w"> </
 <span class="nb">alias</span><span class="w"> </span><span class="nv">gitpush</span><span class="o">=</span><span class="s1">&#39;bash ~/ros2_adult/git_sync.sh&#39;</span>
 </pre></div>
 </div>
+</div><div aria-labelledby="tab-1-1-2" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-2" name="1-2" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+
+<span class="c1"># ROS 2 環境</span>
+<span class="nb">source</span><span class="w"> </span>/opt/ros/humble/setup.bash
+
+<span class="c1"># 自動補完</span>
+<span class="nb">source</span><span class="w"> </span>/usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
+
+<span class="c1"># ROS Domain</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DOMAIN_ID</span><span class="o">=</span><span class="m">1</span>
+
+<span class="c1">#限定接線設備連接</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">ROS_LOCALHOST_ONLY</span><span class="o">=</span><span class="m">1</span>
+
+<span class="c1"># 自定義快捷鍵</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">cb</span><span class="o">=</span><span class="s1">&#39;colcon build --symlink-install &amp;&amp; source install/setup.bash&#39;</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">cbp</span><span class="o">=</span><span class="s1">&#39;colcon build --symlink-install --packages-select strategy &amp;&amp; source install/setup.bash&#39;</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">gitpush</span><span class="o">=</span><span class="s1">&#39;bash ~/ros2_kid/git_push.sh&#39;</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">gitsync</span><span class="o">=</span><span class="s1">&#39;bash ~/ros2_kid/git_sync.sh&#39;</span>
+</pre></div>
+</div>
 </div></div>
 <p>套用設定：</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>~/.bashrc
@@ -221,17 +248,166 @@ udevadm<span class="w"> </span>info<span class="w"> </span>-a<span class="w"> </
 <p>若有安裝 Miniconda，conda 初始化區段會由 <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">init</span> <span class="pre">bash</span></code> 自動加入 <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code>。</p>
 </div>
 </section>
+<section id="github">
+<h2>GitHub 初始化<a class="headerlink" href="#github" title="連結到這個標頭"></a></h2>
+<p>首次在機器人上設定 Git 與 GitHub 連線。SSH 金鑰設定是所有情況的共用前置步驟。</p>
+<section id="ssh">
+<h3>前置步驟：SSH 金鑰設定<a class="headerlink" href="#ssh" title="連結到這個標頭"></a></h3>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-2-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-2-2-0" name="2-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-2-2-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-2-2-1" name="2-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-2-2-0" class="sphinx-tabs-panel" id="panel-2-2-0" name="2-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.ssh
+ssh-keygen<span class="w"> </span>-t<span class="w"> </span>ed25519<span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;tkuiclabwhite@gmail.com&quot;</span>
+<span class="c1"># Enter file in which to save the key: /home/iclab/.ssh/ros2_kid</span>
+<span class="c1"># Enter passphrase: （直接按 Enter，不設密碼）</span>
+
+ls<span class="w"> </span>-l<span class="w"> </span>~/.ssh/ros2_kid*
+cat<span class="w"> </span>~/.ssh/ros2_kid.pub
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-2-2-1" class="sphinx-tabs-panel" hidden="true" id="panel-2-2-1" name="2-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.ssh
+ssh-keygen<span class="w"> </span>-t<span class="w"> </span>ed25519<span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;tkuiclabwhite@gmail.com&quot;</span>
+<span class="c1"># Enter file in which to save the key: /home/iclab/.ssh/ros2_adult</span>
+<span class="c1"># Enter passphrase: （直接按 Enter，不設密碼）</span>
+
+ls<span class="w"> </span>-l<span class="w"> </span>~/.ssh/ros2_adult*
+cat<span class="w"> </span>~/.ssh/ros2_adult.pub
+</pre></div>
+</div>
+</div></div>
+<p>將 <code class="docutils literal notranslate"><span class="pre">cat</span></code> 輸出的公鑰完整複製，前往 <strong>GitHub → Settings → SSH and GPG keys → New SSH key</strong>，貼上後儲存。</p>
+<p>設定 <code class="docutils literal notranslate"><span class="pre">~/.ssh/config</span></code>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nano<span class="w"> </span>~/.ssh/config
+</pre></div>
+</div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-3-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-3-3-0" name="3-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-3-3-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-3-3-1" name="3-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-3-3-0" class="sphinx-tabs-panel" id="panel-3-3-0" name="3-0" role="tabpanel" tabindex="0"><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/ros2_kid
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-3-3-1" class="sphinx-tabs-panel" hidden="true" id="panel-3-3-1" name="3-1" role="tabpanel" tabindex="0"><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/ros2_adult
+</pre></div>
+</div>
+</div></div>
+<p>測試連線（出現 <code class="docutils literal notranslate"><span class="pre">Hi</span> <span class="pre">tkuiclabwhite!</span></code> 即成功）：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>-T<span class="w"> </span>git@github.com
+</pre></div>
+</div>
+</section>
+<section id="repo-github">
+<h3>情況一：全新 repo（GitHub 上還沒有）<a class="headerlink" href="#repo-github" title="連結到這個標頭"></a></h3>
+<p>先在 <strong>GitHub 網站建立空白倉庫</strong> （不要勾選 Initialize this repository with a README）。</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-4-4-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-4-4-0" name="4-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-4-4-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-4-4-1" name="4-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-4-4-0" class="sphinx-tabs-panel" id="panel-4-4-0" name="4-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/ros2_kid
+git<span class="w"> </span>init
+git<span class="w"> </span>config<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;tkuiclabwhite&quot;</span>
+git<span class="w"> </span>config<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;tkuiclabwhite@gmail.com&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;build/&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.gitignore
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;install/&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.gitignore
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;log/&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.gitignore
+git<span class="w"> </span>status
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Initial commit: first push&quot;</span>
+git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>git@github.com:tkuiclabwhite/ros2_kid.git
+git<span class="w"> </span>branch<span class="w"> </span>-M<span class="w"> </span>main
+git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>main
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-4-4-1" class="sphinx-tabs-panel" hidden="true" id="panel-4-4-1" name="4-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/ros2_adult
+git<span class="w"> </span>init
+git<span class="w"> </span>config<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;tkuiclabwhite&quot;</span>
+git<span class="w"> </span>config<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;tkuiclabwhite@gmail.com&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;build/&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.gitignore
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;install/&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.gitignore
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;log/&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.gitignore
+git<span class="w"> </span>status
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Initial commit: first push&quot;</span>
+git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>git@github.com:tkuiclabwhite/ros2_adult.git
+git<span class="w"> </span>branch<span class="w"> </span>-M<span class="w"> </span>main
+git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>main
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="repo-github-clone">
+<h3>情況二：已有 repo（換機器人，直接從 GitHub clone）<a class="headerlink" href="#repo-github-clone" title="連結到這個標頭"></a></h3>
+<p>SSH 金鑰設定完成後，直接 clone 即可，不需要 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">init</span></code>。</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-5-5-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-5-5-0" name="5-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-5-5-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-5-5-1" name="5-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-5-5-0" class="sphinx-tabs-panel" id="panel-5-5-0" name="5-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~
+git<span class="w"> </span>clone<span class="w"> </span>git@github.com:tkuiclabwhite/ros2_kid.git
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-5-5-1" class="sphinx-tabs-panel" hidden="true" id="panel-5-5-1" name="5-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~
+git<span class="w"> </span>clone<span class="w"> </span>git@github.com:tkuiclabwhite/ros2_adult.git
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="id2">
+<h3>小黑分支設定（副機器人）<a class="headerlink" href="#id2" title="連結到這個標頭"></a></h3>
+<p>Clone 完成後，建立小黑專屬的 <code class="docutils literal notranslate"><span class="pre">black</span></code> 分支。</p>
+<p>先確認遠端是否已有 <code class="docutils literal notranslate"><span class="pre">black</span></code> 分支（無輸出代表尚未建立）：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>ls-remote<span class="w"> </span>--heads<span class="w"> </span>origin<span class="w"> </span>black
+</pre></div>
+</div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-6-6-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-6-6-0" name="6-0" role="tab" tabindex="0">首次建立分支</button><button aria-controls="panel-6-6-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-6-6-1" name="6-1" role="tab" tabindex="-1">分支已存在（換機器人）</button></div><div aria-labelledby="tab-6-6-0" class="sphinx-tabs-panel" id="panel-6-6-0" name="6-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/ros2_kid
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>black<span class="w"> </span>origin/main
+git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>black
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-6-6-1" class="sphinx-tabs-panel" hidden="true" id="panel-6-6-1" name="6-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/ros2_kid
+git<span class="w"> </span>fetch<span class="w"> </span>origin
+git<span class="w"> </span>checkout<span class="w"> </span>black
+</pre></div>
+</div>
+</div></div>
+<p><strong>鎖定特定檔案</strong>，防止 <code class="docutils literal notranslate"><span class="pre">gitsync</span></code> 時主機器人的更新覆蓋小黑的本地設定：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nano<span class="w"> </span>.gitattributes
+</pre></div>
+</div>
+<p>填入以下內容：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>src/strategy/strategy/Parameter/stand.ini merge=ours
+src/strategy/strategy/Parameter/29.ini merge=ours
+src/strategy/strategy/Parameter/config.js merge=ours
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>add<span class="w"> </span>.gitattributes
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Protect stand.ini/29.ini/config.js from main sync&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>black
+</pre></div>
+</div>
+</section>
+</section>
 <section id="git-sync-sh">
 <h2>git_sync.sh<a class="headerlink" href="#git-sync-sh" title="連結到這個標頭"></a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">git_sync.sh</span></code> 放在專案根目錄，支援以暱稱或路徑指定要上傳的範圍，預設上傳全部。</p>
+<p><code class="docutils literal notranslate"><span class="pre">git_sync.sh</span></code> 放在專案根目錄。小人型（主機器人）與 ADULT 用於推送到 <code class="docutils literal notranslate"><span class="pre">main</span></code> 分支；小黑的版本功能不同，是從 <code class="docutils literal notranslate"><span class="pre">main</span></code> 拉取更新。</p>
 <p>用法：</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gitpush<span class="w">           </span><span class="c1"># 上傳全部</span>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-7-7-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-7-7-0" name="7-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-7-7-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-7-7-1" name="7-1" role="tab" tabindex="-1">大人型 (ADULT)</button><button aria-controls="panel-7-7-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-7-7-2" name="7-2" role="tab" tabindex="-1">小黑（副機器人）</button></div><div aria-labelledby="tab-7-7-0" class="sphinx-tabs-panel" id="panel-7-7-0" name="7-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gitpush<span class="w">           </span><span class="c1"># 上傳全部</span>
 gitpush<span class="w"> </span>strategy<span class="w">  </span><span class="c1"># 只上傳 strategy package</span>
 gitpush<span class="w"> </span>obs<span class="w">       </span><span class="c1"># 只上傳 obs 策略</span>
 </pre></div>
 </div>
+</div><div aria-labelledby="tab-7-7-1" class="sphinx-tabs-panel" hidden="true" id="panel-7-7-1" name="7-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gitpush<span class="w">           </span><span class="c1"># 上傳全部</span>
+gitpush<span class="w"> </span>strategy<span class="w">  </span><span class="c1"># 只上傳 strategy package</span>
+gitpush<span class="w"> </span>obs<span class="w">       </span><span class="c1"># 只上傳 obs 策略</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-7-7-2" class="sphinx-tabs-panel" hidden="true" id="panel-7-7-2" name="7-2" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gitsync<span class="w">           </span><span class="c1"># 從主機器人同步最新系統</span>
+</pre></div>
+</div>
+</div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-2-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-2-2-0" name="2-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-2-2-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-2-2-1" name="2-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-2-2-0" class="sphinx-tabs-panel" id="panel-2-2-0" name="2-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-8-8-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-8-8-0" name="8-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-8-8-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-8-8-1" name="8-1" role="tab" tabindex="-1">大人型 (ADULT)</button><button aria-controls="panel-8-8-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-8-8-2" name="8-2" role="tab" tabindex="-1">小黑（副機器人）</button></div><div aria-labelledby="tab-8-8-0" class="sphinx-tabs-panel" id="panel-8-8-0" name="8-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nano<span class="w"> </span>~/ros2_kid/git_sync.sh
+</pre></div>
+</div>
+<p>填入以下內容：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 <span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
 
 <span class="c1"># --- 1. 設定身分 ---</span>
@@ -304,7 +480,15 @@ git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;-------------------------------&quot;</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-2-2-1" class="sphinx-tabs-panel" hidden="true" id="panel-2-2-1" name="2-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<p>賦予執行權限：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>~/ros2_kid/git_sync.sh
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-8-8-1" class="sphinx-tabs-panel" hidden="true" id="panel-8-8-1" name="8-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nano<span class="w"> </span>~/ros2_adult/git_sync.sh
+</pre></div>
+</div>
+<p>填入以下內容：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 <span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
 
 <span class="c1"># --- 1. 設定身分 ---</span>
@@ -376,112 +560,100 @@ git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;-------------------------------&quot;</span>
 </pre></div>
 </div>
-</div></div>
 <p>賦予執行權限：</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>~/ros2_kid/git_sync.sh<span class="w">    </span><span class="c1"># KID</span>
-chmod<span class="w"> </span>+x<span class="w"> </span>~/ros2_adult/git_sync.sh<span class="w">  </span><span class="c1"># ADULT</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>~/ros2_adult/git_sync.sh
 </pre></div>
 </div>
-</section>
-<section id="github">
-<h2>GitHub 初始化<a class="headerlink" href="#github" title="連結到這個標頭"></a></h2>
-<p>首次在機器人上設定 Git 與 GitHub 連線。SSH 金鑰設定是兩種情況的共用前置步驟。</p>
-<section id="ssh">
-<h3>前置步驟：SSH 金鑰設定<a class="headerlink" href="#ssh" title="連結到這個標頭"></a></h3>
-<div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-3-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-3-3-0" name="3-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-3-3-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-3-3-1" name="3-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-3-3-0" class="sphinx-tabs-panel" id="panel-3-3-0" name="3-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.ssh
-ssh-keygen<span class="w"> </span>-t<span class="w"> </span>ed25519<span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;tkuiclabwhite@gmail.com&quot;</span>
-<span class="c1"># Enter file in which to save the key: /home/iclab/.ssh/ros2_kid</span>
-<span class="c1"># Enter passphrase: （直接按 Enter，不設密碼）</span>
-
-ls<span class="w"> </span>-l<span class="w"> </span>~/.ssh/ros2_kid*
-cat<span class="w"> </span>~/.ssh/ros2_kid.pub
+</div><div aria-labelledby="tab-8-8-2" class="sphinx-tabs-panel" hidden="true" id="panel-8-8-2" name="8-2" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nano<span class="w"> </span>~/ros2_kid/git_sync.sh
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-3-3-1" class="sphinx-tabs-panel" hidden="true" id="panel-3-3-1" name="3-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.ssh
-ssh-keygen<span class="w"> </span>-t<span class="w"> </span>ed25519<span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;tkuiclabwhite@gmail.com&quot;</span>
-<span class="c1"># Enter file in which to save the key: /home/iclab/.ssh/ros2_adult</span>
-<span class="c1"># Enter passphrase: （直接按 Enter，不設密碼）</span>
-
-ls<span class="w"> </span>-l<span class="w"> </span>~/.ssh/ros2_adult*
-cat<span class="w"> </span>~/.ssh/ros2_adult.pub
+<p>填入以下內容：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
+git<span class="w"> </span>fetch<span class="w"> </span>origin<span class="w"> </span>main
+git<span class="w"> </span>merge<span class="w"> </span>origin/main<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Sync from main </span><span class="k">$(</span>date<span class="w"> </span>+%Y-%m-%d_%H:%M<span class="k">)</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;-------------------------------&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;✅ 已同步主機器人最新系統 (stand.ini / 29.ini / config.js 保留副機器人本地版本)&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;-------------------------------&quot;</span>
+</pre></div>
+</div>
+<p>賦予執行權限：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>~/ros2_kid/git_sync.sh
 </pre></div>
 </div>
 </div></div>
-<p>將 <code class="docutils literal notranslate"><span class="pre">cat</span></code> 輸出的公鑰完整複製，前往 <strong>GitHub → Settings → SSH and GPG keys → New SSH key</strong>，貼上後儲存。</p>
-<p>設定 <code class="docutils literal notranslate"><span class="pre">~/.ssh/config</span></code>：</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nano<span class="w"> </span>~/.ssh/config
-</pre></div>
-</div>
-<div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-4-4-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-4-4-0" name="4-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-4-4-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-4-4-1" name="4-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-4-4-0" class="sphinx-tabs-panel" id="panel-4-4-0" name="4-0" role="tabpanel" tabindex="0"><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Host github.com
-    HostName github.com
-    User git
-    IdentityFile ~/.ssh/ros2_kid
-</pre></div>
-</div>
-</div><div aria-labelledby="tab-4-4-1" class="sphinx-tabs-panel" hidden="true" id="panel-4-4-1" name="4-1" role="tabpanel" tabindex="0"><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Host github.com
-    HostName github.com
-    User git
-    IdentityFile ~/.ssh/ros2_adult
-</pre></div>
-</div>
-</div></div>
-<p>測試連線（出現 <code class="docutils literal notranslate"><span class="pre">Hi</span> <span class="pre">tkuiclabwhite!</span></code> 即成功）：</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>-T<span class="w"> </span>git@github.com
-</pre></div>
-</div>
 </section>
-<section id="repo-github">
-<h3>情況一：全新 repo（GitHub 上還沒有）<a class="headerlink" href="#repo-github" title="連結到這個標頭"></a></h3>
-<p>先在 <strong>GitHub 網站建立空白倉庫</strong> （不要勾選 Initialize this repository with a README）。</p>
-<div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-5-5-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-5-5-0" name="5-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-5-5-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-5-5-1" name="5-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-5-5-0" class="sphinx-tabs-panel" id="panel-5-5-0" name="5-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/ros2_kid
-git<span class="w"> </span>init
+<section id="git-push-sh">
+<h2>git_push.sh（小黑專用）<a class="headerlink" href="#git-push-sh" title="連結到這個標頭"></a></h2>
+<p>小黑使用 <code class="docutils literal notranslate"><span class="pre">git_push.sh</span></code> 將修改推送到 <code class="docutils literal notranslate"><span class="pre">black</span></code> 分支，預設只上傳 <code class="docutils literal notranslate"><span class="pre">src/strategy</span></code>。</p>
+<p>用法：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gitpush<span class="w">           </span><span class="c1"># 上傳全部 strategy</span>
+gitpush<span class="w"> </span>obs<span class="w">       </span><span class="c1"># 只上傳 obs 策略</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nano<span class="w"> </span>~/ros2_kid/git_push.sh
+</pre></div>
+</div>
+<p>填入以下內容：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
+
 git<span class="w"> </span>config<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;tkuiclabwhite&quot;</span>
 git<span class="w"> </span>config<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;tkuiclabwhite@gmail.com&quot;</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;build/&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.gitignore
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;install/&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.gitignore
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;log/&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.gitignore
-git<span class="w"> </span>status
-git<span class="w"> </span>add<span class="w"> </span>.
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Initial commit: first push&quot;</span>
-git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>git@github.com:tkuiclabwhite/ros2_kid.git
-git<span class="w"> </span>branch<span class="w"> </span>-M<span class="w"> </span>main
-git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>main
+
+<span class="nb">declare</span><span class="w"> </span>-A<span class="w"> </span>NICKNAMES
+<span class="nv">NICKNAMES</span><span class="o">=(</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;ar&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/ar&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;bb&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/bb&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;bm&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/bm&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;lc&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/lc&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;mar&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/mar&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;obs&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/obs&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;sp&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/sp&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;sr&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/sr&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;wl&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/wl&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;us&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy/strategy/us&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;strategy&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy&quot;</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;all&quot;</span><span class="o">]=</span><span class="s2">&quot;src/strategy&quot;</span>
+<span class="o">)</span>
+
+<span class="nv">INPUT</span><span class="o">=</span><span class="nv">$1</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$INPUT</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nv">TARGET</span><span class="o">=</span><span class="s2">&quot;src/strategy&quot;</span>
+<span class="k">elif</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NICKNAMES</span><span class="p">[</span><span class="nv">$INPUT</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nv">TARGET</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NICKNAMES</span><span class="p">[</span><span class="nv">$INPUT</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="nv">TARGET</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$INPUT</span><span class="s2">&quot;</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;📂 目標路徑：</span><span class="nv">$TARGET</span><span class="s2">&quot;</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>!<span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$TARGET</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$TARGET</span><span class="s2">&quot;</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="s2">&quot;.&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;❌ 錯誤：找不到路徑 &#39;</span><span class="nv">$TARGET</span><span class="s2">&#39;，請檢查暱稱或路徑是否正確。&quot;</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fi</span>
+
+git<span class="w"> </span>add<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$TARGET</span><span class="s2">&quot;</span>
+
+<span class="k">if</span><span class="w"> </span>git<span class="w"> </span>diff-index<span class="w"> </span>--quiet<span class="w"> </span>HEAD<span class="w"> </span>--<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;ℹ️ 沒有偵測到變動，取消上傳。&quot;</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
+<span class="k">fi</span>
+
+<span class="nv">current_date</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+<span class="s2">&quot;%Y-%m-%d %H:%M&quot;</span><span class="k">)</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Update (</span><span class="nv">$TARGET</span><span class="s2">): </span><span class="nv">$current_date</span><span class="s2">&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>black
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;-------------------------------&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;上傳成功！[push package: </span><span class="si">${</span><span class="nv">INPUT</span><span class="k">:-</span><span class="nv">all</span><span class="si">}</span><span class="s2">] -&gt; </span><span class="nv">$TARGET</span><span class="s2"> (branch: black)&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;日期: </span><span class="nv">$current_date</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;-------------------------------&quot;</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-5-5-1" class="sphinx-tabs-panel" hidden="true" id="panel-5-5-1" name="5-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/ros2_adult
-git<span class="w"> </span>init
-git<span class="w"> </span>config<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;tkuiclabwhite&quot;</span>
-git<span class="w"> </span>config<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;tkuiclabwhite@gmail.com&quot;</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;build/&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.gitignore
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;install/&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.gitignore
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;log/&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.gitignore
-git<span class="w"> </span>status
-git<span class="w"> </span>add<span class="w"> </span>.
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Initial commit: first push&quot;</span>
-git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>git@github.com:tkuiclabwhite/ros2_adult.git
-git<span class="w"> </span>branch<span class="w"> </span>-M<span class="w"> </span>main
-git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>main
+<p>賦予執行權限：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>~/ros2_kid/git_push.sh
 </pre></div>
 </div>
-</div></div>
-</section>
-<section id="repo-github-clone">
-<h3>情況二：已有 repo（換機器人，直接從 GitHub clone）<a class="headerlink" href="#repo-github-clone" title="連結到這個標頭"></a></h3>
-<p>SSH 金鑰設定完成後，直接 clone 即可，不需要 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">init</span></code>。</p>
-<div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-6-6-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-6-6-0" name="6-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-6-6-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-6-6-1" name="6-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-6-6-0" class="sphinx-tabs-panel" id="panel-6-6-0" name="6-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~
-git<span class="w"> </span>clone<span class="w"> </span>git@github.com:tkuiclabwhite/ros2_kid.git
-</pre></div>
-</div>
-</div><div aria-labelledby="tab-6-6-1" class="sphinx-tabs-panel" hidden="true" id="panel-6-6-1" name="6-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~
-git<span class="w"> </span>clone<span class="w"> </span>git@github.com:tkuiclabwhite/ros2_adult.git
-</pre></div>
-</div>
-</div></div>
-</section>
 </section>
 </section>
 
