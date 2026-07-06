@@ -1,0 +1,412 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-TW" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>熱點設定 &mdash; TKU ICLAB ROS2 API 2026.05.26 說明文件</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=a5c4661c" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=a24187a8"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/translations.js?v=cbf116e0"></script>
+      <script src="_static/tabs.js?v=3030b3cb"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜尋" href="search.html" />
+    <link rel="next" title="Sphinx 文件建置" href="sphinx_setup.html" />
+    <link rel="prev" title="WiFi 管理" href="wifi_setup.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            TKU ICLAB ROS2 API
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API 分類目錄:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Command.html">Terminal 指令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ros2.html">ROS2 內建輔助功能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="States.html">變數與狀態 (Variables &amp; States)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Walking.html">步態控制 (Walking Control)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Motion.html">馬達控制 (Motion Control)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VisionSensors.html">視覺與感測器數據 (Vision &amp; Sensors)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="System.html">系統進程與狀態 (System &amp; Process)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Other.html">未實驗分類(Other)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">操作介面:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="WebInterfaces.html">網頁操作介面教學</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">系統架構:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="SystemArchitecture.html">系統架構總覽</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Packages.html">各 Package 詳細說明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Development.html">新策略開發</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Development.html#id3">網頁操作介面</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Development.html#id4">設定檔位置</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">安裝與設定:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ros2_install.html">ROS2 安裝（Humble）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="package_install.html">套件安裝</a></li>
+<li class="toctree-l1"><a class="reference internal" href="udev_setup.html">udev 規則</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bashrc_setup.html">~/.bashrc 設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="github_setup.html">GitHub 設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wifi_setup.html">WiFi 管理</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">熱點設定</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">一般熱點設定</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#wifi">步驟 1：確認 WiFi 介面名稱</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">步驟 2：建立熱點</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ip">步驟 3：設定固定 IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wpa2-only">步驟 4：WPA2-only 設定（僅小人型）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">步驟 5：套用設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wpa2">步驟 6：確認 WPA2 設定寫入（僅小人型）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">步驟 7：確認熱點廣播（僅小人型）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">快捷指令</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">開機自動開啟</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sphinx_setup.html">Sphinx 文件建置</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">版本資訊:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Version.html">版本</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TKU ICLAB ROS2 API</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">熱點設定</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/hotspot_setup.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>熱點設定<a class="headerlink" href="#id1" title="連結到這個標頭"></a></h1>
+<section id="id2">
+<h2>一般熱點設定<a class="headerlink" href="#id2" title="連結到這個標頭"></a></h2>
+<section id="wifi">
+<h3>步驟 1：確認 WiFi 介面名稱<a class="headerlink" href="#wifi" title="連結到這個標頭"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nmcli<span class="w"> </span>device<span class="w"> </span>status
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3>步驟 2：建立熱點<a class="headerlink" href="#id3" title="連結到這個標頭"></a></h3>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">小白 (KID)</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">小黑（副機器人）</button><button aria-controls="panel-0-0-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-2" name="0-2" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nmcli<span class="w"> </span>device<span class="w"> </span>wifi<span class="w"> </span>hotspot<span class="w"> </span>ifname<span class="w"> </span>wlan0<span class="w"> </span>ssid<span class="w"> </span><span class="s2">&quot;TKU_WHITE&quot;</span><span class="w"> </span>password<span class="w"> </span><span class="s2">&quot;humanoidmaster&quot;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nmcli<span class="w"> </span>device<span class="w"> </span>wifi<span class="w"> </span>hotspot<span class="w"> </span>ifname<span class="w"> </span>wlan0<span class="w"> </span>ssid<span class="w"> </span><span class="s2">&quot;TKU_BLACK&quot;</span><span class="w"> </span>password<span class="w"> </span><span class="s2">&quot;humanoidmaster&quot;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-0-2" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-2" name="0-2" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nmcli<span class="w"> </span>device<span class="w"> </span>wifi<span class="w"> </span>hotspot<span class="w"> </span>ifname<span class="w"> </span>wlP1p1s0<span class="w"> </span>ssid<span class="w"> </span><span class="s2">&quot;TKU_TOWEN&quot;</span><span class="w"> </span>password<span class="w"> </span><span class="s2">&quot;humanoidmaster&quot;</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="ip">
+<h3>步驟 3：設定固定 IP<a class="headerlink" href="#ip" title="連結到這個標頭"></a></h3>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-1-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-1-1-0" name="1-0" role="tab" tabindex="0">小白 (KID)</button><button aria-controls="panel-1-1-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-1" name="1-1" role="tab" tabindex="-1">小黑（副機器人）</button><button aria-controls="panel-1-1-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-2" name="1-2" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-1-1-0" class="sphinx-tabs-panel" id="panel-1-1-0" name="1-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span>Hotspot<span class="w"> </span>ipv4.addresses<span class="w"> </span><span class="m">192</span>.168.10.58/24
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-1-1-1" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-1" name="1-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span>Hotspot<span class="w"> </span>ipv4.addresses<span class="w"> </span><span class="m">192</span>.168.10.59/24
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-1-1-2" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-2" name="1-2" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span>Hotspot<span class="w"> </span>ipv4.addresses<span class="w"> </span><span class="m">10</span>.10.10.10/24
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="wpa2-only">
+<h3>步驟 4：WPA2-only 設定（僅小人型）<a class="headerlink" href="#wpa2-only" title="連結到這個標頭"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>此步驟僅小人型（小白、小黑）需要執行，<strong>大人型請直接跳至步驟 5</strong>。
+目的是排除 WPA3 相容性問題，確保 Mac 能正常連線。</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span>Hotspot<span class="w"> </span><span class="m">802</span>-11-wireless-security.key-mgmt<span class="w"> </span>wpa-psk
+sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span>Hotspot<span class="w"> </span><span class="m">802</span>-11-wireless-security.psk<span class="w"> </span><span class="s2">&quot;humanoidmaster&quot;</span>
+sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span>Hotspot<span class="w"> </span><span class="m">802</span>-11-wireless-security.proto<span class="w"> </span>rsn
+sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span>Hotspot<span class="w"> </span><span class="m">802</span>-11-wireless-security.pairwise<span class="w"> </span>ccmp
+sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span>Hotspot<span class="w"> </span><span class="m">802</span>-11-wireless-security.group<span class="w"> </span>ccmp
+sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span>Hotspot<span class="w"> </span><span class="m">802</span>-11-wireless-security.pmf<span class="w"> </span><span class="m">1</span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3>步驟 5：套用設定<a class="headerlink" href="#id4" title="連結到這個標頭"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>down<span class="w"> </span>Hotspot
+sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>up<span class="w"> </span>Hotspot
+</pre></div>
+</div>
+</section>
+<section id="wpa2">
+<h3>步驟 6：確認 WPA2 設定寫入（僅小人型）<a class="headerlink" href="#wpa2" title="連結到這個標頭"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>此步驟僅小人型需要執行，大人型請略過。</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nmcli<span class="w"> </span>-t<span class="w"> </span>-f<span class="w"> </span><span class="m">802</span>-11-wireless-security<span class="w"> </span>connection<span class="w"> </span>show<span class="w"> </span>Hotspot
+</pre></div>
+</div>
+<p>應看到 <code class="docutils literal notranslate"><span class="pre">key-mgmt:</span> <span class="pre">wpa-psk</span></code>、<code class="docutils literal notranslate"><span class="pre">proto:</span> <span class="pre">rsn</span></code>、<code class="docutils literal notranslate"><span class="pre">pairwise:</span> <span class="pre">ccmp</span></code>、<code class="docutils literal notranslate"><span class="pre">group:</span> <span class="pre">ccmp</span></code>、<code class="docutils literal notranslate"><span class="pre">pmf:</span> <span class="pre">1</span></code>。</p>
+</section>
+<section id="id5">
+<h3>步驟 7：確認熱點廣播（僅小人型）<a class="headerlink" href="#id5" title="連結到這個標頭"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>此步驟僅小人型需要執行，大人型請略過。</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nmcli<span class="w"> </span>device<span class="w"> </span>wifi<span class="w"> </span>list<span class="w"> </span>ifname<span class="w"> </span>wlan0
+</pre></div>
+</div>
+<p>查看 <code class="docutils literal notranslate"><span class="pre">TKU_WHITE</span></code> 或 <code class="docutils literal notranslate"><span class="pre">TKU_BLACK</span></code> 那行的 <code class="docutils literal notranslate"><span class="pre">SECURITY</span></code> 欄位，應顯示 <code class="docutils literal notranslate"><span class="pre">WPA2</span></code>，不應出現 WPA3 混合模式。</p>
+</section>
+<section id="id6">
+<h3>快捷指令<a class="headerlink" href="#id6" title="連結到這個標頭"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">hotspotup</span></code>/ <code class="docutils literal notranslate"><span class="pre">hotspotdown</span></code> 別名已設定於 <a class="reference internal" href="bashrc_setup.html"><span class="doc">~/.bashrc 設定</span></a>，套用後可直接使用：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hotspotdown<span class="w">                    </span><span class="c1"># 關閉熱點</span>
+hotspotup<span class="w">                      </span><span class="c1"># 開啟熱點</span>
+nmcli<span class="w"> </span>connection<span class="w"> </span>show<span class="w"> </span>--active<span class="w"> </span><span class="c1"># 確認熱點是否正在運作</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id7">
+<h2>開機自動開啟<a class="headerlink" href="#id7" title="連結到這個標頭"></a></h2>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-2-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-2-2-0" name="2-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-2-2-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-2-2-1" name="2-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-2-2-0" class="sphinx-tabs-panel" id="panel-2-2-0" name="2-0" role="tabpanel" tabindex="0"><p>暫未開發。</p>
+</div><div aria-labelledby="tab-2-2-1" class="sphinx-tabs-panel" hidden="true" id="panel-2-2-1" name="2-1" role="tabpanel" tabindex="0"><div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>需先完成上方「一般熱點設定」各步驟，確保 <code class="docutils literal notranslate"><span class="pre">Hotspot</span></code> profile 已建立完畢。
+自動腳本只負責開機時觸發 profile，不會重新設定加密方式。</p>
+</div>
+<p><strong>步驟 1：建立 auto_hotspot.sh</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nano<span class="w"> </span>~/auto_hotspot.sh
+</pre></div>
+</div>
+<p>填入以下內容：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1"># auto_hotspot.sh</span>
+<span class="c1"># 開機後等 60 秒，判斷有線網卡狀態，分成三種情況：</span>
+<span class="c1">#   1. 有 LOWER_UP（插線且協商成功）→ 進入穩定監看，確保不被熱點動作干擾，穩定後才建熱點</span>
+<span class="c1">#   2. 沒有 LOWER_UP 但有 UP + NO-CARRIER（網卡驅動正常，只是沒插線）→ 不需要救援，直接建熱點</span>
+<span class="c1">#   3. 沒有 UP（網卡驅動/PHY 初始化失敗，例如 Aquantia PHY 卡死）→ 嘗試 ip link down/up + ethtool 救援</span>
+
+<span class="nv">WIFI_INTERFACE</span><span class="o">=</span><span class="s2">&quot;wlP1p1s0&quot;</span>
+<span class="nv">WIRED_INTERFACE</span><span class="o">=</span><span class="s2">&quot;eno1&quot;</span>
+<span class="nv">HOTSPOT_SSID</span><span class="o">=</span><span class="s2">&quot;TKU_TOWEN&quot;</span>
+<span class="nv">HOTSPOT_PASSWORD</span><span class="o">=</span><span class="s2">&quot;humanoidmaster&quot;</span>
+<span class="nv">HOTSPOT_IP</span><span class="o">=</span><span class="s2">&quot;10.10.10.10/24&quot;</span>
+
+<span class="nv">INITIAL_WAIT</span><span class="o">=</span><span class="m">60</span><span class="w">      </span><span class="c1"># 開機後先等幾秒，讓系統完全啟動</span>
+<span class="nv">STABLE_REQUIRED</span><span class="o">=</span><span class="m">30</span><span class="w">   </span><span class="c1"># 插線且協商成功時，需要連續穩定幾秒才開熱點</span>
+<span class="nv">RESCUE_AFTER</span><span class="o">=</span><span class="m">30</span><span class="w">      </span><span class="c1"># 網卡開不起來時，超過幾秒就嘗試手動重置</span>
+<span class="nv">CHECK_INTERVAL</span><span class="o">=</span><span class="m">1</span><span class="w">     </span><span class="c1"># 每幾秒檢查一次</span>
+
+<span class="nv">LOG_FILE</span><span class="o">=</span><span class="s2">&quot;/var/log/auto_hotspot.log&quot;</span>
+
+check_wired_state<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nb">local</span><span class="w"> </span>link_info
+<span class="w">    </span><span class="nv">link_info</span><span class="o">=</span><span class="k">$(</span>ip<span class="w"> </span>link<span class="w"> </span>show<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$WIRED_INTERFACE</span><span class="s2">&quot;</span><span class="k">)</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$link_info</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-q<span class="w"> </span><span class="s2">&quot;LOWER_UP&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;connected&quot;</span>
+<span class="w">    </span><span class="k">elif</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$link_info</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-qE<span class="w"> </span><span class="s2">&quot;&lt;[^&gt;]*\bUP\b[^&gt;]*&gt;&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$link_info</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-q<span class="w"> </span><span class="s2">&quot;NO-CARRIER&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;no_cable&quot;</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;not_ready&quot;</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="o">}</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>date<span class="k">)</span><span class="s2">: 開機後等待 </span><span class="si">${</span><span class="nv">INITIAL_WAIT</span><span class="si">}</span><span class="s2"> 秒...&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOG_FILE</span><span class="s2">&quot;</span>
+sleep<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$INITIAL_WAIT</span><span class="s2">&quot;</span>
+
+<span class="nv">STATE</span><span class="o">=</span><span class="k">$(</span>check_wired_state<span class="k">)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>date<span class="k">)</span><span class="s2">: </span><span class="si">${</span><span class="nv">WIRED_INTERFACE</span><span class="si">}</span><span class="s2"> 初始狀態判斷為: </span><span class="si">${</span><span class="nv">STATE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOG_FILE</span><span class="s2">&quot;</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$STATE</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;no_cable&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>date<span class="k">)</span><span class="s2">: </span><span class="si">${</span><span class="nv">WIRED_INTERFACE</span><span class="si">}</span><span class="s2"> 網卡正常但未插線，跳過保護等待，直接建立熱點&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOG_FILE</span><span class="s2">&quot;</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>date<span class="k">)</span><span class="s2">: 開始監看 </span><span class="si">${</span><span class="nv">WIRED_INTERFACE</span><span class="si">}</span><span class="s2"> 狀態...&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOG_FILE</span><span class="s2">&quot;</span>
+
+<span class="w">    </span><span class="nv">stable_count</span><span class="o">=</span><span class="m">0</span>
+<span class="w">    </span><span class="nv">rescue_timer</span><span class="o">=</span><span class="m">0</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span>true<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">        </span><span class="nv">STATE</span><span class="o">=</span><span class="k">$(</span>check_wired_state<span class="k">)</span>
+
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$STATE</span><span class="s2">&quot;</span><span class="w"> </span><span class="k">in</span>
+<span class="w">            </span>connected<span class="o">)</span>
+<span class="w">                </span><span class="nv">stable_count</span><span class="o">=</span><span class="k">$((</span><span class="nv">stable_count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="k">))</span>
+<span class="w">                </span><span class="nv">rescue_timer</span><span class="o">=</span><span class="m">0</span>
+
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$stable_count</span><span class="s2">&quot;</span><span class="w"> </span>-eq<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$STABLE_REQUIRED</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">                    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>date<span class="k">)</span><span class="s2">: </span><span class="si">${</span><span class="nv">WIRED_INTERFACE</span><span class="si">}</span><span class="s2"> 已連續穩定 </span><span class="si">${</span><span class="nv">STABLE_REQUIRED</span><span class="si">}</span><span class="s2"> 秒，開始建立熱點&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOG_FILE</span><span class="s2">&quot;</span>
+<span class="w">                    </span><span class="k">break</span>
+<span class="w">                </span><span class="k">fi</span>
+<span class="w">                </span><span class="p">;;</span>
+
+<span class="w">            </span>no_cable<span class="o">)</span>
+<span class="w">                </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>date<span class="k">)</span><span class="s2">: </span><span class="si">${</span><span class="nv">WIRED_INTERFACE</span><span class="si">}</span><span class="s2"> 監看中偵測到線已拔除（網卡本身正常），改為直接建立熱點&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOG_FILE</span><span class="s2">&quot;</span>
+<span class="w">                </span><span class="k">break</span>
+<span class="w">                </span><span class="p">;;</span>
+
+<span class="w">            </span>not_ready<span class="o">)</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$stable_count</span><span class="s2">&quot;</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">                    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>date<span class="k">)</span><span class="s2">: </span><span class="si">${</span><span class="nv">WIRED_INTERFACE</span><span class="si">}</span><span class="s2"> 在穩定 </span><span class="si">${</span><span class="nv">stable_count</span><span class="si">}</span><span class="s2"> 秒後異常，重置計數器&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOG_FILE</span><span class="s2">&quot;</span>
+<span class="w">                </span><span class="k">fi</span>
+<span class="w">                </span><span class="nv">stable_count</span><span class="o">=</span><span class="m">0</span>
+<span class="w">                </span><span class="nv">rescue_timer</span><span class="o">=</span><span class="k">$((</span><span class="nv">rescue_timer</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="k">))</span>
+
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$rescue_timer</span><span class="s2">&quot;</span><span class="w"> </span>-ge<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$RESCUE_AFTER</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">                    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>date<span class="k">)</span><span class="s2">: </span><span class="si">${</span><span class="nv">WIRED_INTERFACE</span><span class="si">}</span><span class="s2"> 已 </span><span class="si">${</span><span class="nv">rescue_timer</span><span class="si">}</span><span class="s2"> 秒未開成功，嘗試手動重置...&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOG_FILE</span><span class="s2">&quot;</span>
+<span class="w">                    </span>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$WIRED_INTERFACE</span><span class="s2">&quot;</span><span class="w"> </span>down<span class="w"> </span><span class="m">2</span>&gt;/dev/null
+<span class="w">                    </span>sleep<span class="w"> </span><span class="m">2</span>
+<span class="w">                    </span>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$WIRED_INTERFACE</span><span class="s2">&quot;</span><span class="w"> </span>up<span class="w"> </span><span class="m">2</span>&gt;/dev/null
+<span class="w">                    </span>sleep<span class="w"> </span><span class="m">3</span>
+
+<span class="w">                    </span><span class="nv">NEW_STATE</span><span class="o">=</span><span class="k">$(</span>check_wired_state<span class="k">)</span>
+<span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NEW_STATE</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;not_ready&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">                        </span>ethtool<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$WIRED_INTERFACE</span><span class="s2">&quot;</span><span class="w"> </span>speed<span class="w"> </span><span class="m">1000</span><span class="w"> </span>duplex<span class="w"> </span>full<span class="w"> </span>autoneg<span class="w"> </span>on<span class="w"> </span><span class="m">2</span>&gt;/dev/null
+<span class="w">                        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>date<span class="k">)</span><span class="s2">: 已嘗試 ethtool 救援&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOG_FILE</span><span class="s2">&quot;</span>
+<span class="w">                    </span><span class="k">else</span>
+<span class="w">                        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>date<span class="k">)</span><span class="s2">: ip link 重置成功，</span><span class="si">${</span><span class="nv">WIRED_INTERFACE</span><span class="si">}</span><span class="s2"> 狀態變為 </span><span class="si">${</span><span class="nv">NEW_STATE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOG_FILE</span><span class="s2">&quot;</span>
+<span class="w">                    </span><span class="k">fi</span>
+<span class="w">                    </span><span class="nv">rescue_timer</span><span class="o">=</span><span class="m">0</span>
+<span class="w">                </span><span class="k">fi</span>
+<span class="w">                </span><span class="p">;;</span>
+<span class="w">        </span><span class="k">esac</span>
+
+<span class="w">        </span>sleep<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$CHECK_INTERVAL</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="k">done</span>
+<span class="k">fi</span>
+
+nmcli<span class="w"> </span>connection<span class="w"> </span>up<span class="w"> </span>Hotspot
+
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$?</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>date<span class="k">)</span><span class="s2">: 熱點啟動成功，SSID=</span><span class="nv">$HOTSPOT_SSID</span><span class="s2">, IP=</span><span class="nv">$HOTSPOT_IP</span><span class="s2">&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOG_FILE</span><span class="s2">&quot;</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>date<span class="k">)</span><span class="s2">: 熱點啟動失敗&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOG_FILE</span><span class="s2">&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+<p>賦予執行權限：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>~/auto_hotspot.sh
+</pre></div>
+</div>
+<p><strong>步驟 2：建立 systemd service</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/systemd/system/auto-hotspot.service
+</pre></div>
+</div>
+<p>填入以下內容：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[Unit]
+Description=Auto hotspot after boot with wired interface detection
+After=NetworkManager.service
+Wants=NetworkManager.service
+
+[Service]
+Type=simple
+ExecStart=/home/iclab/auto_hotspot.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+</pre></div>
+</div>
+<p><strong>步驟 3：啟用服務</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>auto-hotspot.service
+</pre></div>
+</div>
+<p><strong>步驟 4：重開機驗證</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>reboot
+</pre></div>
+</div>
+<p>重開機後：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tail<span class="w"> </span>-f<span class="w"> </span>/var/log/auto_hotspot.log
+nmcli<span class="w"> </span>connection<span class="w"> </span>show<span class="w"> </span>--active
+</pre></div>
+</div>
+</div></div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="wifi_setup.html" class="btn btn-neutral float-left" title="WiFi 管理" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sphinx_setup.html" class="btn btn-neutral float-right" title="Sphinx 文件建置" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Yang,Shu-kai.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

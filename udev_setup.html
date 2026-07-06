@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>版本 &mdash; TKU ICLAB ROS2 API 2026.05.26 說明文件</title>
+  <title>udev 規則 &mdash; TKU ICLAB ROS2 API 2026.05.26 說明文件</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -25,7 +25,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜尋" href="search.html" />
-    <link rel="prev" title="Sphinx 文件建置" href="sphinx_setup.html" /> 
+    <link rel="next" title="~/.bashrc 設定" href="bashrc_setup.html" />
+    <link rel="prev" title="套件安裝" href="package_install.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -71,10 +72,14 @@
 <li class="toctree-l1"><a class="reference internal" href="Development.html#id4">設定檔位置</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">安裝與設定:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="ros2_install.html">ROS2 安裝（Humble）</a></li>
 <li class="toctree-l1"><a class="reference internal" href="package_install.html">套件安裝</a></li>
-<li class="toctree-l1"><a class="reference internal" href="udev_setup.html">udev 規則</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">udev 規則</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#u2d2">U2D2（兩台皆需設定）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#esp32-kid">ESP32（僅 KID）</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="bashrc_setup.html">~/.bashrc 設定</a></li>
 <li class="toctree-l1"><a class="reference internal" href="github_setup.html">GitHub 設定</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wifi_setup.html">WiFi 管理</a></li>
@@ -82,8 +87,8 @@
 <li class="toctree-l1"><a class="reference internal" href="sphinx_setup.html">Sphinx 文件建置</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">版本資訊:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">版本</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Version.html">版本</a></li>
 </ul>
 
         </div>
@@ -100,9 +105,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">版本</li>
+      <li class="breadcrumb-item active">udev 規則</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/Version.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/udev_setup.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -110,20 +115,58 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="id1">
-<h1>版本<a class="headerlink" href="#id1" title="連結到這個標頭"></a></h1>
-<p>最後更新：2026.05.26</p>
+  <section id="udev">
+<h1>udev 規則<a class="headerlink" href="#udev" title="連結到這個標頭"></a></h1>
+<p>設定 udev 規則可讓裝置在每次連接時都使用固定的設備名稱。</p>
+<section id="u2d2">
+<h2>U2D2（兩台皆需設定）<a class="headerlink" href="#u2d2" title="連結到這個標頭"></a></h2>
+<p>U2D2 是 Dynamixel 馬達的 USB 轉接器，兩台機器人各有 3 顆，需依序號綁定固定名稱。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/udev/rules.d/99-u2d2.rules
+</pre></div>
+</div>
+<p>填入以下內容（序號依各台機器人實際情況填寫）：</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><p>完整程式：<a class="reference external" href="https://github.com/tkuiclabwhite/ros2_kid">https://github.com/tkuiclabwhite/ros2_kid</a></p>
-</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><p>完整程式：<a class="reference external" href="https://github.com/tkuiclabwhite/ros2_adult">https://github.com/tkuiclabwhite/ros2_adult</a></p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">小人型 (KID)</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">大人型 (ADULT)</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>SUBSYSTEM==&quot;tty&quot;, ATTRS{serial}==&quot;FTA2U1JF&quot;, SYMLINK+=&quot;U2D2_P1&quot;, GROUP=&quot;dialout&quot;, MODE=&quot;0660&quot;, RUN+=&quot;/bin/sh -c &#39;echo 1 &gt; /sys/bus/usb-serial/devices/%k/latency_timer&#39;&quot;
+SUBSYSTEM==&quot;tty&quot;, ATTRS{serial}==&quot;FT3FSJEP&quot;, SYMLINK+=&quot;U2D2_P2&quot;, GROUP=&quot;dialout&quot;, MODE=&quot;0660&quot;, RUN+=&quot;/bin/sh -c &#39;echo 1 &gt; /sys/bus/usb-serial/devices/%k/latency_timer&#39;&quot;
+SUBSYSTEM==&quot;tty&quot;, ATTRS{serial}==&quot;FT45B9HW&quot;, SYMLINK+=&quot;U2D2_P3&quot;, GROUP=&quot;dialout&quot;, MODE=&quot;0660&quot;, RUN+=&quot;/bin/sh -c &#39;echo 1 &gt; /sys/bus/usb-serial/devices/%k/latency_timer&#39;&quot;
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>SUBSYSTEM==&quot;tty&quot;, ATTRS{serial}==&quot;&lt;ADULT_U2D2_SERIAL_1&gt;&quot;, SYMLINK+=&quot;U2D2_P1&quot;, GROUP=&quot;dialout&quot;, MODE=&quot;0660&quot;, RUN+=&quot;/bin/sh -c &#39;echo 1 &gt; /sys/bus/usb-serial/devices/%k/latency_timer&#39;&quot;
+SUBSYSTEM==&quot;tty&quot;, ATTRS{serial}==&quot;&lt;ADULT_U2D2_SERIAL_2&gt;&quot;, SYMLINK+=&quot;U2D2_P2&quot;, GROUP=&quot;dialout&quot;, MODE=&quot;0660&quot;, RUN+=&quot;/bin/sh -c &#39;echo 1 &gt; /sys/bus/usb-serial/devices/%k/latency_timer&#39;&quot;
+SUBSYSTEM==&quot;tty&quot;, ATTRS{serial}==&quot;&lt;ADULT_U2D2_SERIAL_3&gt;&quot;, SYMLINK+=&quot;U2D2_P3&quot;, GROUP=&quot;dialout&quot;, MODE=&quot;0660&quot;, RUN+=&quot;/bin/sh -c &#39;echo 1 &gt; /sys/bus/usb-serial/devices/%k/latency_timer&#39;&quot;
+</pre></div>
+</div>
 </div></div>
+<p>查詢 U2D2 序號（接上後執行）：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>udevadm<span class="w"> </span>info<span class="w"> </span>-a<span class="w"> </span>-n<span class="w"> </span>/dev/ttyUSB0<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>serial
+udevadm<span class="w"> </span>info<span class="w"> </span>-a<span class="w"> </span>-n<span class="w"> </span>/dev/ttyUSB1<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>serial
+udevadm<span class="w"> </span>info<span class="w"> </span>-a<span class="w"> </span>-n<span class="w"> </span>/dev/ttyUSB2<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>serial
+</pre></div>
+</div>
+</section>
+<section id="esp32-kid">
+<h2>ESP32（僅 KID）<a class="headerlink" href="#esp32-kid" title="連結到這個標頭"></a></h2>
+<p>KID 使用 ESP32 作為 IMU 與 DIO 的通訊介面，掛載為 <code class="docutils literal notranslate"><span class="pre">/dev/ttyACM0</span></code>，需設定存取權限。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/udev/rules.d/99-ttyacm.rules
+</pre></div>
+</div>
+<p>填入以下內容：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>KERNEL==&quot;ttyACM0&quot;, MODE=&quot;0666&quot;
+</pre></div>
+</div>
+<p>套用規則（設定完所有規則後執行一次即可）：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>udevadm<span class="w"> </span>control<span class="w"> </span>--reload-rules<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>udevadm<span class="w"> </span>trigger
+</pre></div>
+</div>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="sphinx_setup.html" class="btn btn-neutral float-left" title="Sphinx 文件建置" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="package_install.html" class="btn btn-neutral float-left" title="套件安裝" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="bashrc_setup.html" class="btn btn-neutral float-right" title="~/.bashrc 設定" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
