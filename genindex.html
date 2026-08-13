@@ -51,6 +51,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Walking.html">步態控制 (Walking Control)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Motion.html">馬達控制 (Motion Control)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="VisionSensors.html">視覺與感測器數據 (Vision &amp; Sensors)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ZedCamera.html">ZED 相機功能 (ZED Camera)(大人型)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="System.html">系統進程與狀態 (System &amp; Process)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Other.html">未實驗分類(Other)</a></li>
 </ul>
@@ -117,6 +118,7 @@
  | <a href="#G"><strong>G</strong></a>
  | <a href="#I"><strong>I</strong></a>
  | <a href="#L"><strong>L</strong></a>
+ | <a href="#N"><strong>N</strong></a>
  | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
@@ -124,6 +126,7 @@
  | <a href="#T"><strong>T</strong></a>
  | <a href="#W"><strong>W</strong></a>
  | <a href="#Y"><strong>Y</strong></a>
+ | <a href="#Z"><strong>Z</strong></a>
  
 </div>
 <h2 id="_">_</h2>
@@ -133,11 +136,19 @@
 </li>
       <li><a href="Other.html#API.API._clamp">_clamp() (API 的靜態方法)</a>
 </li>
+      <li><a href="ZedCamera.html#API_adult.API._depth_det_callback">_depth_det_callback() (API 的方法)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API._depth_mm_cb">_depth_mm_cb() (API 的方法)</a>
+</li>
       <li><a href="System.html#API.API._det_callback">_det_callback() (API 的方法)</a>
 </li>
       <li><a href="System.html#API.API._dio_callback">_dio_callback() (API 的方法)</a>
 </li>
+      <li><a href="ZedCamera.html#API_adult.API._fill_stats">_fill_stats() (API 的方法)</a>
+</li>
       <li><a href="System.html#API.API._is_newer_stamp">_is_newer_stamp() (API 的方法)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API._json_det_callback">_json_det_callback() (API 的方法)</a>
 </li>
       <li><a href="System.html#API.API._label_image_cb">_label_image_cb() (API 的方法)</a>
 </li>
@@ -145,11 +156,19 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ZedCamera.html#API_adult.API._odom_cb">_odom_cb() (API 的方法)</a>
+</li>
       <li><a href="System.html#API.API._on_strategy_name">_on_strategy_name() (API 的方法)</a>
 </li>
       <li><a href="System.html#API.API._on_strategy_start">_on_strategy_start() (API 的方法)</a>
 </li>
+      <li><a href="ZedCamera.html#API_adult.API._overlap_det_callback">_overlap_det_callback() (API 的方法)</a>
+</li>
       <li><a href="System.html#API.API._publish_strategy_status">_publish_strategy_status() (API 的方法)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API._recompute_distance_stats">_recompute_distance_stats() (API 的方法)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API._recompute_overlap_stats">_recompute_overlap_stats() (API 的方法)</a>
 </li>
       <li><a href="System.html#API.API._recompute_stats">_recompute_stats() (API 的方法)</a>
 </li>
@@ -158,6 +177,8 @@
       <li><a href="System.html#API.API._stop_strategy">_stop_strategy() (API 的方法)</a>
 </li>
       <li><a href="System.html#API.API._sync_start_from_param">_sync_start_from_param() (API 的方法)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API._zed_imu_cb">_zed_imu_cb() (API 的方法)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -194,6 +215,34 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ZedCamera.html#API_adult.API.depth_at">depth_at() (API 的方法)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.distance_cm">distance_cm (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.distance_counts">distance_counts (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.distance_cx">distance_cx (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.distance_cy">distance_cy (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.distance_max_cm">distance_max_cm (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.distance_min_cm">distance_min_cm (API 的屬性)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ZedCamera.html#API_adult.API.distance_ratio">distance_ratio (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.distance_sizes">distance_sizes (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.distance_x_max">distance_x_max (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.distance_x_min">distance_x_min (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.distance_y_max">distance_y_max (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.distance_y_min">distance_y_min (API 的屬性)</a>
+</li>
       <li><a href="VisionSensors.html#API.API.drawImageFunction">drawImageFunction() (API 的方法)</a>
 </li>
   </ul></td>
@@ -253,20 +302,66 @@
   </ul></td>
 </tr></table>
 
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ZedCamera.html#API_adult.API.new_distance_info">new_distance_info (API 的屬性)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ZedCamera.html#API_adult.API.new_overlap_info">new_overlap_info (API 的屬性)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="O">O</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ZedCamera.html#API_adult.API.object_cx">object_cx (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.object_cy">object_cy (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.object_ratio">object_ratio (API 的屬性)</a>
+</li>
       <li><a href="VisionSensors.html#API.API.object_sizes">object_sizes (API 的屬性)</a>
 </li>
       <li><a href="VisionSensors.html#API.API.object_x_max">object_x_max (API 的屬性)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="VisionSensors.html#API.API.object_x_min">object_x_min (API 的屬性)</a>
 </li>
       <li><a href="VisionSensors.html#API.API.object_y_max">object_y_max (API 的屬性)</a>
 </li>
       <li><a href="VisionSensors.html#API.API.object_y_min">object_y_min (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.odom_xyz">odom_xyz (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.odom_yaw">odom_yaw (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.overlap_cm">overlap_cm (API 的屬性)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ZedCamera.html#API_adult.API.overlap_counts">overlap_counts (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.overlap_cx">overlap_cx (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.overlap_cy">overlap_cy (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.overlap_max_cm">overlap_max_cm (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.overlap_min_cm">overlap_min_cm (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.overlap_ratio">overlap_ratio (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.overlap_sizes">overlap_sizes (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.overlap_x_max">overlap_x_max (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.overlap_x_min">overlap_x_min (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.overlap_y_max">overlap_y_max (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.overlap_y_min">overlap_y_min (API 的屬性)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -304,15 +399,19 @@
 </li>
       <li><a href="Motion.html#API.API.sendHeadMotor">sendHeadMotor() (API 的方法)</a>
 </li>
+      <li><a href="Walking.html#API.API.sendLCWalkParameter">sendLCWalkParameter() (API 的方法)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="Walking.html#API.API.sendLCWalkParameter">sendLCWalkParameter() (API 的方法)</a>
+      <li><a href="ZedCamera.html#API_adult.API.sendOdomReset">sendOdomReset() (API 的方法)</a>
 </li>
       <li><a href="VisionSensors.html#API.API.sendSensorReset">sendSensorReset() (API 的方法)</a>
 </li>
       <li><a href="Motion.html#API.API.sendSingleMotor">sendSingleMotor() (API 的方法)</a>
 </li>
       <li><a href="Other.html#API.API.sendWalkParameter">sendWalkParameter() (API 的方法)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.sendZedSensorReset">sendZedSensorReset() (API 的方法)</a>
 </li>
       <li><a href="Motion.html#API.API.SingleAbsolutePosition">SingleAbsolutePosition() (API 的方法)</a>
 </li>
@@ -348,6 +447,24 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="Other.html#API.API.Yolo_Zed">Yolo_Zed() (API 的方法)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="Z">Z</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ZedCamera.html#API_adult.API.zed_accel">zed_accel (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.zed_gyro">zed_gyro (API 的屬性)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ZedCamera.html#API_adult.API.zed_imu_abs_rpy">zed_imu_abs_rpy (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.zed_imu_rpy">zed_imu_rpy (API 的屬性)</a>
+</li>
+      <li><a href="ZedCamera.html#API_adult.API.zed_imu_zeroed">zed_imu_zeroed (API 的屬性)</a>
 </li>
   </ul></td>
 </tr></table>
