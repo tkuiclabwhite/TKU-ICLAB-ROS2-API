@@ -55,6 +55,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Motion.html">馬達控制 (Motion Control)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">視覺與感測器數據 (Vision &amp; Sensors)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#API.API.sendSensorReset"><code class="docutils literal notranslate"><span class="pre">API.sendSensorReset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#API.API.setZoomIn"><code class="docutils literal notranslate"><span class="pre">API.setZoomIn()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#API.API.drawImageFunction"><code class="docutils literal notranslate"><span class="pre">API.drawImageFunction()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#API.API.get_objects"><code class="docutils literal notranslate"><span class="pre">API.get_objects()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#API.API.imu_rpy"><code class="docutils literal notranslate"><span class="pre">API.imu_rpy</span></code></a></li>
@@ -148,6 +149,33 @@
 <p class="rubric">範例</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 重設imu</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">sendSensorReset</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="API.API.setZoomIn">
+<span class="sig-prename descclassname"><span class="pre">API.</span></span><span class="sig-name descname"><span class="pre">setZoomIn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#API.API.setZoomIn" title="連結到這個定義"></a></dt>
+<dd><p>設定影像縮放倍率。</p>
+<p>控制畫面的數位放大程度，縮放後解析度不變，但視野範圍縮小、目標物體的像素佔比增大。</p>
+<dl class="field-list simple">
+<dt class="field-odd">參數<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>float</em><em>, </em><em>optional</em>) -- 縮放倍率，範圍 1.0 ~ 5.0，預設為 1.0。
+1.0 為完整視野（不縮放），值越大視野越窄、目標在畫面中佔比越大。
+超出範圍的輸入會自動夾至邊界。</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<ul class="simple">
+<li><p>與網頁 ZoomIn 滑桿共用同一個 topic，但網頁上的滑桿數值不會隨 API 呼叫同步更新。</p></li>
+<li><p>此設定不會寫入 ini 檔，重啟影像節點後會恢復為預設值 1.0。</p></li>
+<li><p>視野縮小後邊緣物體可能消失，追蹤遠距離目標時建議搭配 <code class="xref py py-meth docutils literal notranslate"><span class="pre">set_head()</span></code>轉頭輔助。</p></li>
+</ul>
+</div>
+<p class="rubric">範例</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">setZoomIn</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>   <span class="c1"># 放大兩倍觀察遠處目標</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">api</span><span class="o">.</span><span class="n">setZoomIn</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>   <span class="c1"># 退回完整視野</span>
 </pre></div>
 </div>
 </dd></dl>
